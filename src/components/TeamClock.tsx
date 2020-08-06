@@ -11,8 +11,6 @@ export default class GroupTable extends React.Component<ITeamClockProps, {}> {
 
     return (
       <div>
-        <h1>Hello {name}!</h1>
-
         <div className="teamClock">
           <div className="timeStrip">
             <div className="timeCell">
