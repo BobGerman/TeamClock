@@ -1,6 +1,20 @@
 .teamClock {
 }
 
+.personList {
+  float:left;
+}
+
+.person {
+  font-weight: bold;
+  font-size: medium;
+  padding: 3px;
+  line-height: 47pt;
+  height: 51.5pt;
+  vertical-align: middle;
+  border: 0.5pt solid black;
+}
+
 .scrollingWrapper {
   overflow-x: scroll;
   overflow-y: hidden;
