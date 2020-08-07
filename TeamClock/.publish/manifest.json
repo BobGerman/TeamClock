@@ -1,0 +1,51 @@
+{
+    "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.7/MicrosoftTeams.schema.json",
+    "manifestVersion": "1.7",
+    "version": "{version}",
+    "id": "dd82e7c3-a80c-443a-8fab-c04a92481e49",
+    "packageName": "com.pnp.teams-dev-samples.tab-teamclock",
+    "developer": {
+        "name": "Bob German",
+        "websiteUrl": "{baseUrl0}",
+        "privacyUrl": "{baseUrl0}/privacy",
+        "termsOfUseUrl": "{baseUrl0}/termsofuse"
+    },
+    "icons": {
+        "color": "color.png",
+        "outline": "outline.png"
+    },
+    "name": {
+        "short": "{appname}",
+        "full": "{fullappname}"
+    },
+    "description": {
+        "short": "World clock for your team",
+        "full": "Assists team members in figuring out what time it is (or will be) across multiple time zones"
+    },
+    "accentColor": "#235EA5",
+    "configurableTabs": [
+        {
+            "configurationUrl": "{baseUrl0}/config",
+            "canUpdateConfiguration": true,
+            "scopes": [
+                "team",
+                "groupchat"
+            ]
+        }
+    ],
+    "staticTabs": [
+        {
+            "entityId": "index",
+            "name": "Team Clock",
+            "contentUrl": "{baseUrl0}/tab",
+            "scopes": [
+                "personal"
+            ]
+        }
+    ],
+    "permissions": [
+        "identity",
+        "messageTeamMembers"
+    ],
+    "validDomains": []
+}

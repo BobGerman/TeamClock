@@ -1,13 +1,28 @@
-import * as React from 'react';
-require('./TeamClock.css');
+import React from 'react';
+import './App.css';
+import * as microsoftTeams from "@microsoft/teams-js";
 
-export interface ITeamClockProps {
-  message: string;
-}
+class Tab extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      context: {}
+    }
+  }
 
-export default class GroupTable extends React.Component<ITeamClockProps, {}> {
+  componentDidMount() {
+    // Get the user context from Teams and set it in the state
+    microsoftTeams.getContext((context, error) => {
+      this.setState({
+        context: context
+      });
+    });
+    // Next steps: Error handling using the error object
+  }
 
-  public render(): React.ReactElement<ITeamClockProps> {
+  render() {
+
+    // let userName = Object.keys(this.state.context).length > 0 ? this.state.context['upn'] : "";
 
     return (
       <div>
@@ -31,3 +46,4 @@ export default class GroupTable extends React.Component<ITeamClockProps, {}> {
     );
   }
 }
+export default Tab;
