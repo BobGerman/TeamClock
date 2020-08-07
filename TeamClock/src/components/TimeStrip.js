@@ -1,35 +1,63 @@
 import React from 'react';
-import * as microsoftTeams from "@microsoft/teams-js";
+import moment from 'moment';
 
 class TimeStrip extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      context: {}
+    constructor(props) {
+        super(props);
+        this.state = {
+            context: {}
+        }
     }
-  }
 
-  render() {
+    render() {
 
-    let date = this.props.startDate;
-    let days = this.props.days;
+        let time = moment(this.props.startDate);
+        let hours = this.props.hours;
 
-    return (
-        <div className="timeStrip">
-        <div className="timeCell">
-            <div className="timeHeader newDay">Monday</div>
-            <div className="timeBody day newDay">01 Dec</div>
-        </div>
-        <div className="timeCell">
-            <div className="timeHeader">Monday</div>
-            <div className="timeBody evening">1 am</div>
-        </div>
-        <div className="timeCell">
-            <div className="timeHeader">Monday</div>
-            <div className="timeBody night">2 am</div>
-        </div>
-        </div>
-    );
-  }
+        const cells = [];
+
+        for (let i = 0; i < hours; i++) {
+
+            if (time.hours() === 0) {
+                // Midnight
+                cells.push(
+                    <div className="timeCell">
+                        <div className="timeHeader newDay">{time.format('dddd')}</div>
+                        <div className={this.bodyClass(time)}>{time.format('DD-MMM')}</div>
+                    </div>
+                );
+            } else {
+                // Not midnight
+                cells.push(
+                    <div className="timeCell">
+                        <div className="timeHeader">{time.format('dddd')}</div>
+                        <div className={this.bodyClass(time)}>{time.format('h a')}</div>
+                    </div>
+                );
+            }
+            time.add(1, 'h');
+
+        }
+
+        return (
+            <div className="timeStrip">
+                {cells}
+            </div>
+        );
+    }
+
+    bodyClass(m) {
+
+        const bodyClassByHour = [
+            'night', 'night', 'night', 'night', 'night', 'night', 'night', 'evening',
+            'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day',
+            'day', 'day', 'evening', 'evening', 'evening', 'evening', 'evening', 'night'];
+
+        if (m.hours() === 0) {
+            return `timeBody ${bodyClassByHour[m.hours()]} newDay`;
+        } else {
+            return `timeBody ${bodyClassByHour[m.hours()]}`;
+        }
+    };
 }
 export default TimeStrip;
