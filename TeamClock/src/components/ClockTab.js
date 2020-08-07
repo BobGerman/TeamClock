@@ -28,7 +28,10 @@ class ClockTab extends React.Component {
     return (
       <div>
         <div className="teamClock">
-          <TimeStrip hours="24" startDate={Date.now()} />
+          <div className="scrollingWrapper">
+            <TimeStrip hours="24" startDate={Date.now()} />
+            <TimeStrip hours="24" startDate={Date.now()} />
+          </div>
         </div>
       </div>
     );
