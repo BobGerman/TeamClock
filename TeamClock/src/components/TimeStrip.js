@@ -22,7 +22,7 @@ class TimeStrip extends React.Component {
                 // Midnight
                 cells.push(
                     <div className="timeCell">
-                        <div className="timeHeader newDay">{time.format('dddd')}</div>
+                        <div className="timeHeader midnight">{time.format('dddd')}</div>
                         <div className={this.bodyClass(time)}>{time.format('DD-MMM')}</div>
                     </div>
                 );
@@ -49,7 +49,7 @@ class TimeStrip extends React.Component {
     bodyClass(m) {
 
         const bodyClassByHour = [
-            'night', 'night', 'night', 'night', 'night', 'night', 'night', 'evening',
+            'midnight', 'night', 'night', 'night', 'night', 'night', 'night', 'evening',
             'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day',
             'day', 'day', 'evening', 'evening', 'evening', 'evening', 'evening', 'night'];
 

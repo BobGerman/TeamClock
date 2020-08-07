@@ -41,10 +41,16 @@
 }
 
 .night {
-  background-color: darkblue;
+  background-color: steelblue;
   color: white;
 }
 
-.newDay {
+.midnight {
   border-left: 2pt solid red;
 }
+
+.timeBody.midnight {
+  background-color: midnightblue;
+  color: white;
+}
+
