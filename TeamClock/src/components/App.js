@@ -4,7 +4,7 @@ import * as microsoftTeams from "@microsoft/teams-js";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Privacy from "./Privacy";
 import TermsOfUse from "./TermsOfUse";
-import Tab from './Tab';
+import ClockTab from './ClockTab';
 import TabConfig from './TabConfig';
 
 /**
@@ -35,7 +35,7 @@ function App() {
     // Display the app home page hosted in Teams
     return (
       <Router>
-        <Route exact path="/tab" component={Tab} />
+        <Route exact path="/tab" component={ClockTab} />
         <Route exact path="/config" component={TabConfig} />
       </Router>
     );

@@ -1,0 +1,50 @@
+.teamClock {
+  
+}
+
+.timeStrip {
+  height: 42pt;
+}
+
+.timeCell {
+  background-color: white;
+  width: 5em;
+  text-align: center;
+  float: left;
+  padding: 0;
+  border: 0.5pt solid black;
+}
+
+.timeHeader {
+  border-bottom: 0.5pt solid black;
+  padding: 3pt;
+  font-size: 10pt;
+  line-height: 17pt;
+  height: 20pt;
+}
+
+.timeBody {
+  font-weight: bold;
+  font-size: medium;
+  padding: 3px;
+  line-height: 27pt;
+  height: 30pt;
+  vertical-align: middle;
+}
+
+.day {
+  background-color: white;
+}
+
+.evening {
+  background-color: lightblue;
+}
+
+.night {
+  background-color: darkblue;
+  color: white;
+}
+
+.newDay {
+  border-left: 2pt solid red;
+}
