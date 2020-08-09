@@ -11,7 +11,7 @@ class TimeStrip extends React.Component {
 
     render() {
 
-        let time = moment(this.props.startDate);
+        let time = moment(this.props.startTime);
         let hours = this.props.hours;
 
         const cells = [];

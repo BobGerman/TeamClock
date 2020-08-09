@@ -114,3 +114,8 @@
   border-bottom: 2pt solid red;
 }
 
+.timeSelected {
+  background-color: white;
+  padding: 20pt;
+  font-size: 14pt;
+}
