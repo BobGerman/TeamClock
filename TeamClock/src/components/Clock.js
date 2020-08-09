@@ -29,6 +29,7 @@ class Clock extends React.Component {
     // let userName = Object.keys(this.state.context).length > 0 ? this.state.context['upn'] : "";
 
     const teamMembers = (new TeamService()).getTeamMembers();
+    let memberIndex = 0;
 
     return (
       <div>
@@ -46,7 +47,10 @@ class Clock extends React.Component {
                   selectedColumn={this.state.selectedColumn}
                   onMouseOver={(col) => this.handleMouseOver(col)}
                   onMouseOut={(col) => this.handleMouseOut(col)}
-                  onClick={(col) => this.handleClick(col)} />;
+                  onClick={(col) => this.handleClick(col)} 
+                  isFirst={memberIndex === 0}
+                  isLast={memberIndex++ === teamMembers.length} 
+                  />;
               }) }
           </div>
         </div>

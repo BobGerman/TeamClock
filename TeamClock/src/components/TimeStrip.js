@@ -20,9 +20,13 @@ class TimeStrip extends React.Component {
 
             let cellStyle = "timeCell";
             if (i === this.props.selectedColumn) {
-                cellStyle+= " selected";
+                cellStyle += " selected";
+                if (this.props.isFirst) cellStyle += " first";
+                if (this.props.isLast) cellStyle += " last";
             } else if (i === this.props.mouseOverColumn) {
                 cellStyle += " mouseOver";
+                if (this.props.isFirst) cellStyle += " first";
+                if (this.props.isLast) cellStyle += " last";
             }
 
             if (time.hours() === 0) {

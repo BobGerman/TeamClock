@@ -23,13 +23,12 @@
 }
 
 .timeStrip {
-  margin: 5pt 0 5pt 0;
 }
 
 .timeCell {
   width: 5em;
   text-align: center;
-  padding: 0;
+  padding: 5pt 0 5pt 0;
 }
 .scrollingWrapper .timeCell {
   display: inline-block;
@@ -94,9 +93,24 @@
 }
 
 .mouseOver {
-  color: red;
+  border-left: 2pt solid black;
+  border-right: 2pt solid black;
 }
+.mouseOver.first {
+  border-top: 2pt solid black;
+}
+.mouseOver.last {
+  border-bottom: 2pt solid black;
+}
+
 .selected {
-  color: yellow;
+  border-left: 2pt solid red;
+  border-right: 2pt solid red;
+}
+.selected.first {
+  border-top: 2pt solid red;
+}
+.selected.last {
+  border-bottom: 2pt solid red;
 }
 
