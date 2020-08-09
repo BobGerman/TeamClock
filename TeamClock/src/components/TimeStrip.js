@@ -22,8 +22,8 @@ class TimeStrip extends React.Component {
                 // First hour - show the date
                 cells.push(
                     <div className="timeCell">
-                        <div className={this.headingClass(time)}>{time.format('dddd')}</div>
-                        <div className={this.bodyClass(time)}>{time.format('DD-MMM')}</div>
+                        <div className={this.headingClass(time)}>{time.format('MMMM')}</div>
+                        <div className={this.bodyClass(time)}>{time.format('DD')}</div>
                     </div>
                 );
             } else {

@@ -36,7 +36,6 @@
 }
 
 .timeHeader {
-  border-bottom: 0.5pt solid black;
   background-color: white;
   padding: 3pt;
   font-size: 10pt;
@@ -47,7 +46,7 @@
 
 .timeBody {
   font-weight: bold;
-  font-size: medium;
+  font-size: 14pt;
   padding: 1pt;
   line-height: 27pt;
   height: 30pt;
@@ -72,12 +71,16 @@
   border-left: 2pt solid lightGray;
 }
 .timeHeader.startOfDay {
+  background-color: midnightblue;
+  color: white;
   border-top-left-radius: 20%;
+  border: 0.5pt solid midnightblue;
 }
 .timeBody.startOfDay {
   background-color: midnightblue;
   color: white;
   border-bottom-left-radius: 20%;
+  border: 0.5pt solid midnightblue;
 }
 
 .endOfDay {
