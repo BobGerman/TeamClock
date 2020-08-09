@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/TeamClock/static/css/main.36fc554f.chunk.css",
-    "main.js": "/TeamClock/static/js/main.85aa78ee.chunk.js",
-    "main.js.map": "/TeamClock/static/js/main.85aa78ee.chunk.js.map",
+    "main.js": "/TeamClock/static/js/main.0cff2d62.chunk.js",
+    "main.js.map": "/TeamClock/static/js/main.0cff2d62.chunk.js.map",
     "runtime-main.js": "/TeamClock/static/js/runtime-main.61b109e6.js",
     "runtime-main.js.map": "/TeamClock/static/js/runtime-main.61b109e6.js.map",
     "static/js/2.910884af.chunk.js": "/TeamClock/static/js/2.910884af.chunk.js",
     "static/js/2.910884af.chunk.js.map": "/TeamClock/static/js/2.910884af.chunk.js.map",
     "index.html": "/TeamClock/index.html",
-    "precache-manifest.e9336b1fbe272cd53e94790b5e87a4fe.js": "/TeamClock/precache-manifest.e9336b1fbe272cd53e94790b5e87a4fe.js",
+    "precache-manifest.f6e5abebe8b42fd0b50375b24686f41c.js": "/TeamClock/precache-manifest.f6e5abebe8b42fd0b50375b24686f41c.js",
     "service-worker.js": "/TeamClock/service-worker.js",
     "static/css/main.36fc554f.chunk.css.map": "/TeamClock/static/css/main.36fc554f.chunk.css.map",
     "static/js/2.910884af.chunk.js.LICENSE.txt": "/TeamClock/static/js/2.910884af.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.61b109e6.js",
     "static/js/2.910884af.chunk.js",
     "static/css/main.36fc554f.chunk.css",
-    "static/js/main.85aa78ee.chunk.js"
+    "static/js/main.0cff2d62.chunk.js"
   ]
 }
