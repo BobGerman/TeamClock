@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import * as microsoftTeams from "@microsoft/teams-js";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { HashRouter as Router, Route } from "react-router-dom";
 import Privacy from "./Privacy";
 import TermsOfUse from "./TermsOfUse";
 import Clock from './Clock';
@@ -20,11 +20,11 @@ function App() {
     // Home page.
     if (window.parent === window.self) {
       return (
-        <Router>
-          <Route exact path="/privacy" component={Privacy} />
-          <Route exact path="/termsofuse" component={TermsOfUse} />
-          <Route exact path="/tab" component={TeamsHostError} />
-          <Route exact path="/config" component={TeamsHostError} />
+        <Router basename="/">
+          <Route path="/privacy" component={Privacy} />
+          <Route path="/termsofuse" component={TermsOfUse} />
+          <Route path="/tab" component={TeamsHostError} />
+          <Route path="/config" component={TeamsHostError} />
         </Router>        
       );
     }
