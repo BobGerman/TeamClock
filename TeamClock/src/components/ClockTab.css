@@ -27,11 +27,9 @@
 }
 
 .timeCell {
-  background-color: white;
   width: 5em;
   text-align: center;
   padding: 0;
-  border: 0.5pt solid black;
 }
 .scrollingWrapper .timeCell {
   display: inline-block;
@@ -39,10 +37,12 @@
 
 .timeHeader {
   border-bottom: 0.5pt solid black;
+  background-color: white;
   padding: 3pt;
   font-size: 10pt;
   line-height: 17pt;
   height: 20pt;
+  border: 0.5pt solid black;
 }
 
 .timeBody {
@@ -52,6 +52,7 @@
   line-height: 27pt;
   height: 30pt;
   vertical-align: middle;
+  border: 0.5pt solid black;
 }
 
 .day {
@@ -68,15 +69,25 @@
 }
 
 .startOfDay {
-  border-left: 2pt solid red;
+  border-left: 2pt solid lightGray;
 }
-
-.endOfDay {
-  border-bottom: 2pt solid green;
+.timeHeader.startOfDay {
+  border-top-left-radius: 20%;
 }
-
 .timeBody.startOfDay {
   background-color: midnightblue;
   color: white;
+  border-bottom-left-radius: 20%;
 }
+
+.endOfDay {
+  border-right: 2pt solid lightGray;
+}
+.timeHeader.endOfDay {
+  border-top-right-radius: 20%;
+}
+.timeBody.endOfDay {
+  border-bottom-right-radius: 20%;
+}
+
 
