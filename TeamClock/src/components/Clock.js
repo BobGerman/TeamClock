@@ -47,13 +47,15 @@ class Clock extends React.Component {
           </div>
           <div className="scrollingWrapper">
             {teamMembers.map((m) => {
-                return <TimeStrip hours="24" 
+                return <TimeStrip hours={24*7} 
                   startTime={moment(now.utcOffset(m.utcOffset*60))}
                   mouseOverColumn={this.state.mouseOverColumn}
                   selectedColumn={this.state.selectedColumn}
                   onMouseOver={(col) => this.handleMouseOver(col)}
                   onMouseOut={(col) => this.handleMouseOut(col)}
                   onClick={(col) => this.handleClick(col)} 
+                  workDays={m.workDays}
+                  workHours={m.workHours}
                   isFirst={memberIndex === 0}
                   isLast={memberIndex++ === teamMembers.length} 
                   />;

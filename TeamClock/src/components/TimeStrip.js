@@ -11,7 +11,7 @@ class TimeStrip extends React.Component {
 
     render() {
 
-        let time = moment(this.props.startTime);
+        let currentMoment = moment(this.props.startTime);
         let hours = this.props.hours;
 
         const cells = [];
@@ -29,7 +29,7 @@ class TimeStrip extends React.Component {
                 if (this.props.isLast) cellStyle += " last";
             }
 
-            if (time.hours() === 0) {
+            if (currentMoment.hours() === 0) {
                 // First hour - show the date
                 cells.push(
                     <div className={cellStyle}
@@ -37,8 +37,8 @@ class TimeStrip extends React.Component {
                          onMouseOut={() => { this.props.onMouseOut(i)}}
                          onClick={() => { this.props.onClick(i)}}
                          >
-                        <div className={this.headingClass(time)}>{time.format('MMMM')}</div>
-                        <div className={this.bodyClass(time)}>{time.format('DD')}</div>
+                        <div className={this.headingClass(currentMoment)}>{currentMoment.format('MMMM')}</div>
+                        <div className={this.bodyClass(currentMoment)}>{currentMoment.format('DD')}</div>
                     </div>
                 );
             } else {
@@ -49,12 +49,12 @@ class TimeStrip extends React.Component {
                          onMouseOut={() => { this.props.onMouseOut(i)}}
                          onClick={() => { this.props.onClick(i)}}
                          >
-                        <div className={this.headingClass(time)}>{time.format('dddd')}</div>
-                        <div className={this.bodyClass(time)}>{time.format('h a')}</div>
+                        <div className={this.headingClass(currentMoment)}>{currentMoment.format('dddd')}</div>
+                        <div className={this.bodyClass(currentMoment)}>{currentMoment.format('h a')}</div>
                     </div>
                 );
             }
-            time.add(1, 'h');
+            currentMoment.add(1, 'h');
 
         }
 
@@ -65,29 +65,32 @@ class TimeStrip extends React.Component {
         );
     }
 
-    headingClass(m) {
-        if (m.hours() === 0) {  // first hour of the day (midnight)
+    headingClass(currentMoment) {
+        if (currentMoment.hours() === 0) {  // first hour of the day (midnight)
             return `timeHeader startOfDay`;
-        } else if (m.hours() === 23) {  // last hour of the day
+        } else if (currentMoment.hours() === 23) {  // last hour of the day
             return `timeHeader endOfDay`;
         } else {
             return `timeHeader`;
         }
     }
 
-    bodyClass(m) {
+    bodyClass(currentMoment) {
 
-        const bodyClassByHour = [
-            'night', 'night', 'night', 'night', 'night', 'night', 'night', 'extended',
-            'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day',
-            'day', 'day', 'extended', 'extended', 'extended', 'extended', 'extended', 'night'];
+        const dayCode = this.props.workDays.substr(currentMoment.days(),1).toLowerCase();
+        const hourCode = this.props.workHours.substr(currentMoment.hours(),1).toLowerCase();
 
-        if (m.hours() === 0) {
-            return `timeBody ${bodyClassByHour[m.hours()]} startOfDay`;
-        } else if (m.hours() === 23) {
-            return `timeBody ${bodyClassByHour[m.hours()]} endOfDay`;
+        let bodyClass = 'night';
+        if (dayCode === 'w' && hourCode !== 'n') {
+            bodyClass = hourCode === 'd' ? 'day' : 'extended';
+        }
+
+        if (currentMoment.hours() === 0) {
+            return `timeBody ${bodyClass} startOfDay`;
+        } else if (currentMoment.hours() === 23) {
+            return `timeBody ${bodyClass} endOfDay`;
         } else {
-            return `timeBody ${bodyClassByHour[m.hours()]}`;
+            return `timeBody ${bodyClass}`;
         }
     };
 }

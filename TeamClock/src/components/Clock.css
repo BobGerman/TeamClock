@@ -50,7 +50,9 @@
   font-size: 10pt;
   line-height: 17pt;
   height: 20pt;
-  border: 0.5pt solid black;
+  border-left: 0.5pt solid black;
+  border-top: 0.5pt solid black;
+  border-bottom: 0.5pt solid black;
 }
 
 .timeBody {
@@ -60,7 +62,9 @@
   line-height: 27pt;
   height: 30pt;
   vertical-align: middle;
-  border: 0.5pt solid black;
+  border-left: 0.5pt solid black;
+  border-top: 0.5pt solid black;
+  border-bottom: 0.5pt solid black;
 }
 
 .day {
