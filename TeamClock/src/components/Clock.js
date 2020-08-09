@@ -39,7 +39,10 @@ class Clock extends React.Component {
         <div>
           <div className="personList">
             {teamMembers.map((m) => {
-              return <div className="person">{m.name}</div>;
+              return <div className="person">
+                <p className="personName">{m.name}</p>
+                <p className="personCity">{m.city}</p>
+              </div>;
             }) }
           </div>
           <div className="scrollingWrapper">

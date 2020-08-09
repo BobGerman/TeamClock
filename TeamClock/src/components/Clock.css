@@ -7,13 +7,23 @@
 }
 
 .person {
-  font-weight: bold;
-  font-size: medium;
   padding: 3px;
-  line-height: 47pt;
-  height: 51pt;
+  height: 55pt;
   vertical-align: middle;
   margin: 5pt 10pt 5pt 10pt;
+}
+
+.person .personName {
+  font-weight: bold;
+  font-size: 14pt;
+  padding-top: 6pt;
+  margin: 0;
+}
+
+.person .personCity {
+  font-size: 10pt;
+  padding: 0;
+  margin: 0;
 }
 
 .scrollingWrapper {
