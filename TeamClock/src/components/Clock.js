@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import './Clock.css';
 import TimeStrip from './TimeStrip';
 import * as microsoftTeams from "@microsoft/teams-js";
@@ -30,6 +31,7 @@ class Clock extends React.Component {
 
     const teamMembers = (new TeamService()).getTeamMembers();
     let memberIndex = 0;
+    const now = moment();
 
     return (
       <div>
@@ -41,8 +43,8 @@ class Clock extends React.Component {
           </div>
           <div className="scrollingWrapper">
             {teamMembers.map((m) => {
-                const t = new Date().getTime() + (m.utcOffset * 60 * 60 * 1000);
-                return <TimeStrip hours="24" startDate={t}
+                return <TimeStrip hours="24" 
+                  startDate={moment(now.utcOffset(m.utcOffset*60))}
                   mouseOverColumn={this.state.mouseOverColumn}
                   selectedColumn={this.state.selectedColumn}
                   onMouseOver={(col) => this.handleMouseOver(col)}
