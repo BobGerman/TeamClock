@@ -93,29 +93,30 @@
 }
 
 .mouseOver {
-  border-left: 2pt solid black;
-  border-right: 2pt solid black;
+  border-left: 2pt solid gray;
+  border-right: 2pt solid gray;
 }
 .mouseOver.first {
-  border-top: 2pt solid black;
+  border-top: 2pt solid gray;
 }
 .mouseOver.last {
-  border-bottom: 2pt solid black;
+  border-bottom: 2pt solid gray;
 }
 
 .selected {
-  border-left: 2pt solid red;
-  border-right: 2pt solid red;
+  border-left: 2pt solid black;
+  border-right: 2pt solid black;
 }
 .selected.first {
-  border-top: 2pt solid red;
+  border-top: 2pt solid black;
 }
 .selected.last {
-  border-bottom: 2pt solid red;
+  border-bottom: 2pt solid black;
 }
 
 .timeSelected {
   background-color: white;
   padding: 20pt;
   font-size: 14pt;
+  font-weight: bold;
 }

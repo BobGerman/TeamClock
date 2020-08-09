@@ -13,11 +13,15 @@ class TimeSelected extends React.Component {
 
         let selectedTime = moment(this.props.startTime)
             .add(this.props.selectedColumn, 'hours');
-        return (
-            <div className="timeSelected">
-                You have selected {selectedTime.format("dddd, MMMM Do YYYY, h:00 a")} in your local time zone.
-            </div>
-        );
+        if (this.props.selectedColumn >= 0) {
+            return (
+                <div className="timeSelected">
+                    You have selected {selectedTime.format("h:00 a on dddd, MMMM Do YYYY")} in your local time zone.
+                </div>
+            );    
+        } else {
+            return (<div />);
+        }
     }
 }
 

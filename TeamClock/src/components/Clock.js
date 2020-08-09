@@ -58,7 +58,7 @@ class Clock extends React.Component {
           </div>
         </div>
         <TimeSelected 
-                  startTime={now.local()}
+                  startTime={moment(now.local())}
                   selectedColumn={this.state.selectedColumn} />
       </div>
     );
