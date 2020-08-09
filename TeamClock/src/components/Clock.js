@@ -1,10 +1,10 @@
 import React from 'react';
-import './ClockTab.css';
+import './Clock.css';
 import TimeStrip from './TimeStrip';
 import * as microsoftTeams from "@microsoft/teams-js";
 import TeamService from '../services/TeamService';
 
-class ClockTab extends React.Component {
+class Clock extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -47,4 +47,4 @@ class ClockTab extends React.Component {
     );
   }
 }
-export default ClockTab;
+export default Clock;
