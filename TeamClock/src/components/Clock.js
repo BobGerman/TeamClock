@@ -8,7 +8,9 @@ class Clock extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      context: {}
+      context: {},
+      mouseOverColumn: -1,
+      seletedColumn: -1,
     }
   }
 
@@ -39,12 +41,40 @@ class Clock extends React.Component {
           <div className="scrollingWrapper">
             {teamMembers.map((m) => {
                 const t = new Date().getTime() + (m.utcOffset * 60 * 60 * 1000);
-                return <TimeStrip hours="24" startDate={t} />;
+                return <TimeStrip hours="24" startDate={t}
+                  mouseOverColumn={this.state.mouseOverColumn}
+                  selectedColumn={this.state.selectedColumn}
+                  onMouseOver={(col) => this.handleMouseOver(col)}
+                  onMouseOut={(col) => this.handleMouseOut(col)}
+                  onClick={(col) => this.handleClick(col)} />;
               }) }
           </div>
         </div>
       </div>
     );
   }
+
+  handleMouseOver(col) {
+    this.setState({
+      mouseOverColumn: col
+    })
+  }
+
+  handleMouseOut(col) {
+    if (this.state.mouseOverColumn === col) {
+      this.setState({
+        mouseOverColumn: -1
+      })
+    }
+  }
+
+  handleClick(col) {
+    this.setState({
+      mouseOverColumn: -1,
+      selectedColumn: col
+    })
+  }
+
+
 }
 export default Clock;

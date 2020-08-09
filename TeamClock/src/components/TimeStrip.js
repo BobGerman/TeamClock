@@ -18,10 +18,21 @@ class TimeStrip extends React.Component {
 
         for (let i = 0; i < hours; i++) {
 
+            let cellStyle = "timeCell";
+            if (i === this.props.selectedColumn) {
+                cellStyle+= " selected";
+            } else if (i === this.props.mouseOverColumn) {
+                cellStyle += " mouseOver";
+            }
+
             if (time.hours() === 0) {
                 // First hour - show the date
                 cells.push(
-                    <div className="timeCell">
+                    <div className={cellStyle}
+                         onMouseOver={() => { this.props.onMouseOver(i)}}
+                         onMouseOut={() => { this.props.onMouseOut(i)}}
+                         onClick={() => { this.props.onClick(i)}}
+                         >
                         <div className={this.headingClass(time)}>{time.format('MMMM')}</div>
                         <div className={this.bodyClass(time)}>{time.format('DD')}</div>
                     </div>
@@ -29,7 +40,11 @@ class TimeStrip extends React.Component {
             } else {
                 // Subsequent hours - show the time
                 cells.push(
-                    <div className="timeCell">
+                    <div className={cellStyle}
+                         onMouseOver={() => { this.props.onMouseOver(i)}}
+                         onMouseOut={() => { this.props.onMouseOut(i)}}
+                         onClick={() => { this.props.onClick(i)}}
+                         >
                         <div className={this.headingClass(time)}>{time.format('dddd')}</div>
                         <div className={this.bodyClass(time)}>{time.format('h a')}</div>
                     </div>

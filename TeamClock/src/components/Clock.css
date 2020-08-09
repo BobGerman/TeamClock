@@ -93,4 +93,10 @@
   border-bottom-right-radius: 20%;
 }
 
+.mouseOver {
+  color: red;
+}
+.selected {
+  color: yellow;
+}
 
