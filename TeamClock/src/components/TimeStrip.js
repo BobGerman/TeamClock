@@ -19,18 +19,18 @@ class TimeStrip extends React.Component {
         for (let i = 0; i < hours; i++) {
 
             if (time.hours() === 0) {
-                // Midnight
+                // First hour - show the date
                 cells.push(
                     <div className="timeCell">
-                        <div className="timeHeader midnight">{time.format('dddd')}</div>
+                        <div className={this.headingClass(time)}>{time.format('dddd')}</div>
                         <div className={this.bodyClass(time)}>{time.format('DD-MMM')}</div>
                     </div>
                 );
             } else {
-                // Not midnight
+                // Subsequent hours - show the time
                 cells.push(
                     <div className="timeCell">
-                        <div className="timeHeader">{time.format('dddd')}</div>
+                        <div className={this.headingClass(time)}>{time.format('dddd')}</div>
                         <div className={this.bodyClass(time)}>{time.format('h a')}</div>
                     </div>
                 );
@@ -46,15 +46,27 @@ class TimeStrip extends React.Component {
         );
     }
 
+    headingClass(m) {
+        if (m.hours() === 0) {  // first hour of the day (midnight)
+            return `timeHeader startOfDay`;
+        } else if (m.hours() === 23) {  // last hour of the day
+            return `timeHeader endOfDay`;
+        } else {
+            return `timeHeader`;
+        }
+    }
+
     bodyClass(m) {
 
         const bodyClassByHour = [
-            'midnight', 'night', 'night', 'night', 'night', 'night', 'night', 'evening',
+            'night', 'night', 'night', 'night', 'night', 'night', 'night', 'extended',
             'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day',
-            'day', 'day', 'evening', 'evening', 'evening', 'evening', 'evening', 'night'];
+            'day', 'day', 'extended', 'extended', 'extended', 'extended', 'extended', 'night'];
 
         if (m.hours() === 0) {
-            return `timeBody ${bodyClassByHour[m.hours()]} newDay`;
+            return `timeBody ${bodyClassByHour[m.hours()]} startOfDay`;
+        } else if (m.hours() === 23) {
+            return `timeBody ${bodyClassByHour[m.hours()]} endOfDay`;
         } else {
             return `timeBody ${bodyClassByHour[m.hours()]}`;
         }

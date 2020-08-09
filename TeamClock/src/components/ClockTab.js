@@ -26,7 +26,7 @@ class ClockTab extends React.Component {
 
     // let userName = Object.keys(this.state.context).length > 0 ? this.state.context['upn'] : "";
 
-    const teamMembers = (new TeamService).getTeamMembers();
+    const teamMembers = (new TeamService()).getTeamMembers();
 
     return (
       <div>

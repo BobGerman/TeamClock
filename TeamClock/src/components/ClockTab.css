@@ -1,4 +1,5 @@
 .teamClock {
+  background-color: lightgray;
 }
 
 .personList {
@@ -10,9 +11,9 @@
   font-size: medium;
   padding: 3px;
   line-height: 47pt;
-  height: 51.5pt;
+  height: 51pt;
   vertical-align: middle;
-  border: 0.5pt solid black;
+  margin: 5pt 10pt 5pt 10pt;
 }
 
 .scrollingWrapper {
@@ -22,7 +23,7 @@
 }
 
 .timeStrip {
-
+  margin: 5pt 0 5pt 0;
 }
 
 .timeCell {
@@ -47,7 +48,7 @@
 .timeBody {
   font-weight: bold;
   font-size: medium;
-  padding: 3px;
+  padding: 1pt;
   line-height: 27pt;
   height: 30pt;
   vertical-align: middle;
@@ -57,7 +58,7 @@
   background-color: white;
 }
 
-.evening {
+.extended {
   background-color: lightblue;
 }
 
@@ -66,11 +67,15 @@
   color: white;
 }
 
-.midnight {
+.startOfDay {
   border-left: 2pt solid red;
 }
 
-.timeBody.midnight {
+.endOfDay {
+  border-bottom: 2pt solid green;
+}
+
+.timeBody.startOfDay {
   background-color: midnightblue;
   color: white;
 }
