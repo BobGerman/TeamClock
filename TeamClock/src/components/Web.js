@@ -18,16 +18,18 @@ class Web extends React.Component {
     TeamService.factory().then((service) => {
       this.setState({
         teamService: service
-      });  
+      });
     });
   }
-
 
   render() {
     if (this.state.teamService) {
       return (
-        <Clock teamService={this.state.teamService} />
-      );  
+        <div>
+          <h1>Team clock</h1>
+          <Clock teamService={this.state.teamService} />
+        </div>
+      );
     } else {
       return false;
     }

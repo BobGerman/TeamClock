@@ -21,14 +21,16 @@ function App() {
     // Home page.
     if (window.parent === window.self) {
       return (
-        <Router>
-          <Route exact path="/privacy" component={Privacy} />
-          <Route exact path="/termsofuse" component={TermsOfUse} />
-          <Route exact path="/web" component={Web} />
-          <Route exact path="/" component={Web} />
-          <Route exact path="/tab" component={TeamsHostError} />
-          <Route exact path="/config" component={TeamsHostError} />
-        </Router>        
+        <div className="App">
+          <Router>
+            <Route exact path="/privacy" component={Privacy} />
+            <Route exact path="/termsofuse" component={TermsOfUse} />
+            <Route exact path="/web" component={Web} />
+            <Route exact path="/" component={Web} />
+            <Route exact path="/tab" component={TeamsHostError} />
+            <Route exact path="/config" component={TeamsHostError} />
+          </Router>
+        </div>
       );
     }
 
@@ -37,10 +39,12 @@ function App() {
 
     // Display the app home page hosted in Teams
     return (
-      <Router>
-        <Route exact path="/tab" component={Tab} />
-        <Route exact path="/config" component={TabConfig} />
-      </Router>
+      <div className="App">
+        <Router>
+          <Route exact path="/tab" component={Tab} />
+          <Route exact path="/config" component={TabConfig} />
+        </Router>
+      </div>
     );
   }
 

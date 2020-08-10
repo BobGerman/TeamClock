@@ -36,6 +36,7 @@ class TimeStrip extends React.Component {
                          onMouseOver={() => { this.props.onMouseOver(i)}}
                          onMouseOut={() => { this.props.onMouseOut(i)}}
                          onClick={() => { this.props.onClick(i)}}
+                         key={i}
                          >
                         <div className={this.headingClass(currentMoment)}>{currentMoment.format('MMMM')}</div>
                         <div className={this.bodyClass(currentMoment)}>{currentMoment.format('DD')}</div>
@@ -48,6 +49,7 @@ class TimeStrip extends React.Component {
                          onMouseOver={() => { this.props.onMouseOver(i)}}
                          onMouseOut={() => { this.props.onMouseOut(i)}}
                          onClick={() => { this.props.onClick(i)}}
+                         key={i}
                          >
                         <div className={this.headingClass(currentMoment)}>{currentMoment.format('dddd')}</div>
                         <div className={this.bodyClass(currentMoment)}>{currentMoment.format('h a')}</div>

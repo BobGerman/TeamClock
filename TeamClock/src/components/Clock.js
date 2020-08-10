@@ -24,7 +24,7 @@ class Clock extends React.Component {
         <div>
           <div className="personList">
             {teamMembers.map((m) => {
-              return <div className="person">
+              return <div className="person" key={m.name}>
                 <p className="personName">{m.name}</p>
                 <p className="personCity">{m.city}</p>
               </div>;
@@ -43,6 +43,7 @@ class Clock extends React.Component {
                   workHours={m.workHours}
                   isFirst={memberIndex === 0}
                   isLast={memberIndex++ === teamMembers.length} 
+                  key={m.name}
                   />;
               }) }
           </div>
