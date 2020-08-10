@@ -18,12 +18,18 @@ class Clock extends React.Component {
 
   componentDidMount() {
     // Get the user context from Teams and set it in the state
-    microsoftTeams.getContext((context, error) => {
-      this.setState({
-        context: context
-      });
-    });
-    // Next steps: Error handling using the error object
+    if (microsoftTeams) {
+      try {
+        microsoftTeams.getContext((context, error) => {
+          if (context) {
+            this.setState({
+              context: context
+            });  
+          }
+        });
+      }
+      catch (ex) { }
+    }
   }
 
   render() {

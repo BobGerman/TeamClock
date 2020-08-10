@@ -20,11 +20,13 @@ function App() {
     // Home page.
     if (window.parent === window.self) {
       return (
-        <Router basename="/">
-          <Route path="/privacy" component={Privacy} />
-          <Route path="/termsofuse" component={TermsOfUse} />
-          <Route path="/tab" component={TeamsHostError} />
-          <Route path="/config" component={TeamsHostError} />
+        <Router>
+          <Route exact path="/privacy" component={Privacy} />
+          <Route exact path="/termsofuse" component={TermsOfUse} />
+          <Route exact path="/web" component={Clock} />
+          <Route exact path="/" component={Clock} />
+          <Route exact path="/tab" component={TeamsHostError} />
+          <Route exact path="/config" component={TeamsHostError} />
         </Router>        
       );
     }
