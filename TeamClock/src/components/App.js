@@ -4,8 +4,9 @@ import * as microsoftTeams from "@microsoft/teams-js";
 import { HashRouter as Router, Route } from "react-router-dom";
 import Privacy from "./Privacy";
 import TermsOfUse from "./TermsOfUse";
-import Clock from './Clock';
+import Tab from './Tab';
 import TabConfig from './TabConfig';
+import Web from './Web';
 
 /**
  * The main app which handles the initialization and routing
@@ -23,8 +24,8 @@ function App() {
         <Router>
           <Route exact path="/privacy" component={Privacy} />
           <Route exact path="/termsofuse" component={TermsOfUse} />
-          <Route exact path="/web" component={Clock} />
-          <Route exact path="/" component={Clock} />
+          <Route exact path="/web" component={Web} />
+          <Route exact path="/" component={Web} />
           <Route exact path="/tab" component={TeamsHostError} />
           <Route exact path="/config" component={TeamsHostError} />
         </Router>        
@@ -37,7 +38,7 @@ function App() {
     // Display the app home page hosted in Teams
     return (
       <Router>
-        <Route exact path="/tab" component={Clock} />
+        <Route exact path="/tab" component={Tab} />
         <Route exact path="/config" component={TabConfig} />
       </Router>
     );

@@ -3,40 +3,19 @@ import moment from 'moment';
 import './Clock.css';
 import TimeStrip from './TimeStrip';
 import TimeSelected from './TimeSelected';
-import * as microsoftTeams from "@microsoft/teams-js";
-import TeamService from '../services/TeamService';
 
 class Clock extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      context: {},
       mouseOverColumn: -1,
       seletedColumn: -1,
     }
   }
 
-  componentDidMount() {
-    // Get the user context from Teams and set it in the state
-    if (microsoftTeams) {
-      try {
-        microsoftTeams.getContext((context, error) => {
-          if (context) {
-            this.setState({
-              context: context
-            });  
-          }
-        });
-      }
-      catch (ex) { }
-    }
-  }
-
   render() {
 
-    // let userName = Object.keys(this.state.context).length > 0 ? this.state.context['upn'] : "";
-
-    const teamMembers = (new TeamService()).getTeamMembers();
+    const teamMembers = this.props.teamService.getTeamMembers();
     let memberIndex = 0;
     const now = moment();
 

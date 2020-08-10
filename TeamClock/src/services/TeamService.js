@@ -1,5 +1,10 @@
 export default class TeamService{
 
+    static factory () {
+        const service = new TeamService();
+        return Promise.resolve(service); //((resolve) => { resolve(service); });
+    }
+
     getTeamMembers () {
         return [
             {
