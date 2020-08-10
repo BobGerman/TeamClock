@@ -5,7 +5,7 @@ export default class TeamService{
             {
                 name: 'Ayca',
                 city: 'Dubai',
-                utcOffset: 6,
+                utcOffset: 4,
                 /* Preferred work week, 1 char/day, o=off, w=work */
                 workDays: 'owwwwwo',
                 /* Preferred work day, 1 char/hour, n=night, e=extended, d=day */
@@ -14,7 +14,7 @@ export default class TeamService{
             {
                 name: 'Barnam',
                 city: 'Melbourne',
-                utcOffset: 14,
+                utcOffset: 10,
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
             },
