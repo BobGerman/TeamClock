@@ -12,12 +12,13 @@ class Clock extends React.Component {
     this.state = {
       mouseOverColumn: -1,
       seletedColumn: -1,
+      sortOrder: 'name'
     }
   }
 
   render() {
 
-    const teamMembers = this.props.teamService.getTeamMembers();
+    const teamMembers = this.props.teamService.getTeamMembers(this.state.sortOrder);
     let memberIndex = 0;
     const now = moment();
 
@@ -25,6 +26,13 @@ class Clock extends React.Component {
       <div className="teamClock">
         <div>
           <div className="personList">
+          <select value={this.state.sortOrder}
+           onChange={(e) => {
+              this.setState ({ sortOrder: e.target.value }); 
+              }}>
+            <option value="name">Sort by name</option>
+            <option value="time">Sort by time</option>
+          </select>
             {teamMembers.map((m) => {
               return <div className="person" key={m.name}>
                 <p className="personName">{m.name}</p>
@@ -85,7 +93,6 @@ class Clock extends React.Component {
       selectedColumn: col
     })
   }
-
 
 }
 export default Clock;

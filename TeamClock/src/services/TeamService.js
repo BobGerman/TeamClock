@@ -5,8 +5,9 @@ export default class TeamService{
         return Promise.resolve(service); //((resolve) => { resolve(service); });
     }
 
-    getTeamMembers () {
-        return [
+    getTeamMembers (sortOrder) {
+
+        let result = [
             {
                 name: 'Ayca',
                 city: 'Dubai',
@@ -65,7 +66,14 @@ export default class TeamService{
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
             },
-        ]
+        ];
+
+        if (sortOrder === "time" ) {
+            result.sort((a,b) => { return b.utcOffset - a.utcOffset })
+        } else {
+            result.sort((a,b) => { return a.name<b.name ? -1 : 1  })
+        }
+        return result;
     }
 
 }
