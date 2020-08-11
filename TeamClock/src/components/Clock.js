@@ -1,8 +1,10 @@
 import React from 'react';
 import moment from 'moment';
 import './Clock.css';
+import TimeStripHeader from './TimeStripHeader';
 import TimeStrip from './TimeStrip';
 import TimeSelected from './TimeSelected';
+import { TIME_STRIP_HOURS } from '../Constants';
 
 class Clock extends React.Component {
   constructor(props) {
@@ -31,8 +33,15 @@ class Clock extends React.Component {
             }) }
           </div>
           <div className="scrollingWrapper">
+            <TimeStripHeader hours={TIME_STRIP_HOURS} 
+                  mouseOverColumn={this.state.mouseOverColumn}
+                  selectedColumn={this.state.selectedColumn}
+                  onMouseOver={(col) => this.handleMouseOver(col)}
+                  onMouseOut={(col) => this.handleMouseOut(col)}
+                  onClick={(col) => this.handleClick(col)} />
+
             {teamMembers.map((m) => {
-                return <TimeStrip hours={24*7} 
+                return <TimeStrip hours={TIME_STRIP_HOURS} 
                   startTime={moment(now.utcOffset(m.utcOffset*60))}
                   mouseOverColumn={this.state.mouseOverColumn}
                   selectedColumn={this.state.selectedColumn}
