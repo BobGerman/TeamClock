@@ -1,5 +1,5 @@
 .teamClock {
-  background-color: lightgray;
+  background-color: #E7E7E7;
 }
 
 .personList {
@@ -83,7 +83,8 @@
 .startOfDay {
 }
 .timeCell.startOfDay {
-  border-left: 2pt solid lightGray;
+  border-left: 2pt solid #E7E7E7;
+;
 }
 .timeHeader.startOfDay {
   background-color: midnightblue;
@@ -99,7 +100,7 @@
 }
 
 .timeCell.endOfDay {
-  border-right: 2pt solid lightGray;
+  border-right: 2pt solid #E7E7E7;
 }
 .timeHeader.endOfDay {
   padding-right: 0.5pt;
