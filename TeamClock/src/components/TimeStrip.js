@@ -27,8 +27,8 @@ class TimeStrip extends React.Component {
                          onClick={() => { this.props.onClick(i)}}
                          key={i}
                          >
-                        <div className={this.headingClass(currentMoment)}>{currentMoment.format('MMMM')}</div>
-                        <div className={this.bodyClass(currentMoment)}>{currentMoment.format('DD')}</div>
+                        <div className={this.headingClass(currentMoment)}>{currentMoment.format('dddd')}</div>
+                        <div className={this.bodyClass(currentMoment)}>{currentMoment.format('MMM DD')}</div>
                     </div>
                 );
             } else {

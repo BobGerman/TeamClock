@@ -33,7 +33,7 @@ export default class TeamService{
             {
                 name: 'Dan',
                 city: 'Phoenix',
-                utcOffset: -6,
+                utcOffset: -7,
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
             },
@@ -46,7 +46,7 @@ export default class TeamService{
             },
             {
                 name: 'Matt',
-                city: 'Bay area',
+                city: 'Los Angeles',
                 utcOffset: -7,
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',

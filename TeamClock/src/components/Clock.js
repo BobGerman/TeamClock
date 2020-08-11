@@ -28,7 +28,8 @@ class Clock extends React.Component {
             {teamMembers.map((m) => {
               return <div className="person" key={m.name}>
                 <p className="personName">{m.name}</p>
-                <p className="personCity">{m.city}</p>
+                <p className="personCity">{m.city}<br />
+                UTC{m.utcOffset >= 0 ? '+' : ''}{m.utcOffset}</p>
               </div>;
             }) }
           </div>

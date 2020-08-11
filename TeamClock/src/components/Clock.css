@@ -11,12 +11,13 @@
   padding: 3px;
   height: 55pt;
   vertical-align: middle;
+  text-align: right;
   margin: 5pt 10pt 5pt 10pt;
 }
 
 .person .personName {
   font-weight: bold;
-  font-size: 14pt;
+  font-size: 12pt;
   padding-top: 6pt;
   margin: 0;
 }
@@ -48,8 +49,8 @@
 .timeHeader {
   background-color: white;
   padding: 3pt;
-  font-size: 9pt;
-  line-height: 17pt;
+  font-size: 8pt;
+  line-height: 15pt;
   height: 20pt;
   border-left: 0.5pt solid black;
   border-top: 0.5pt solid black;
@@ -57,7 +58,7 @@
 
 .timeBody {
   font-weight: bold;
-  font-size: 14pt;
+  font-size: 12pt;
   padding: 1pt;
   line-height: 27pt;
   height: 30pt;
@@ -87,8 +88,6 @@
 ;
 }
 .timeHeader.startOfDay {
-  background-color: midnightblue;
-  color: white;
   border-top-left-radius: 20%;
   border: 0.5pt solid midnightblue;
 }
@@ -104,7 +103,6 @@
 }
 .timeHeader.endOfDay {
   padding-right: 0.5pt;
-  background-color: green;
   border-top-right-radius: 20%;
 }
 .timeBody.endOfDay {
