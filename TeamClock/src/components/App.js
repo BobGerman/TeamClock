@@ -1,12 +1,13 @@
 import React from 'react';
 import './App.css';
 import * as microsoftTeams from "@microsoft/teams-js";
-import { HashRouter as Router, Route } from "react-router-dom";
+import { HashRouter as Router, Route, Redirect } from "react-router-dom";
 import Privacy from "./Privacy";
 import TermsOfUse from "./TermsOfUse";
 import Tab from './Tab';
 import TabConfig from './TabConfig';
 import Web from './Web';
+import MsalRedirectHandler from './MsalRedirectHandler';
 
 /**
  * The main app which handles the initialization and routing
@@ -20,18 +21,25 @@ function App() {
     // SDK functionality.  Show an error if trying to access the
     // Home page.
     if (window.parent === window.self) {
-      return (
-        <div className="App">
-          <Router>
-            <Route exact path="/privacy" component={Privacy} />
-            <Route exact path="/termsofuse" component={TermsOfUse} />
-            <Route exact path="/web" component={Web} />
-            <Route exact path="/" component={Web} />
-            <Route exact path="/tab" component={TeamsHostError} />
-            <Route exact path="/config" component={TeamsHostError} />
-          </Router>
-        </div>
-      );
+
+      if (window.location.hash.indexOf("code=") >= 0) {
+        return <MsalRedirectHandler />
+      } else {
+        return (
+          <div className="App">
+            <Router>
+              <Route exact path="/privacy" component={Privacy} />
+              <Route exact path="/termsofuse" component={TermsOfUse} />
+              <Route exact path="/web" component={Web} />
+              <Route exact path="/" component={Web} />
+              <Route exact path="/tab" component={TeamsHostError} />
+              <Route exact path="/config" component={TeamsHostError} />
+              <Redirect component={Web} />
+            </Router>
+          </div>
+        );
+  
+      }
     }
 
     // Initialize the Microsoft Teams SDK
