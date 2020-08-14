@@ -12,6 +12,7 @@ class Web extends React.Component {
     super(props);
     this.state = {
       teamService: null,
+      username: AuthService.userName,
       token: null
     }
   }
@@ -23,7 +24,11 @@ class Web extends React.Component {
         teamService: service
       });
     });
-
+    if (AuthService && AuthService.userName) {
+      this.setState({
+        username: AuthService.userName
+      });
+    }
   }
 
   render() {
@@ -34,7 +39,7 @@ class Web extends React.Component {
           <h1>Team clock</h1>
           <Clock teamService={this.state.teamService} />
           <button onClick={this.handleGetProfile.bind(this)}>Get My Profile</button>
-          <p>{AuthService.userName ? AuthService.userName : "No username found"}</p>
+          <p>{this.state.username ? this.state.username : "No username found"}</p>
           <p>{this.state.officeLocation ? this.state.officeLocation : "No office location found"}</p>
         </div>
       );

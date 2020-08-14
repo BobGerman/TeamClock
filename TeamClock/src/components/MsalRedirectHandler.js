@@ -1,7 +1,7 @@
 import React from 'react';
 import AuthService from '../services/AuthService'
-// import { HashRouter as Router, Redirect } from "react-router-dom";
-import Web from './Web';
+import { Redirect } from "react-router-dom";
+import Privacy from "./Privacy";
 
 /**
  * The web UI used when Teams pops out a browser window
@@ -10,24 +10,24 @@ class MsalRedirectHandler extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userName: AuthService.userName,
-            token: null
+            userName: null,
+            hash: null
         }
     }
 
     componentDidMount() {
         AuthService.init()
-            .then((username) => {
+            .then((result) => {
                 this.setState({
-                    userName: username
+                    userName: result.username,
+                    hash: result.hash
                 });
             })
     }
 
     render() {
         if (this.state.userName) {
-            window.location.hash = "#web";
-            return <Web />
+            return <Redirect to={Privacy} />
         } else {
             return <p>Nobody logged in here</p>
         }

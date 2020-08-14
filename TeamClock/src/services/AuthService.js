@@ -15,10 +15,10 @@ class AuthService {
             }
         };
 
-        // TODO: Consider moving these into init and passing in the scope
         this.myMSALObj = new msal.PublicClientApplication(msalConfig);
         this.request = {
-            scopes: ["user.read"]
+            scopes: ["user.read"],
+            state: ""
         }
 
         this.userName = '';
@@ -47,8 +47,9 @@ class AuthService {
                     if (username) {
                         this.userName = username;
                         resolve(username);
-                    } else reject("ERROR: user not found");
-
+                    } else {
+                        resolve(null);
+                    }
                 })
                 .catch(err => { reject(err); });
         });
@@ -57,6 +58,7 @@ class AuthService {
     // Call this to log the user in
     login() {
         try {
+            //this.request.state = window.location.hash;
             this.myMSALObj.loginRedirect(this.request);
         }
         catch (err) { console.log(err); }
@@ -78,6 +80,7 @@ class AuthService {
                 console.warn("silent token acquisition fails. acquiring token using redirect");
                 if (error instanceof msal.InteractionRequiredAuthError) {
                     // fallback to interaction when silent call fails
+                    //this.request.state = window.location.hash;
                     return this.myMSALObj.acquireTokenRedirect(this.request);
                 } else {
                     console.warn(error);
