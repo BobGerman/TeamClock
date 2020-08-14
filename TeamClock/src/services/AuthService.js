@@ -19,37 +19,48 @@ class AuthService {
         this.request = {
             scopes: ["user.read"]
         }
-
-        this.userName = '';
     }
 
     // Call this on every request to an authenticated page
+    // Promise returns true if user is logged in, false if user is not
     async init() {
         return new Promise((resolve, reject) => {
             this.myMSALObj.handleRedirectPromise()
                 .then((resp) => {
-                    let username;
-                    if (resp != null) {
-                        username = resp.account.username;
+                    if (resp != null && resp.account.username) {
+                        resolve(true);
                     } else {
-                        const currentAccounts = this.myMSALObj.getAllAccounts();
-                        if (currentAccounts === null) {
-                            resolve("");
-                        } else if (currentAccounts.length > 1) {
+                        const accounts = this.myMSALObj.getAllAccounts();
+                        if (accounts === null || accounts.length === 0) {
+                            resolve(false);
+                        } else if (accounts.length > 1) {
                             reject("ERROR: Multiple accounts are logged in");
-                        } else if (currentAccounts.length === 1) {
-                            username = currentAccounts[0].username;
+                        } else if (accounts.length === 1) {
+                            resolve(true);
                         }
-                    }
-                    if (username) {
-                        this.userName = username;
-                        resolve(username);
-                    } else {
-                        resolve(null);
                     }
                 })
                 .catch(err => { reject(err); });
         });
+    }
+
+    // Determine if someone is logged in
+    isLoggedIn() {
+        const accounts = this.myMSALObj.getAllAccounts();
+        return (accounts && accounts.length === 1);
+    }
+
+    // Get the logged in user name
+    getUsername() {
+        const accounts = this.myMSALObj.getAllAccounts();
+        let result = null;
+
+        if (accounts && accounts.length === 1) {
+            result = accounts[0].username;
+        } else if (accounts && accounts.length > 1) {
+            console.log('ERROR: Multiple users logged in');
+        }
+        return result;
     }
 
     // Call this to log the user in
@@ -64,23 +75,23 @@ class AuthService {
     async getAccessToken(scopes) {
 
         return new Promise((resolve, reject) => {
-            this.request.account = this.myMSALObj.getAccountByUsername(this.userName);
+            this.request.account = this.myMSALObj.getAccountByUsername(this.getUsername());
             if (scopes) {
                 this.request.scopes = scopes;
             }
             this.myMSALObj.acquireTokenSilent(this.request)
-            .then((resp) => {
-                resolve(resp.accessToken);
-            })
-            .catch((error) => {
-                console.warn("silent token acquisition fails. acquiring token using redirect");
-                if (error instanceof msal.InteractionRequiredAuthError) {
-                    // fallback to interaction when silent call fails
-                    return this.myMSALObj.acquireTokenRedirect(this.request);
-                } else {
-                    console.warn(error);
-                }
-            });
+                .then((resp) => {
+                    resolve(resp.accessToken);
+                })
+                .catch((error) => {
+                    console.warn("silent token acquisition fails. acquiring token using redirect");
+                    if (error instanceof msal.InteractionRequiredAuthError) {
+                        // fallback to interaction when silent call fails
+                        return this.myMSALObj.acquireTokenRedirect(this.request);
+                    } else {
+                        console.warn(error);
+                    }
+                });
         });
     }
 }

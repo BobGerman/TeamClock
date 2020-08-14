@@ -32,7 +32,7 @@ class Web extends React.Component {
           <h1>Team clock</h1>
           <Clock teamService={this.state.teamService} />
           <button onClick={this.handleGetProfile.bind(this)}>Get My Profile</button>
-          <p>{AuthService.userName ? AuthService.userName : "No username found"}</p>
+          <p>{AuthService.isLoggedIn() ? AuthService.getUsername() : "No username found"}</p>
           <p>{this.state.token ? this.state.token : "No token found"}</p>
         </div>
       );
@@ -43,7 +43,7 @@ class Web extends React.Component {
   }
 
   handleGetProfile() {
-    if (AuthService.userName) {
+    if (AuthService.isLoggedIn()) {
       AuthService.getAccessToken(["User.Read", "Mail.Read"])
       .then((token) => {
         this.setState({
