@@ -7,14 +7,13 @@ import TermsOfUse from "./TermsOfUse";
 import Tab from './Tab';
 import TabConfig from './TabConfig';
 import Web from './Web';
-//import MsalRedirectHandler from './MsalRedirectHandler';
 import AuthService from '../services/AuthService'
 
 /**
  * The main app which handles the initialization and routing
  * of the app.
  */
-class App extends React.Component { 
+class App extends React.Component {
 
   constructor() {
     super();
@@ -24,60 +23,62 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    // React routing and OAuth don't play nice together
+    // Take care of the OAuth fun before routing
     AuthService.init()
-        .then((result) => {
-            this.setState({
-                authInitialized: true
-            });
-        })
-}
+      .then((result) => {
+        this.setState({
+          authInitialized: true
+        });
+      })
+  }
 
   render() {
-  if (!this.state.authInitialized) {
-    return (<p>Not initialied</p>);
-  }
-  // Check for the Microsoft Teams SDK object.
-  if (microsoftTeams) {
+    if (!this.state.authInitialized) {
 
-    // Set app routings that don't require microsoft Teams
-    // SDK functionality.  Show an error if trying to access the
-    // Home page.
-    if (window.parent === window.self) {
+      // Wait for Auth Service to initialize
+      return (<p>Loading...</p>);
 
+    } else if (microsoftTeams) {
+
+      if (window.parent === window.self) {
+
+        // If here we are not in an IFrame - assume we're not in Teams
+        return (
+          <div className="App">
+            <Router>
+              <Route exact path="/privacy" component={Privacy} />
+              <Route exact path="/termsofuse" component={TermsOfUse} />
+              <Route exact path="/web" component={Web} />
+              <Route exact path="/" component={Web} />
+              <Route exact path="/tab" component={TeamsHostError} />
+              <Route exact path="/config" component={TeamsHostError} />
+            </Router>
+          </div>
+        );
+      }
+
+      // If here we are in an IFrame - assume we are in Teams and initialize
+      microsoftTeams.initialize(window);
+
+      // Only a couple of the pages in the app work in Teams tabs
       return (
         <div className="App">
           <Router>
-            <Route exact path="/privacy" component={Privacy} />
-            <Route exact path="/termsofuse" component={TermsOfUse} />
-            <Route exact path="/web" component={Web} />
-            <Route exact path="/" component={Web} />
-            <Route exact path="/tab" component={TeamsHostError} />
-            <Route exact path="/config" component={TeamsHostError} />
-            {/*<Route path="/code*" component={MsalRedirectHandler} />*/}
+            <Route exact path="/tab" component={Tab} />
+            <Route exact path="/config" component={TabConfig} />
           </Router>
         </div>
       );
+    } else {
+
+      // If here, the Teams SDK is missing in action
+      return (
+        <h3>Microsoft Teams SDK not found.</h3>
+      );
+
     }
 
-    // Initialize the Microsoft Teams SDK
-    microsoftTeams.initialize(window);
-
-    // Display the app home page hosted in Teams
-    return (
-      <div className="App">
-        <Router>
-          <Route exact path="/tab" component={Tab} />
-          <Route exact path="/config" component={TabConfig} />
-        </Router>
-      </div>
-    );
-  }
-
-  // Error when the Microsoft Teams SDK is not found
-  // in the project.
-  return (
-    <h3>Microsoft Teams SDK not found.</h3>
-  );
   }
 }
 

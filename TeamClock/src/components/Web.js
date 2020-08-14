@@ -12,23 +12,16 @@ class Web extends React.Component {
     super(props);
     this.state = {
       teamService: null,
-      username: AuthService.userName,
       token: null
     }
   }
 
   componentDidMount() {
-
     TeamService.factory().then((service) => {
       this.setState({
         teamService: service
       });
     });
-    if (AuthService && AuthService.userName) {
-      this.setState({
-        username: AuthService.userName
-      });
-    }
   }
 
   render() {
@@ -39,22 +32,22 @@ class Web extends React.Component {
           <h1>Team clock</h1>
           <Clock teamService={this.state.teamService} />
           <button onClick={this.handleGetProfile.bind(this)}>Get My Profile</button>
-          <p>{this.state.username ? this.state.username : "No username found"}</p>
-          <p>{this.state.officeLocation ? this.state.officeLocation : "No office location found"}</p>
+          <p>{AuthService.userName ? AuthService.userName : "No username found"}</p>
+          <p>{this.state.token ? this.state.token : "No token found"}</p>
         </div>
       );
     } else {
-      return false;
+      return <p>Loading TeamService</p>;
     }
 
   }
 
   handleGetProfile() {
     if (AuthService.userName) {
-      AuthService.getAccessToken(["User.Read", "Files.Read"])
+      AuthService.getAccessToken(["User.Read", "Mail.Read"])
       .then((token) => {
         this.setState({
-          officeLocation: token
+          token: token
         })
       })
       .catch((error) => { console.log(error); });

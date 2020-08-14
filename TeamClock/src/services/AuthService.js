@@ -17,13 +17,10 @@ class AuthService {
 
         this.myMSALObj = new msal.PublicClientApplication(msalConfig);
         this.request = {
-            scopes: ["user.read"],
-            state: ""
+            scopes: ["user.read"]
         }
 
         this.userName = '';
-        this.idToken = '';
-        this.accessToken = '';
     }
 
     // Call this on every request to an authenticated page
@@ -58,7 +55,6 @@ class AuthService {
     // Call this to log the user in
     login() {
         try {
-            //this.request.state = window.location.hash;
             this.myMSALObj.loginRedirect(this.request);
         }
         catch (err) { console.log(err); }
@@ -80,7 +76,6 @@ class AuthService {
                 console.warn("silent token acquisition fails. acquiring token using redirect");
                 if (error instanceof msal.InteractionRequiredAuthError) {
                     // fallback to interaction when silent call fails
-                    //this.request.state = window.location.hash;
                     return this.myMSALObj.acquireTokenRedirect(this.request);
                 } else {
                     console.warn(error);
