@@ -1,13 +1,19 @@
 import * as msal from '@azure/msal-browser';
+import * as Config from '../Config';
 
+// AuthService is a singleton so one PublicClientApplication
+// can retain state. This module exports the single instance
+// of the service rather than the service class; just use it,
+// don't new it up.
 class AuthService {
 
     constructor() {
+
         const msalConfig = {
             auth: {
-                clientId: "b64c58a1-2955-4819-9241-1a4b77bb85a1",
-                authority: "https://login.microsoftonline.com/a25d4ef1-c73a-4dc1-bdb1-9a342260f216",
-                redirectUri: "https://localhost:3000/",
+                clientId: Config.clientId,
+                authority: Config.authority,
+                redirectUri: Config.redirectUri
             },
             cache: {
                 cacheLocation: "sessionStorage", // This configures where your cache will be stored
@@ -15,22 +21,24 @@ class AuthService {
             }
         };
 
-        this.myMSALObj = new msal.PublicClientApplication(msalConfig);
+        // MSAL request object to use over and over
         this.request = {
             scopes: ["user.read"]
         }
+
+        this.msalClient = new msal.PublicClientApplication(msalConfig);
     }
 
     // Call this on every request to an authenticated page
     // Promise returns true if user is logged in, false if user is not
     async init() {
         return new Promise((resolve, reject) => {
-            this.myMSALObj.handleRedirectPromise()
+            this.msalClient.handleRedirectPromise()
                 .then((resp) => {
                     if (resp != null && resp.account.username) {
                         resolve(true);
                     } else {
-                        const accounts = this.myMSALObj.getAllAccounts();
+                        const accounts = this.msalClient.getAllAccounts();
                         if (accounts === null || accounts.length === 0) {
                             resolve(false);
                         } else if (accounts.length > 1) {
@@ -46,13 +54,13 @@ class AuthService {
 
     // Determine if someone is logged in
     isLoggedIn() {
-        const accounts = this.myMSALObj.getAllAccounts();
+        const accounts = this.msalClient.getAllAccounts();
         return (accounts && accounts.length === 1);
     }
 
-    // Get the logged in user name
+    // Get the logged in user name or null if not logged in
     getUsername() {
-        const accounts = this.myMSALObj.getAllAccounts();
+        const accounts = this.msalClient.getAllAccounts();
         let result = null;
 
         if (accounts && accounts.length === 1) {
@@ -66,7 +74,7 @@ class AuthService {
     // Call this to log the user in
     login() {
         try {
-            this.myMSALObj.loginRedirect(this.request);
+            this.msalClient.loginRedirect(this.request);
         }
         catch (err) { console.log(err); }
     }
@@ -75,11 +83,11 @@ class AuthService {
     async getAccessToken(scopes) {
 
         return new Promise((resolve, reject) => {
-            this.request.account = this.myMSALObj.getAccountByUsername(this.getUsername());
+            this.request.account = this.msalClient.getAccountByUsername(this.getUsername());
             if (scopes) {
                 this.request.scopes = scopes;
             }
-            this.myMSALObj.acquireTokenSilent(this.request)
+            this.msalClient.acquireTokenSilent(this.request)
                 .then((resp) => {
                     resolve(resp.accessToken);
                 })
@@ -87,7 +95,7 @@ class AuthService {
                     console.warn("silent token acquisition fails. acquiring token using redirect");
                     if (error instanceof msal.InteractionRequiredAuthError) {
                         // fallback to interaction when silent call fails
-                        return this.myMSALObj.acquireTokenRedirect(this.request);
+                        return this.msalClient.acquireTokenRedirect(this.request);
                     } else {
                         console.warn(error);
                     }

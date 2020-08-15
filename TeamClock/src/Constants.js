@@ -1,1 +1,1 @@
-export const TIME_STRIP_HOURS = 24 * 7;
+export const timeStripHours = 24 * 7;
