@@ -26,30 +26,28 @@ class AuthService {
             scopes: ["user.read"]
         }
 
+        // Keep this MSAL client around to manage state across SPA "pages"
         this.msalClient = new msal.PublicClientApplication(msalConfig);
     }
 
     // Call this on every request to an authenticated page
     // Promise returns true if user is logged in, false if user is not
     async init() {
-        return new Promise((resolve, reject) => {
-            this.msalClient.handleRedirectPromise()
-                .then((resp) => {
-                    if (resp != null && resp.account.username) {
-                        resolve(true);
-                    } else {
-                        const accounts = this.msalClient.getAllAccounts();
-                        if (accounts === null || accounts.length === 0) {
-                            resolve(false);
-                        } else if (accounts.length > 1) {
-                            reject("ERROR: Multiple accounts are logged in");
-                        } else if (accounts.length === 1) {
-                            resolve(true);
-                        }
-                    }
-                })
-                .catch(err => { reject(err); });
-        });
+
+        let response = await this.msalClient.handleRedirectPromise();
+        if (response != null && response.account.username) {
+            return true;
+        } else {
+            const accounts = this.msalClient.getAllAccounts();
+            if (accounts === null || accounts.length === 0) {
+                return false;
+            } else if (accounts.length > 1) {
+                throw new Error("ERROR: Multiple accounts are logged in");
+            } else if (accounts.length === 1) {
+                return true;
+            }
+        }
+
     }
 
     // Determine if someone is logged in
@@ -82,25 +80,22 @@ class AuthService {
     // Call this to get an access token
     async getAccessToken(scopes) {
 
-        return new Promise((resolve, reject) => {
-            this.request.account = this.msalClient.getAccountByUsername(this.getUsername());
-            if (scopes) {
-                this.request.scopes = scopes;
+        this.request.account = this.msalClient.getAccountByUsername(this.getUsername());
+        if (scopes) {
+            this.request.scopes = scopes;
+        }
+        try {
+            let resp = await this.msalClient.acquireTokenSilent(this.request);
+            return (resp && resp.accessToken) ? resp.accessToken : null;
+        }
+        catch (error) {
+            if (error instanceof msal.InteractionRequiredAuthError) {
+                console.warn("Silent token acquisition failed; acquiring token using redirect");
+                this.msalClient.acquireTokenRedirect(this.request);
+            } else {
+                throw (error);
             }
-            this.msalClient.acquireTokenSilent(this.request)
-                .then((resp) => {
-                    resolve(resp.accessToken);
-                })
-                .catch((error) => {
-                    console.warn("silent token acquisition fails. acquiring token using redirect");
-                    if (error instanceof msal.InteractionRequiredAuthError) {
-                        // fallback to interaction when silent call fails
-                        return this.msalClient.acquireTokenRedirect(this.request);
-                    } else {
-                        console.warn(error);
-                    }
-                });
-        });
+        }
     }
 }
 

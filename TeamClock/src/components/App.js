@@ -24,8 +24,7 @@ class App extends React.Component {
   componentDidMount() {
     // React routing and OAuth don't play nice together
     // Take care of the OAuth fun before routing
-    AuthService.init()
-      .then((result) => {
+    AuthService.init().then(() => {
         this.setState({
           authInitialized: true
         });
@@ -37,7 +36,7 @@ class App extends React.Component {
     if (!this.state.authInitialized) {
 
       // Wait for Auth Service to initialize
-      return (<p>Loading...</p>);
+      return (<p>Authorizing...</p>);
 
     } else {
 
