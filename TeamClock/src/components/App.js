@@ -8,6 +8,7 @@ import './App.css';
 import Privacy from "./Privacy";
 import TermsOfUse from "./TermsOfUse";
 import Tab from './Tab';
+import TeamsAuthPopup from './TeamsAuthPopup';
 import TeamsHostError from './TeamsHostError';
 import TabConfig from './TabConfig';
 import Web from './Web';
@@ -50,6 +51,7 @@ class App extends React.Component {
               <Route exact path="/termsofuse" component={TermsOfUse} />
               <Route exact path="/web" component={Web} />
               <Route exact path="/" component={Web} />
+              <Route exact path="/teamsauthpopup" component={TeamsAuthPopup} />
               <Route exact path="/tab" component={TeamsHostError} />
               <Route exact path="/config" component={TeamsHostError} />
             </Router>

@@ -77,16 +77,32 @@ class AuthService {
         catch (err) { console.log(err); }
     }
 
-    // Call this to get an access token
+    // Call this to get the access token
     async getAccessToken(scopes) {
+        let { accessToken } =
+            await this.getAccessTokenEx(scopes);
+        return accessToken;
+    }
 
-        this.request.account = this.msalClient.getAccountByUsername(this.getUsername());
+    // Call this to get the username, access token, and expiration date
+    async getAccessTokenEx(scopes) {
+
+        this.request.account =
+            this.msalClient.getAccountByUsername(this.getUsername());
         if (scopes) {
             this.request.scopes = scopes;
         }
         try {
             let resp = await this.msalClient.acquireTokenSilent(this.request);
-            return (resp && resp.accessToken) ? resp.accessToken : null;
+            if (resp && resp.accessToken) {
+                return {
+                    username: this.getUsername(),
+                    accessToken: resp.accessToken,
+                    expiresOn: (new Date(resp.expiresOn)).getTime() 
+                }
+            } else {
+                return null;
+            }
         }
         catch (error) {
             if (error instanceof msal.InteractionRequiredAuthError) {
