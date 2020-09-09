@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 import * as microsoftTeams from "@microsoft/teams-js";
 import { HashRouter as Router, Route } from "react-router-dom";
 import Privacy from "./Privacy";

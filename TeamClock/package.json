@@ -7,6 +7,8 @@
     "@fluentui/react-northstar": "^0.49.0",
     "@microsoft/teams-js": "^1.6.0",
     "moment": "^2.27.0",
+    "moment-timezone": "^0.5.31",
+    "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
