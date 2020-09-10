@@ -20,11 +20,7 @@ h2 {
 .Error {
   color: red;
 }
-.photo{
-  img{
-    border-radius: 50%;
-  }
-}
+
 .clock{
   
   .nextDay{
@@ -37,6 +33,24 @@ h2 {
   display: flex;
   background-color: #eeeeee;
 
+  .photo{
+    &.multi{
+      display: inline-block;
+      position: relative;
+      width: 96px;
+      height: 96px;
+      overflow: hidden;
+      border-radius: 50%;
+      img{
+        margin-top:5px;
+        border-radius: initial;
+      }
+    }
+    img{
+      border-radius: 50%;
+    }
+  }
+
   .currentUser{
     flex-basis: 40%;
     background-color: #eeeeee;
@@ -48,6 +62,9 @@ h2 {
 
     .clock{
       padding: 0 1em;
+
+      
+      
     }
 
     /* Slideshow container */

@@ -102,8 +102,14 @@ class SlideShow extends React.Component {
         slideMembers.push(clocks[slideCounter]);
         slideCounter = slideCounter + 1;
       }
+      let active = "";
+      if (x === this.slideIndex) {
+        active = " inline-flex";
+      } else {
+        active = "none";
+      }
       //Create the slide and add the clocks to the slide
-      let slide = React.createElement('div', { className: "mySlides fade", key: "slide-" + x }, slideMembers);
+      let slide = React.createElement('div', { className: "mySlides fade", key: "slide-" + x, style: { display: active } }, slideMembers);
       //Add the slide to the collection
       slideCollection.push(slide);
     }

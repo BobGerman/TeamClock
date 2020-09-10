@@ -1,6 +1,7 @@
 import React from 'react';
-import multiPhoto from '../common/img/MultiPersonPlaceholder.96x96x32.png';
-import noPhoto from '../common/img/PersonPlaceholder.96x96x32.png'
+import multiPhoto from '../common/img/Group.svg';
+import noPhoto from '../common/img/Contact.svg'
+
 
 class DigitalClock extends React.Component {
   constructor(props) {
@@ -51,6 +52,7 @@ class DigitalClock extends React.Component {
     let photoUrl = "";
     let altText = "";
     let photo;
+    let multi = "";
 
     if (this.props.showPhoto) {
       if (this.props.timeZoneObj.members.length === 1) {
@@ -61,12 +63,13 @@ class DigitalClock extends React.Component {
         //If there is more than one person show a generic multi image
         photoUrl = multiPhoto;
         altText = "multiple users";
+        multi = " multi";
       } else {
         //Else show the generic no photo icon
         photoUrl = noPhoto;
         altText = "No Photo";
       }
-      photo = <div className='photo'><img src={photoUrl} alt={altText} /></div>;
+      photo = <div className={`photo` + multi}><img src={photoUrl} alt={altText} /></div>;
     }
     return photo;
   }
@@ -85,13 +88,13 @@ class DigitalClock extends React.Component {
     let names = "";
 
     if (this.props.timeZoneObj.members.length === 1) {
-      names = this.props.timeZoneObj.members[0].firstName;
+      names = this.props.timeZoneObj.members[0].firstName + " + ";
     } else {
       this.props.timeZoneObj.members.map((m, index) => {
         if (index > 0) {
-          names = names + "</br>" + m.firstName;
+          names = names + "</br>" + m.firstName + " + ";
         } else {
-          names = m.firstName;
+          names = m.firstName + " + ";
         }
         return names;
       });
