@@ -32,7 +32,8 @@ class Web extends React.Component {
     if (this.state.teamService) {
       return (
         <div className='teamClock'>
-          <h1>What Time is it Now?</h1>
+          <h1>What time is it now?</h1>
+          <a href="# ">Edit My Profile</a>
           <div className='currentTimeContainer'>
 
             <div className='currentUser'>
@@ -42,6 +43,7 @@ class Web extends React.Component {
               <SlideShow slides={timeZones} clockService={clockService} showPhoto={true} user={currentUser} timeFormat={currentUser.timeFormat}></SlideShow>
             </div>
           </div>
+
         </div>
       );
     } else {

@@ -116,8 +116,8 @@ class SlideShow extends React.Component {
 
     //If we have more than one slide add the left and right arrows
     if (numberOfSlides > 1) {
-      slideCollection.push(<a className="prev" key="prev" onClick={() => { this.plusSlides(-1) }}>&#10094;</a>);
-      slideCollection.push(<a className="next" key="next" onClick={() => { this.plusSlides(1) }}>&#10095;</a>);
+      slideCollection.push(<a href="# " className="prev" key="prev" onClick={() => { this.plusSlides(-1) }}>&#10094;</a>);
+      slideCollection.push(<a href="# " className="next" key="next" onClick={() => { this.plusSlides(1) }}>&#10095;</a>);
       slideCollection.push(<br key="br" />);
     }
 
