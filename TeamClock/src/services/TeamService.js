@@ -141,6 +141,11 @@ export default class TeamService {
                 utcOffset: 10,
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
+                firstName: "Barnam",
+                lastName: "",
+                timeZone: "Australia/Melbourne",
+                photoUrl: "",
+                timeFormat: "h:mm:ss a"
             },
             {
                 name: 'Todd',
@@ -172,6 +177,11 @@ export default class TeamService {
                 utcOffset: 2,
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
+                firstName: "Barnam",
+                lastName: "",
+                timeZone: "Australia/Melbourne",
+                photoUrl: "",
+                timeFormat: "h:mm:ss a"
             },
         ];
         let clockService = new ClockService();
