@@ -53,6 +53,13 @@ export default class TeamService{
                 workHours: 'nnnnnnneedddddddddeeeeen',
             },
             {
+                name: 'Rabia',
+                city: 'Brisbane',
+                utcOffset: 10,
+                workDays: 'owwwwwo',
+                workHours: 'nnnnnnneedddddddddeeeeen',
+            },
+            {
                 name: 'Todd',
                 city: 'Austin',
                 utcOffset: -5,
@@ -63,6 +70,13 @@ export default class TeamService{
                 name: 'Tomomi',
                 city: 'Bay area',
                 utcOffset: -7,
+                workDays: 'owwwwwo',
+                workHours: 'nnnnnnneedddddddddeeeeen',
+            },
+            {
+                name: 'Waldek',
+                city: 'Netherlands',
+                utcOffset: 2,
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
             },
