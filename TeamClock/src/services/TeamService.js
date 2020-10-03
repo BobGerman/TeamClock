@@ -1,13 +1,65 @@
-export default class TeamService{
+import noPhoto from '../common/img/PersonPlaceholder.96x96x32.png'
+import ClockService from './ClockService';
 
-    static factory () {
+export default class TeamService {
+
+    static factory() {
         const service = new TeamService();
         return Promise.resolve(service); //((resolve) => { resolve(service); });
     }
 
-    getTeamMembers (sortOrder) {
+    getCurrentUser(format) {
+        //TODO: ensure that we get the current user from Teams
+        const currentUser = {
+            firstName: "Derek",
+            lastName: "Cash-Peterson",
+            timeZone: "America/New_York",
+            photoUrl: "",
+            timeFormat: "LTS"
+
+        }
+        if (currentUser.photoUrl === "") {
+            currentUser.photoUrl = noPhoto;
+        }
+        let clockService = new ClockService();
+        let members = [];
+        members.push(currentUser);
+        currentUser.timeZoneObj = clockService.getTimeZones(members)[0];
+        return currentUser;
+    };
+
+    getOtherTeamMembers(currentUser) {
+        const allTeamMembers = this.getTeamMembers('time');
+        let otherTeamMembers = [];
+
+        // Remove the current User
+        // Need a better way of doing this
+        allTeamMembers.forEach((m) => {
+            if (m.firstName !== currentUser.firstName && m.lastName !== currentUser.lastName) {
+                otherTeamMembers.push(m);
+            }
+        });
+
+        return otherTeamMembers;
+    }
+
+    getTeamMembers(sortOrder) {
 
         let result = [
+            {
+                name: 'Derek',
+                city: 'Boston',
+                utcOffset: 4,
+                /* Preferred work week, 1 char/day, o=off, w=work */
+                workDays: 'owwwwwo',
+                /* Preferred work day, 1 char/hour, n=night, e=extended, d=day */
+                workHours: 'nnnnnnneedddddddddeeeeen',
+                firstName: "Derek",
+                lastName: "Cash-Peterson",
+                timeZone: "America/New_York",
+                photoUrl: "",
+                timeFormat: "h:mm:ss a"
+            },
             {
                 name: 'Ayca',
                 city: 'Dubai',
@@ -16,6 +68,12 @@ export default class TeamService{
                 workDays: 'owwwwwo',
                 /* Preferred work day, 1 char/hour, n=night, e=extended, d=day */
                 workHours: 'nnnnnnneedddddddddeeeeen',
+                firstName: "Ayca",
+                lastName: "",
+                timeZone: "Asia/Dubai",
+                photoUrl: "",
+                timeFormat: "h:mm:ss a"
+
             },
             {
                 name: 'Barnam',
@@ -23,6 +81,11 @@ export default class TeamService{
                 utcOffset: 10,
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
+                firstName: "Barnam",
+                lastName: "",
+                timeZone: "Australia/Melbourne",
+                photoUrl: "",
+                timeFormat: "h:mm:ss a"
             },
             {
                 name: 'Bob',
@@ -30,6 +93,11 @@ export default class TeamService{
                 utcOffset: -4,
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
+                firstName: "Bob",
+                lastName: "German",
+                timeZone: "America/New_York",
+                photoUrl: "",
+                timeFormat: "h:mm:ss a"
             },
             {
                 name: 'Dan',
@@ -37,6 +105,11 @@ export default class TeamService{
                 utcOffset: -7,
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
+                firstName: "Dan",
+                lastName: "",
+                timeZone: "America/Phoenix",
+                photoUrl: "",
+                timeFormat: "h:mm:ss a"
             },
             {
                 name: 'Emily',
@@ -44,6 +117,11 @@ export default class TeamService{
                 utcOffset: -7,
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
+                firstName: "Emily",
+                lastName: "",
+                timeZone: "America/Los_Angeles",
+                photoUrl: "",
+                timeFormat: "h:mm:ss a"
             },
             {
                 name: 'Matt',
@@ -51,6 +129,11 @@ export default class TeamService{
                 utcOffset: -7,
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
+                firstName: "Matt",
+                lastName: "",
+                timeZone: "America/Los_Angeles",
+                photoUrl: "",
+                timeFormat: "h:mm:ss a"
             },
             {
                 name: 'Rabia',
@@ -65,6 +148,11 @@ export default class TeamService{
                 utcOffset: -5,
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
+                firstName: "Matt",
+                lastName: "",
+                timeZone: "America/Chicago",
+                photoUrl: "",
+                timeFormat: "h:mm:ss a"
             },
             {
                 name: 'Tomomi',
@@ -72,6 +160,11 @@ export default class TeamService{
                 utcOffset: -7,
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
+                firstName: "Tomomi",
+                lastName: "",
+                timeZone: "America/Los_Angeles",
+                photoUrl: "",
+                timeFormat: "h:mm:ss a"
             },
             {
                 name: 'Waldek',
@@ -81,11 +174,21 @@ export default class TeamService{
                 workHours: 'nnnnnnneedddddddddeeeeen',
             },
         ];
+        let clockService = new ClockService();
+        result.map((u) => {
+            if (u.photoUrl === "") {
+                u.photoUrl = noPhoto;
+            }
+            let members = [];
+            members.push(u);
+            u.timeZoneObj = clockService.getTimeZones(members);
+            return u;
+        });
 
-        if (sortOrder === "time" ) {
-            result.sort((a,b) => { return b.utcOffset - a.utcOffset })
+        if (sortOrder === "time") {
+            result.sort((a, b) => { return b.utcOffset - a.utcOffset })
         } else {
-            result.sort((a,b) => { return a.name<b.name ? -1 : 1  })
+            result.sort((a, b) => { return a.name < b.name ? -1 : 1 })
         }
         return result;
     }

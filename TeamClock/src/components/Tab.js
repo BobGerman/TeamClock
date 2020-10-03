@@ -1,8 +1,10 @@
 import React from 'react';
 import * as microsoftTeams from "@microsoft/teams-js";
 import TeamService from '../services/TeamService';
-
-import Clock from './Clock';
+import ClockService from '../services/ClockService';
+import DigitalClock from './DigitalClock';
+import SlideShow from './SlideShow';
+// import Clock from './Clock';
 
 /**
  * The tab UI used when running in Teams
@@ -36,15 +38,43 @@ class Tab extends React.Component {
   }
 
   render() {
+    const clockService = new ClockService();
+    const teamService = new TeamService();
+    const currentUser = teamService.getCurrentUser();
+    const teamMembers = teamService.getOtherTeamMembers(currentUser);
+    const timeZones = clockService.getTimeZones(teamMembers);
+    if (this.state.teamService) {
+      return (
+        <div className='teamClock'>
+          <h1>What time is it now?</h1>
+          <a href="# ">Edit My Profile</a>
+          <div className='currentTimeContainer'>
 
-    if (this.state.context && this.state.teamService) {
-    // let userName = Object.keys(this.state.context).length > 0 ? this.state.context['upn'] : "";
-    return (
-      <Clock teamService={this.state.teamService} />
-    );
+            <div className='currentUser'>
+              <DigitalClock clockService={clockService} showPhoto={true} timeZoneObj={currentUser.timeZoneObj} user={currentUser} timeFormat={currentUser.timeFormat} currentUser={true}></DigitalClock>
+            </div>
+            <div className="otherTeamMembers">
+              <SlideShow slides={timeZones} clockService={clockService} showPhoto={true} user={currentUser} timeFormat={currentUser.timeFormat}></SlideShow>
+            </div>
+          </div>
+
+        </div>
+      );
     } else {
-      return null;
+      return false;
     }
+
+
+  // render() {
+
+  //   if (this.state.context && this.state.teamService) {
+  //   // let userName = Object.keys(this.state.context).length > 0 ? this.state.context['upn'] : "";
+  //   return (
+  //     <Clock teamService={this.state.teamService} />
+  //   );
+  //   } else {
+  //     return null;
+  //   }
 
   }
 
