@@ -136,6 +136,18 @@ export default class TeamService {
                 timeFormat: "h:mm:ss a"
             },
             {
+                name: 'Rabia',
+                city: 'Brisbane',
+                utcOffset: 10,
+                workDays: 'owwwwwo',
+                workHours: 'nnnnnnneedddddddddeeeeen',
+                firstName: "Barnam",
+                lastName: "",
+                timeZone: "Australia/Melbourne",
+                photoUrl: "",
+                timeFormat: "h:mm:ss a"
+            },
+            {
                 name: 'Todd',
                 city: 'Austin',
                 utcOffset: -5,
@@ -156,6 +168,18 @@ export default class TeamService {
                 firstName: "Tomomi",
                 lastName: "",
                 timeZone: "America/Los_Angeles",
+                photoUrl: "",
+                timeFormat: "h:mm:ss a"
+            },
+            {
+                name: 'Waldek',
+                city: 'Netherlands',
+                utcOffset: 2,
+                workDays: 'owwwwwo',
+                workHours: 'nnnnnnneedddddddddeeeeen',
+                firstName: "Barnam",
+                lastName: "",
+                timeZone: "Australia/Melbourne",
                 photoUrl: "",
                 timeFormat: "h:mm:ss a"
             },

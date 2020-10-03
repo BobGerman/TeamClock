@@ -27,7 +27,7 @@ function App() {
             <Route exact path="/termsofuse" component={TermsOfUse} />
             <Route exact path="/web" component={Web} />
             <Route exact path="/" component={Web} />
-            <Route exact path="/tab" component={TeamsHostError} />
+            <Route exact path="/tab" component={Web} />
             <Route exact path="/config" component={TeamsHostError} />
           </Router>
         </div>
