@@ -6,6 +6,10 @@ import DigitalClock from './DigitalClock';
 import SlideShow from './SlideShow';
 // import Clock from './Clock';
 
+// MAYBE WE DON'T NEED THIS?
+// There will end up being a lot of duplicated code.
+// I'll try to make the services figure out if they're in Teams or not ...
+
 /**
  * The tab UI used when running in Teams
  */

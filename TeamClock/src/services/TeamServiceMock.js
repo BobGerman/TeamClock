@@ -1,10 +1,10 @@
 import noPhoto from '../common/img/PersonPlaceholder.96x96x32.png'
 import ClockService from './ClockService';
 
-export default class TeamService {
+export default class TeamServiceMock {
 
     static async factory() {
-        const service = new TeamService();
+        const service = new TeamServiceMock();
         return Promise.resolve(service); //((resolve) => { resolve(service); });
     }
 
@@ -16,7 +16,6 @@ export default class TeamService {
             timeZone: "America/New_York",
             photoUrl: "",
             timeFormat: "LTS"
-
         }
         if (currentUser.photoUrl === "") {
             currentUser.photoUrl = noPhoto;
