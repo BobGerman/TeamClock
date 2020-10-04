@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "fe244771b5c48fc8ea74a3dd44f47688",
+    "revision": "77c733fdbaafff45b81d9504154b7451",
     "url": "/TeamClock/index.html"
   },
   {
-    "revision": "af7cf555147ef404329c",
+    "revision": "e96c26a850a527635ad1",
     "url": "/TeamClock/static/css/main.f6004691.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/TeamClock/static/js/2.0c6c58f6.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "af7cf555147ef404329c",
-    "url": "/TeamClock/static/js/main.2012cefa.chunk.js"
+    "revision": "e96c26a850a527635ad1",
+    "url": "/TeamClock/static/js/main.c337dcf4.chunk.js"
   },
   {
     "revision": "6598b093112827515ebd",

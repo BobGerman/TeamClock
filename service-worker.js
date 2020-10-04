@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/TeamClock/precache-manifest.d7199eecdcbe614fb20228bcad2223d1.js"
+  "/TeamClock/precache-manifest.77852b172e86ef2f75556912a3683e83.js"
 );
 
 self.addEventListener('message', (event) => {
