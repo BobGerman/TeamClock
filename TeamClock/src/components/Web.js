@@ -1,6 +1,5 @@
 import React from 'react';
 import TeamService from '../services/TeamService';
-import TeamServiceMock from '../services/TeamServiceMock';
 import ClockService from '../services/ClockService';
 import DigitalClock from './DigitalClock';
 import SlideShow from './SlideShow';
@@ -22,10 +21,8 @@ class Web extends React.Component {
   }
 
   componentDidMount() {
-    var teamServiceFactory = process.env.MOCK ? TeamServiceMock.factory : TeamService.factory;
-    var teamService = null;
-    teamServiceFactory()
-    .then((service) => {
+    let teamService = null;
+    TeamService.factory().then((service) => {
       teamService = service;
       return ClockService.factory();
     })
