@@ -143,7 +143,7 @@ export default class TeamService {
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 firstName: "Rabia",
                 lastName: "",
-                timeZone: "Australia/Melbourne",
+                timeZone: "Australia/Brisbane",
                 photoUrl: "",
                 timeFormat: "h:mm:ss a"
             },
