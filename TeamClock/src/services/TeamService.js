@@ -20,7 +20,7 @@ export default class TeamService{
             {
                 name: 'Barnam',
                 city: 'Melbourne',
-                utcOffset: 10,
+                utcOffset: 11,
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
             },
