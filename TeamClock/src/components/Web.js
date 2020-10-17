@@ -4,6 +4,7 @@ import ClockService from '../services/ClockService';
 import DigitalClock from './DigitalClock';
 import SlideShow from './SlideShow';
 
+
 /**
  * The web UI used when Teams pops out a browser window
  */
@@ -31,20 +32,22 @@ class Web extends React.Component {
     const timeZones = clockService.getTimeZones(teamMembers);
     if (this.state.teamService) {
       return (
-        <div className='teamClock'>
-          <h1>What time is it now?</h1>
-          <a href="# ">Edit My Profile</a>
-          <div className='currentTimeContainer'>
+        <main className='teamClock'>
+          <header>
+            <h1>What time is it now?</h1>
 
+          </header>
+          <section className='currentTimeContainer'>
             <div className='currentUser'>
               <DigitalClock clockService={clockService} showPhoto={true} timeZoneObj={currentUser.timeZoneObj} user={currentUser} timeFormat={currentUser.timeFormat} currentUser={true}></DigitalClock>
+              <a href="# ">Edit My Profile</a>
             </div>
             <div className="otherTeamMembers">
               <SlideShow slides={timeZones} clockService={clockService} showPhoto={true} user={currentUser} timeFormat={currentUser.timeFormat}></SlideShow>
             </div>
-          </div>
+          </section>
 
-        </div>
+        </main>
       );
     } else {
       return false;
