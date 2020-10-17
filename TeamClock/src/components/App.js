@@ -4,7 +4,7 @@ import * as microsoftTeams from "@microsoft/teams-js";
 import { HashRouter as Router, Route } from "react-router-dom";
 import Privacy from "./Privacy";
 import TermsOfUse from "./TermsOfUse";
-import Tab from './Tab';
+// import Tab from './Tab';
 import TabConfig from './TabConfig';
 import Web from './Web';
 
@@ -41,7 +41,7 @@ function App() {
     return (
       <div className="App">
         <Router>
-          <Route exact path="/tab" component={Tab} />
+          <Route exact path="/tab" component={Web} />
           <Route exact path="/config" component={TabConfig} />
         </Router>
       </div>
