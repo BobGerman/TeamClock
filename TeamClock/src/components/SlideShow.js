@@ -74,16 +74,7 @@ class SlideShow extends React.Component {
   }
 
   _getNumberOfSlides() {
-    let itemsPerSlide = this._getSlideWidth();
-
-    //Figure out the number of slides we need based on the number of clocks
-    let numberOfSlides = this.props.slides.length / itemsPerSlide;
-    //If there is a remainder add an extra slide
-    if (this.props.slides.length % itemsPerSlide !== 0) {
-      numberOfSlides = numberOfSlides + 1;
-    }
-
-    return numberOfSlides;
+    return Math.round(this.props.slides.length / this._getSlideWidth());
   }
 
   //Render the slides and put the correct number of users in the slide
@@ -135,6 +126,7 @@ class SlideShow extends React.Component {
       }
 
       navigationArray.push(React.createElement('div', { className: `count`, onClick: () => this.plusSlides(-1) }, currentSlide + " of " + this.state.numberOfSlides));
+
       if (this.state.slideIndex === this.state.numberOfSlides - 1) {
         navigationArray.push(React.createElement('div', { className: `button right disabled` }, ">"));
       } else {
