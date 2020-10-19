@@ -27,9 +27,9 @@ class Web extends React.Component {
       teamService = service;
       return ClockService.factory();
     })
-    .then((clockSservice) => {
-      this.loadData(teamService, clockSservice);
-    });
+      .then((clockSservice) => {
+        this.loadData(teamService, clockSservice);
+      });
   }
 
   // Right now this is called only by componentDidMount()
@@ -65,18 +65,18 @@ class Web extends React.Component {
           <section className='currentTimeContainer'>
             <div className='currentUser'>
               <DigitalClock clockService={this.state.clockService}
-                            showPhoto={true}
-                            timeZoneObj={this.state.currentUser.timeZoneObj}
-                            user={this.state.currentUser}
-                            timeFormat={this.state.currentUser.timeFormat}
-                            currentUser={true} />
+                showPhoto={true}
+                timeZoneObj={this.state.currentUser.timeZoneObj}
+                user={this.state.currentUser}
+                timeFormat={this.state.currentUser.timeFormat}
+                currentUser={true} />
             </div>
             <div className="otherTeamMembers">
               <SlideShow slides={this.state.timeZones}
-                         clockService={this.state.clockService} 
-                         showPhoto={true} 
-                         user={this.state.currentUser} 
-                         timeFormat={this.state.currentUser.timeFormat} />
+                clockService={this.state.clockService}
+                showPhoto={true}
+                user={this.state.currentUser}
+                timeFormat={this.state.currentUser.timeFormat} />
             </div>
           </section>
 

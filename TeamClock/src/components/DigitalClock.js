@@ -41,7 +41,7 @@ class DigitalClock extends React.Component {
       header = <div>{this.props.timeZoneObj.abbreviation} {offset} hrs </div>;
     }
     if (this.props.currentUser) {
-      header = <div>My Current Time</div>;
+      header = <div>Current Time</div>;
     }
 
     return header;

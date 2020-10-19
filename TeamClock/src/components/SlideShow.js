@@ -59,14 +59,32 @@ class SlideShow extends React.Component {
 
   //Get the width of the screen and decide how many users to show per slide
   _getSlideWidth() {
-    let containerWidth = window.innerWidth;
-    let itemsPerSlide = 1;
+    let containerWidth;
+    let slideElement = document.getElementsByClassName("teamClock");
+    if (slideElement.length <= 0) {
+      containerWidth = window.innerWidth;
+    } else {
+      containerWidth = slideElement[0].offsetWidth;
+    }
+    //let containerWidth = window.innerWidth;
 
-    if ((containerWidth > 500) && (containerWidth < 800)) {
+    let itemsPerSlide = 1;
+    console.log("Container Width: " + containerWidth);
+    if ((containerWidth > 650) && (containerWidth < 800)) {
       itemsPerSlide = 2;
-    } else if ((containerWidth >= 800) && (containerWidth < 1000)) {
+    } else if ((containerWidth >= 800) && (containerWidth < 900)) {
       itemsPerSlide = 3;
-    } else if (containerWidth > 1000) {
+    }
+    else if ((containerWidth >= 900) && (containerWidth < 1000)) {
+      itemsPerSlide = 4;
+    }
+    else if ((containerWidth >= 1000) && (containerWidth < 1100)) {
+      itemsPerSlide = 5;
+    }
+    else if ((containerWidth >= 1100) && (containerWidth < 1200)) {
+      itemsPerSlide = 6;
+    }
+    else if (containerWidth > 1200) {
       itemsPerSlide = this.props.slides.length;
     }
 
