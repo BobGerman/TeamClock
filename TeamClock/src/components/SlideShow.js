@@ -66,10 +66,10 @@ class SlideShow extends React.Component {
     } else {
       containerWidth = slideElement[0].offsetWidth;
     }
-    //let containerWidth = window.innerWidth;
 
     let itemsPerSlide = 1;
-    console.log("Container Width: " + containerWidth);
+    //console.log("Container Width: " + containerWidth);
+    //Is there a better way to do this with math? 
     if ((containerWidth > 650) && (containerWidth < 800)) {
       itemsPerSlide = 2;
     } else if ((containerWidth >= 800) && (containerWidth < 900)) {
