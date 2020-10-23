@@ -1,11 +1,10 @@
 * {box-sizing:border-box}
 
 .App {
-  text-align: center;
-  background-color: #eeeeee;
+  background-color: #f3f2f1;
 }
 h1 {
-  color: purple;
+  color: #464775;
 }
 h2 {
   font-size: .8em;
@@ -21,12 +20,61 @@ h2 {
 .Error {
   color: red;
 }
-
+header{
+  text-align: center;
+}
 .clock{
+  text-align: center;
   .nextDay{
     color: red;
     display: block;
   }
+}
+
+.button {
+  background-color: #ddd;
+  border: none;
+  color: black;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+
+  &:hover{
+    background-color: #f1f1f1;
+  }
+
+}
+.left{
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+  border-right: 1px solid#E8E8E8;
+  margin-right: 0;
+}
+.right{
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
+  border-left: 1px solid#E8E8E8;
+  margin-left: 0;
+}
+.count{
+  display:inline-block;
+  background-color: #ddd;
+  padding: 5px 10px;
+  
+}
+.disabled{
+  cursor: default;
+  background-color: #C0C0C0;
+
+  &:hover{
+    background-color: #C0C0C0;
+  }
+}
+.navControls{
+  text-align: center;
 }
 
 .currentTimeContainer{
@@ -63,7 +111,7 @@ h2 {
 
     /* Slideshow container */
     .slideshow-container {
-      max-width: 1000px;
+      /*max-width: 1000px;*/
       position: relative;
       margin: auto;
 
@@ -92,47 +140,7 @@ h2 {
 
     }
 
-    .button {
-      background-color: #ddd;
-      border: none;
-      color: black;
-      padding: 5px 10px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      margin: 4px 2px;
-      cursor: pointer;
-
-    }
-    .left{
-      border-top-left-radius: 16px;
-      border-bottom-left-radius: 16px;
-      border-right: 1px solid#E8E8E8;
-        margin-right: 0;
-    }
-    .right{
-    border-top-right-radius: 16px;
-      border-bottom-right-radius: 16px;
-      border-left: 1px solid#E8E8E8;
-        margin-left: 0;
-    }
-    .button:hover {
-      background-color: #f1f1f1;
-    }
-    .count{
-      display:inline-block;
-      background-color: #ddd;
-      padding: 5px 10px;
-      
-    }
-    .disabled{
-      cursor: default;
-      background-color: #C0C0C0;
-
-      &:hover{
-        background-color: #C0C0C0;
-      }
-    }
+    
   }
 }
 
@@ -144,6 +152,9 @@ h2 {
 
     .header{
       font-weight: bold;
+    }
+    aside{
+      min-width: 152px;
     }
 
     ul{
@@ -179,51 +190,17 @@ h2 {
 
       /* Slideshow container */
     .timeSlotsContainer {
-      max-width: 1000px;
+      /*max-width: 1000px;*/
       position: relative;
       /*margin: auto;*/
       text-align: left;
+      width:100%;
 
       /* Hide the images by default */
-      .timeSlide {
+      .timeSlides {
         display: none;
-      }
-      
-      /* Next & previous buttons */
-      .prev, .next {
-        cursor: pointer;
-        position: absolute;
-        top: .9em;
-        width: 1.5em;
-        height: 1.5em;
-        color: white;
-        font-weight: bold;
-        font-size: 1em;
-        transition: 0.6s ease;
-        border-radius: 50%;
-        -webkit-user-select: none;
-        background-color: #bbb;
-        text-decoration: none;
-        text-align: center;
-      }
-      /* Position the "next button" to the right */
-      .next {
-        right: 0;
-        /*border-radius: 3px 0 0 3px;*/
-        
-      }
-      .prev{
-        left: -2em;
-        /*border-radius: 0 3px 3px 0;*/
-      }
 
-      /* On hover, add a black background color with a little bit see-through */
-      .prev:hover, .next:hover {
-        background-color: rgba(113,113,113,0.8);
       }
-
-      
-
       
       /* Fading animation */
       .fade {
@@ -244,20 +221,7 @@ h2 {
       }
 
     }
-    /* The dots/bullets/indicators */
-      .dot {
-        cursor: pointer;
-        height: 15px;
-        width: 15px;
-        margin: 0 2px;
-        background-color: #bbb;
-        border-radius: 50%;
-        display: inline-block;
-        transition: background-color 0.6s ease;
-      }
-      .active, .dot:hover {
-        background-color: #717171;
-      }
+    
   }
 }
 .border{

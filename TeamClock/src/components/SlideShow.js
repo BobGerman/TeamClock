@@ -14,6 +14,7 @@ class SlideShow extends React.Component {
   componentDidMount() {
     this.showSlides(this.state.slideIndex);
     window.addEventListener("resize", this.updateWindowDimensions);
+    this.forceUpdate();
   }
   componentWillUnmount() {
 
@@ -25,6 +26,7 @@ class SlideShow extends React.Component {
       slideIndex: 0,
       numberOfSlides: this._getNumberOfSlides()
     });
+
   }
 
   //The left and right slide buttons
@@ -58,47 +60,25 @@ class SlideShow extends React.Component {
   }
 
   //Get the width of the screen and decide how many users to show per slide
-  _getSlideWidth() {
+  _getItemsPerSlide() {
     let containerWidth;
-    let slideElement = document.getElementsByClassName("teamClock");
+    let slideElement = document.getElementsByClassName("slideshow-container");
     if (slideElement.length <= 0) {
       containerWidth = window.innerWidth;
     } else {
       containerWidth = slideElement[0].offsetWidth;
     }
 
-    let itemsPerSlide = 1;
-    //console.log("Container Width: " + containerWidth);
-    //Is there a better way to do this with math? 
-    if ((containerWidth > 650) && (containerWidth < 800)) {
-      itemsPerSlide = 2;
-    } else if ((containerWidth >= 800) && (containerWidth < 900)) {
-      itemsPerSlide = 3;
-    }
-    else if ((containerWidth >= 900) && (containerWidth < 1000)) {
-      itemsPerSlide = 4;
-    }
-    else if ((containerWidth >= 1000) && (containerWidth < 1100)) {
-      itemsPerSlide = 5;
-    }
-    else if ((containerWidth >= 1100) && (containerWidth < 1200)) {
-      itemsPerSlide = 6;
-    }
-    else if (containerWidth > 1200) {
-      itemsPerSlide = this.props.slides.length;
-    }
-
-    return itemsPerSlide;
+    return Math.floor(containerWidth / 125);;
   }
 
   _getNumberOfSlides() {
-    return Math.round(this.props.slides.length / this._getSlideWidth());
+    return Math.ceil(this.props.slides.length / this._getItemsPerSlide());
   }
 
   //Render the slides and put the correct number of users in the slide
   _renderSlides() {
-    let itemsPerSlide = this._getSlideWidth();
-
+    let itemsPerSlide = this._getItemsPerSlide();
     let clocks = [];
 
     //Create an array of all the users
@@ -132,7 +112,7 @@ class SlideShow extends React.Component {
       slideCollection.push(slide);
     }
 
-    let slideContainer = React.createElement('div', { className: "slideshow-container" }, slideCollection);
+
     let navigationArray = [];
 
     if (this.state.numberOfSlides > 1) {
@@ -152,9 +132,10 @@ class SlideShow extends React.Component {
       }
 
     }
-
+    let navDiv = React.createElement('div', { className: 'navControls' }, navigationArray);
+    let slideContainer = React.createElement('div', { className: "slideshow-container" }, slideCollection, navDiv);
     //Render the slides container
-    let container = React.createElement('div', {}, [slideContainer, navigationArray]);
+    let container = React.createElement('div', {}, [slideContainer]);
     return container;
 
   }

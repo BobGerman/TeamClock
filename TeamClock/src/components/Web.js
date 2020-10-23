@@ -3,6 +3,7 @@ import TeamService from '../services/TeamService';
 import ClockService from '../services/ClockService';
 import DigitalClock from './DigitalClock';
 import SlideShow from './SlideShow';
+import ScheduleComponent from './ScheduleComponent';
 
 
 /**
@@ -78,6 +79,15 @@ class Web extends React.Component {
                 user={this.state.currentUser}
                 timeFormat={this.state.currentUser.timeFormat} />
             </div>
+          </section>
+          <section>
+            <ScheduleComponent
+              clockService={this.state.clockService}
+              timeZoneObj={this.state.currentUser.timeZoneObj}
+              user={this.state.currentUser}
+              timeFormat={this.state.currentUser.timeFormat}>
+
+            </ScheduleComponent>
           </section>
 
         </main>

@@ -12,6 +12,22 @@ export default class ClockService {
     return moment.tz(new Date().toISOString(), timezone).format(format);
   };
 
+  getMeetingHours(format, timezone, numberofHours) {
+    let hours = [];
+    let currentDate = new Date();
+    let currentTime = new moment.tz(currentDate.toISOString(), timezone).format(format);
+    currentTime = parseInt(currentTime, 10)
+    let x = 1;
+    hours.push(currentTime);
+    for (x = 1; x <= numberofHours; x++) {
+      currentDate.setHours(currentDate.getHours() + 1);
+      currentTime = new moment.tz(currentDate.toISOString(), timezone).format(format);
+      currentTime = parseInt(currentTime, 10)
+      hours.push(currentTime);
+    }
+    return hours;
+  }
+
   isNextDay(timezone) {
     let isNextDay = false;
     let now = moment();
