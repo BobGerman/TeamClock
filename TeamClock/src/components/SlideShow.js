@@ -5,6 +5,7 @@ class SlideShow extends React.Component {
   constructor(props) {
     super(props);
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    this._addParticipant = this._addParticipant.bind(this);
     this.state = {
       slideIndex: 0,
       numberOfSlides: this._getNumberOfSlides()
@@ -76,6 +77,10 @@ class SlideShow extends React.Component {
     return Math.ceil(this.props.slides.length / this._getItemsPerSlide());
   }
 
+  _addParticipant(participant) {
+    this.props.addParticipant(participant);
+  }
+
   //Render the slides and put the correct number of users in the slide
   _renderSlides() {
     let itemsPerSlide = this._getItemsPerSlide();
@@ -83,7 +88,7 @@ class SlideShow extends React.Component {
 
     //Create an array of all the users
     this.props.slides.map((m, index) => {
-      let clock = <DigitalClock clockService={this.props.clockService} key={`clock-` + index} timeZoneObj={m} showPhoto={true} user={this.props.user} timeFormat={this.props.timeFormat}></DigitalClock>;
+      let clock = <DigitalClock clockService={this.props.clockService} key={`clock-` + index} timeZoneObj={m} showPhoto={true} user={this.props.user} timeFormat={this.props.timeFormat} addParticipant={this._addParticipant} participants={this.props.participants}></DigitalClock>;
       return clocks.push(clock);
     });
 

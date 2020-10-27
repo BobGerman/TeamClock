@@ -30,6 +30,17 @@ header{
     display: block;
   }
 }
+.green{
+  background-color: green !important;
+}
+.yellow{
+  background-color: yellow !important;
+}
+.red{
+  background-color: #DA291C !important;
+  color: white;
+  font-weight: bold;
+}
 
 .button {
   background-color: #ddd;
@@ -97,6 +108,18 @@ header{
       border-radius: 50%;
       width:96px;
       height: 96px;
+    }
+  }
+
+  .personName{
+    span{
+      display: block;
+      cursor: pointer;
+    }
+    img.addButton{
+      max-width: .7em;
+      vertical-align: middle;
+      margin-left: .25em;
     }
   }
 
@@ -183,7 +206,7 @@ header{
           li{
             background-color:inherit;
           }
-          background-color: rgba(255, 0, 0, 0.4);
+          background-color: rgba(255, 0, 0, 0.4) !important;
           
         }
       }
@@ -200,6 +223,19 @@ header{
       .timeSlides {
         display: none;
 
+      }
+
+      .timeSlide{
+        li{
+          border-radius: 16px;
+          text-align: center;
+          /*border-left: 1px solid #f3f2f1;
+          border-right: 1px solid #f3f2f1;*/
+          border-left: 3px solid #f3f2f1;
+          border-right: 3px solid #f3f2f1;
+          border-top: 3px solid #f3f2f1;
+          border-bottom: 3px solid #f3f2f1;
+        }
       }
       
       /* Fading animation */

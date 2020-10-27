@@ -1,14 +1,16 @@
 import React from 'react';
+import remove from '../common/img/Cancel.svg'
 
 class ScheduleComponent extends React.Component {
   constructor(props) {
     super(props);
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    this._removeParticipant = this._removeParticipant.bind(this);
     this.state = {
       slideIndex: 0,
       numberOfSlides: this._getNumberOfSlides(),
       time: this.props.clockService.getCurrentTime(this.props.timeFormat, this.props.timeZoneObj.timeZone),
-      invitees: []
+      participants: this.props.participants
     }
   }
 
@@ -27,11 +29,11 @@ class ScheduleComponent extends React.Component {
   componentWillUnmount() {
     clearInterval(this.intervalID);
   }
-  _tick() {
-    this.setState({
-      time: this.props.clockService.getCurrentTime(this.props.timeFormat, this.props.timeZoneObj.timeZone)
-    });
-  }
+  // _tick() {
+  //   this.setState({
+  //     time: this.props.clockService.getCurrentTime(this.props.timeFormat, this.props.timeZoneObj.timeZone)
+  //   });
+  // }
 
   updateWindowDimensions() {
     // When the window resizes we want to reset the number of slides we have 
@@ -91,10 +93,8 @@ class ScheduleComponent extends React.Component {
     let itemsPerSlide = this._getItemsPerSlide();
 
     //Get the next 12 hours for the current user to check schedules
-    let hours = this.props.clockService.getMeetingHours('h', this.props.timeZoneObj.timeZone, 12);
+    let hours = this.props.clockService.getMeetingHours('ddd. ha', this.props.timeZoneObj.timeZone, 12);
 
-    //Get the meeting participants
-    let participants = ["Derek", "Barnham", "Ayca", "Bob", "Dan", "Martin", "Tomomi", "Emily", "Todd", "Joseph", "Mark", "Max"];
     let timeSlots = [];
 
     //Create an array the hours in the current users timezone
@@ -102,9 +102,17 @@ class ScheduleComponent extends React.Component {
 
       //Loop through participants
       let hoursLIs = [];
-      participants.map((participant, index) => {
+      this.props.teamMembers.map((participant, index) => {
         //Get the hour that is equivalent to the time represented in the current hour
-        let hourli = React.createElement('li', { className: "", key: "li-" + participant + "-" + index }, "Thurs. 12pm");
+        let hour = m;
+        let color = "green"
+        if (index !== 0) {
+          //Need to get the user object and figure out their time
+          hour = "blah 1pm";
+          //Get if it is red or yellow
+          color = "red";
+        }
+        let hourli = React.createElement('li', { className: color, key: "li-" + participant + "-" + index }, hour);
         return hoursLIs.push(hourli);
       });
       //Create a UL for the hours
@@ -168,33 +176,37 @@ class ScheduleComponent extends React.Component {
 
   }
 
+  _removeParticipant(participant) {
+    this.props.removeParticipant(participant);
+  }
+
+  _renderParticipants() {
+    //Loop through participants
+    let participantLIs = [];
+    let removeButton = React.createElement('img', { className: 'addButton', src: remove }, null)
+
+    this.state.participants.map((participant, index) => {
+      //Get the hour that is equivalent to the time represented in the current hour
+      let participantLI = React.createElement('li', { className: "", onClick: () => this._removeParticipant(participant), key: "li-" + participant + "-" + index }, [participant.firstName, removeButton]);
+      return participantLIs.push(participantLI);
+    });
+    //Create a UL for the hours
+    let participantUL = React.createElement('ul', {}, participantLIs);
+
+    return React.createElement('aside', {}, participantUL);
+  }
+
 
 
   render() {
     return (
       <div className="scheduleComponent">
         <header>
-          <h2>Scheduling</h2>
+          <h1>Scheduling</h1>
         </header>
         <div className="datePicker"></div>
         <section className="schedules">
-          <aside>
-            <ul>
-              <li>Derek</li>
-              <li>Barnham</li>
-              <li>Ayca</li>
-              <li>Bob</li>
-              <li>Dan</li>
-              <li>Martin</li>
-              <li>Tomomi</li>
-              <li>Emily</li>
-              <li>Todd</li>
-              <li>Joseph</li>
-              <li>Mark</li>
-              <li>Max</li>
-            </ul>
-          </aside>
-
+          {this._renderParticipants()}
           {this._renderSlides()}
         </section>
       </div>

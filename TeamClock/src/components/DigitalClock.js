@@ -1,6 +1,7 @@
 import React from 'react';
 import multiPhoto from '../common/img/Group.svg';
-import noPhoto from '../common/img/Contact.svg'
+import noPhoto from '../common/img/Contact.svg';
+import add from '../common/img/Add.svg'
 
 
 class DigitalClock extends React.Component {
@@ -8,7 +9,7 @@ class DigitalClock extends React.Component {
     super(props);
     this.state = {
       time: this.props.clockService.getCurrentTime(this.props.timeFormat, this.props.timeZoneObj.timeZone),
-
+      participants: this.props.participants
     };
   }
   componentDidMount() {
@@ -83,24 +84,33 @@ class DigitalClock extends React.Component {
     }
     return nextDaySpan;
   }
+  _addParticipant(participant) {
+    this.props.addParticipant(participant);
+  }
 
+  _renderAddButton(participant) {
+    let addButton;
+    if (!this.state.participants.includes(participant)) {
+      addButton = React.createElement('img', { className: 'addButton', src: add }, null)
+    }
+    return addButton
+  }
   _renderPeople() {
-    let names = "";
-
+    let person = [];
     if (this.props.timeZoneObj.members.length === 1) {
-      names = this.props.timeZoneObj.members[0].firstName + " + ";
+      person.push(React.createElement('span', { onClick: () => this._addParticipant(this.props.timeZoneObj.members[0]) }, [this.props.timeZoneObj.members[0].firstName, this._renderAddButton(this.props.timeZoneObj.members[0])]));
     } else {
       this.props.timeZoneObj.members.map((m, index) => {
-        if (index > 0) {
-          names = names + "</br>" + m.firstName + " + ";
-        } else {
-          names = m.firstName + " + ";
-        }
-        return names;
+
+        person.push(React.createElement('span', { onClick: () => this._addParticipant(m) }, [m.firstName, this._renderAddButton(m)]));
+
+        return null;
       });
     }
+    let personContainer = React.createElement('div', { className: 'personName' }, person);
+    //<div className='personName' dangerouslySetInnerHTML={{ __html: this._renderPeople() }} ></div>
 
-    return names
+    return personContainer
   }
 
   render() {
@@ -109,7 +119,7 @@ class DigitalClock extends React.Component {
         {this._renderHeader()}
         {this._renderPhoto()}
         <div>{this.state.time} {this._isNextDay()}</div>
-        <div className='personName' dangerouslySetInnerHTML={{ __html: this._renderPeople() }} ></div>
+        {this._renderPeople()}
       </div>
     );
   }
