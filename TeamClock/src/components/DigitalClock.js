@@ -90,7 +90,7 @@ class DigitalClock extends React.Component {
 
   _renderAddButton(participant) {
     let addButton;
-    if (!this.state.participants.includes(participant)) {
+    if (!this.props.participants.includes(participant)) {
       addButton = React.createElement('img', { className: 'addButton', src: add }, null)
     }
     return addButton

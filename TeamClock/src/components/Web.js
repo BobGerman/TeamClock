@@ -49,11 +49,12 @@ class Web extends React.Component {
   _removeParticipant(participant) {
     let participantArray = this.state.participants;
     if (participantArray.includes(participant)) {
-      participantArray = participantArray.filter(x => x !== participant);
+
       this.setState({
-        participants: participantArray
+        participants: participantArray.filter(x => x !== participant)
       });
     }
+    console.log(this.state.participants);
   }
 
   // Right now this is called only by componentDidMount()

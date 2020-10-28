@@ -4,36 +4,29 @@ import remove from '../common/img/Cancel.svg'
 class ScheduleComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-    this._removeParticipant = this._removeParticipant.bind(this);
+
     this.state = {
       slideIndex: 0,
       numberOfSlides: this._getNumberOfSlides(),
       time: this.props.clockService.getCurrentTime(this.props.timeFormat, this.props.timeZoneObj.timeZone),
-      participants: this.props.participants
     }
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    this._removeParticipant = this._removeParticipant.bind(this);
   }
 
   componentDidMount() {
     this.showSlides(this.state.slideIndex);
     window.addEventListener("resize", this.updateWindowDimensions);
-    //If we are keeping track of the time in both components can we bring it up a level
-    //So we are not doing it twice
-    // this.intervalID = setInterval(
-    //   () => this._tick(),
-    //   1000
-    // );
     this.forceUpdate();
 
   }
   componentWillUnmount() {
-    clearInterval(this.intervalID);
   }
-  // _tick() {
-  //   this.setState({
-  //     time: this.props.clockService.getCurrentTime(this.props.timeFormat, this.props.timeZoneObj.timeZone)
-  //   });
-  // }
+
+  componentDidUpdate() {
+    console.log("updated " + this.props.participants);
+  }
+
 
   updateWindowDimensions() {
     // When the window resizes we want to reset the number of slides we have 
@@ -112,6 +105,7 @@ class ScheduleComponent extends React.Component {
           //Get if it is red or yellow
           color = "red";
         }
+
         let hourli = React.createElement('li', { className: color, key: "li-" + participant + "-" + index }, hour);
         return hoursLIs.push(hourli);
       });
@@ -185,9 +179,10 @@ class ScheduleComponent extends React.Component {
     let participantLIs = [];
     let removeButton = React.createElement('img', { className: 'addButton', src: remove }, null)
 
-    this.state.participants.map((participant, index) => {
+    this.props.participants.map((participant, index) => {
       //Get the hour that is equivalent to the time represented in the current hour
-      let participantLI = React.createElement('li', { className: "", onClick: () => this._removeParticipant(participant), key: "li-" + participant + "-" + index }, [participant.firstName, removeButton]);
+      let span = React.createElement('span', { className: 'peopleSpan' }, [participant.firstName, removeButton])
+      let participantLI = React.createElement('li', { className: "peopleList", onClick: () => this._removeParticipant(participant), key: "li-" + participant + "-" + index }, span);
       return participantLIs.push(participantLI);
     });
     //Create a UL for the hours
