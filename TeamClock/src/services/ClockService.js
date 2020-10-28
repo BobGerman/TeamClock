@@ -74,4 +74,9 @@ export default class ClockService {
     );
     return timeZones;
   }
+
+  convertTimeZone(originalTime, format, convertToTimeZone) {
+    return moment(originalTime, null).tz(convertToTimeZone);
+  }
+
 }

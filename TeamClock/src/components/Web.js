@@ -38,6 +38,10 @@ class Web extends React.Component {
 
   _addParticipant(participant) {
     let participantArray = this.state.participants;
+    //If the meeting is empty add the current user
+    if (participantArray.length === 0) {
+      participantArray.push(this.state.currentUser);
+    }
     if (!participantArray.includes(participant)) {
       participantArray.push(participant);
       this.setState({

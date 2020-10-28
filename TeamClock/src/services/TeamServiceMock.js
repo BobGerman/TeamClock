@@ -11,6 +11,13 @@ export default class TeamServiceMock {
     async getCurrentUser(format) {
 
         const currentUser = {
+            name: 'Derek',
+            city: 'Boston',
+            utcOffset: 4,
+            /* Preferred work week, 1 char/day, o=off, w=work */
+            workDays: 'owwwwwo',
+            /* Preferred work day, 1 char/hour, n=night, e=extended, d=day */
+            workHours: 'nnnnnnneedddddddddeeeeen',
             firstName: "Derek",
             lastName: "Cash-Peterson",
             timeZone: "America/New_York",

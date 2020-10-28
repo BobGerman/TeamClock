@@ -20,13 +20,6 @@ class ScheduleComponent extends React.Component {
     this.forceUpdate();
 
   }
-  componentWillUnmount() {
-  }
-
-  componentDidUpdate() {
-    console.log("updated " + this.props.participants);
-  }
-
 
   updateWindowDimensions() {
     // When the window resizes we want to reset the number of slides we have 
@@ -86,8 +79,8 @@ class ScheduleComponent extends React.Component {
     let itemsPerSlide = this._getItemsPerSlide();
 
     //Get the next 12 hours for the current user to check schedules
-    let hours = this.props.clockService.getMeetingHours('ddd. ha', this.props.timeZoneObj.timeZone, 12);
-
+    let hours = this.props.clockService.getMeetingHours('H', this.props.timeZoneObj.timeZone, 12);
+    //ddd. ha
     let timeSlots = [];
 
     //Create an array the hours in the current users timezone
@@ -95,18 +88,34 @@ class ScheduleComponent extends React.Component {
 
       //Loop through participants
       let hoursLIs = [];
-      this.props.teamMembers.map((participant, index) => {
+      this.props.participants.map((participant, index) => {
         //Get the hour that is equivalent to the time represented in the current hour
         let hour = m;
+
+        let meetingDate = new Date()
+        meetingDate.setHours(m);
+        hour = this.props.clockService.convertTimeZone(meetingDate, 'ddd. ha', participant.timeZone);
+
+
+
+
         let color = "green"
-        if (index !== 0) {
-          //Need to get the user object and figure out their time
-          hour = "blah 1pm";
-          //Get if it is red or yellow
-          color = "red";
+        //TODO - wire up to working hours
+        let workingHour = parseInt(hour.format("H"));
+        if (workingHour >= 0 && workingHour <= 6) {
+          color = "red"
+        }
+        if (workingHour > 6 && workingHour <= 8) {
+          color = "yellow"
+        }
+        if (workingHour > 17 && workingHour <= 19) {
+          color = "yellow"
+        }
+        if (workingHour > 19 && workingHour <= 24) {
+          color = "red"
         }
 
-        let hourli = React.createElement('li', { className: color, key: "li-" + participant + "-" + index }, hour);
+        let hourli = React.createElement('li', { className: color, key: "li-" + participant + "-" + index }, hour.format('ddd. ha'));
         return hoursLIs.push(hourli);
       });
       //Create a UL for the hours
@@ -145,7 +154,7 @@ class ScheduleComponent extends React.Component {
 
     let navigationArray = [];
 
-    if (this.state.numberOfSlides > 1) {
+    if ((this.state.numberOfSlides > 1) && (this.props.participants.length > 1)) {
       var currentSlide = this.state.slideIndex + 1;
       if (currentSlide === 1) {
         navigationArray.push(React.createElement('div', { className: `button left disabled` }, "<"));
