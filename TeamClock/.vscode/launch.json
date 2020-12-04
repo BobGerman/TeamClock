@@ -2,19 +2,25 @@
     "version": "1.0.0",
     "configurations": [
         {
-            "name": "Launch Edge",
+            "name": "Debug Teams (Chrome)",
+            "type": "chrome",
             "request": "launch",
-            "type": "pwa-msedge",
-            "url": "https://teams.microsoft.com/",
+            "url": "https://teams.microsoft.com/_#/l/app/fdface0a-d067-4345-96ee-410757fe13e5?installAppPackage=true",
             "webRoot": "${workspaceFolder}"
         },
         {
-            "name": "Launch Chrome",
+            "name": "Debug Teams (Edge)",
+            "type": "edge",
+            "request": "launch",
+            "url": "https://teams.microsoft.com/_#/l/app/fdface0a-d067-4345-96ee-410757fe13e5?installAppPackage=true",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "name": "Debug (Chrome)",
             "type": "chrome",
             "request": "launch",
-            "url": "https://teams.microsoft.com/",
-            "webRoot": "${workspaceFolder}",
-            "postDebugTask": "quitTeamsWindows"
+            "url": "https://localhost:3000/tab",
+            "webRoot": "${workspaceFolder}"
         }
     ]
 }
