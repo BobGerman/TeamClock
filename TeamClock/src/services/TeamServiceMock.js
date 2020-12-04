@@ -87,7 +87,7 @@ export default class TeamServiceMock {
             {
                 name: 'Barnam',
                 city: 'Melbourne',
-                utcOffset: 10,
+                utcOffset: 11,
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 firstName: "Barnam",
