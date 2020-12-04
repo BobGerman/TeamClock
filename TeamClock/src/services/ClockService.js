@@ -8,9 +8,24 @@ export default class ClockService {
     return Promise.resolve(service);
   }
 
-  getCurrentTime(format, timezone) {
-    return moment.tz(new Date().toISOString(), timezone).format(format);
+  getCurrentTime(date, format, timezone) {
+    return moment.tz(date.toISOString(), timezone).format(format);
   };
+
+  getMeetingHours(date, format, timezone, numberofHours) {
+    let hours = [];
+    let currentTime = new moment.tz(date.toISOString(), timezone).format(format);
+    //currentTime = parseInt(currentTime, 10)
+    let x = 1;
+    hours.push(currentTime);
+    for (x = 1; x <= numberofHours; x++) {
+      date.setHours(date.getHours() + 1);
+      currentTime = new moment.tz(date.toISOString(), timezone).format(format);
+      //currentTime = parseInt(currentTime, 10)
+      hours.push(currentTime);
+    }
+    return hours;
+  }
 
   isNextDay(timezone) {
     let isNextDay = false;
@@ -58,4 +73,13 @@ export default class ClockService {
     );
     return timeZones;
   }
+
+  convertTimeZone(originalTime, convertToTimeZone) {
+    return moment(originalTime, null).tz(convertToTimeZone);
+  }
+
+  isLeapYear(date) {
+    return moment(date.getYear()).isLeapYear;
+  }
+
 }

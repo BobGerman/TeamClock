@@ -11,11 +11,19 @@ export default class TeamServiceMock {
     async getCurrentUser(format) {
 
         const currentUser = {
+            name: 'Derek',
+            city: 'Boston',
+            utcOffset: 4,
+            /* Preferred work week, 1 char/day, o=off, w=work */
+            workDays: 'owwwwwo',
+            /* Preferred work day, 1 char/hour, n=night, e=extended, d=day */
+            workHours: 'nnnnnnneedddddddddeeeeen',
             firstName: "Derek",
             lastName: "Cash-Peterson",
             timeZone: "America/New_York",
             photoUrl: "",
-            timeFormat: "LTS"
+            timeFormat: "h:mm a",
+            dateFormat: "MM/dd/yyyy"
         }
         if (currentUser.photoUrl === "") {
             currentUser.photoUrl = noPhoto;
@@ -57,7 +65,8 @@ export default class TeamServiceMock {
                 lastName: "Cash-Peterson",
                 timeZone: "America/New_York",
                 photoUrl: "",
-                timeFormat: "h:mm:ss a"
+                timeFormat: "h:mm a",
+                dateFormat: "MM/dd/yyyy"
             },
             {
                 name: 'Ayca',
@@ -71,20 +80,22 @@ export default class TeamServiceMock {
                 lastName: "",
                 timeZone: "Asia/Dubai",
                 photoUrl: "",
-                timeFormat: "h:mm:ss a"
+                timeFormat: "h:mm a",
+                dateFormat: "MM/dd/yyyy"
 
             },
             {
                 name: 'Barnam',
                 city: 'Melbourne',
-                utcOffset: 10,
+                utcOffset: 11,
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 firstName: "Barnam",
                 lastName: "",
                 timeZone: "Australia/Melbourne",
                 photoUrl: "",
-                timeFormat: "h:mm:ss a"
+                timeFormat: "h:mm a",
+                dateFormat: "MM/dd/yyyy"
             },
             {
                 name: 'Bob',
@@ -96,7 +107,8 @@ export default class TeamServiceMock {
                 lastName: "German",
                 timeZone: "America/New_York",
                 photoUrl: "",
-                timeFormat: "h:mm:ss a"
+                timeFormat: "h:mm a",
+                dateFormat: "MM/dd/yyyy"
             },
             {
                 name: 'Dan',
@@ -108,7 +120,8 @@ export default class TeamServiceMock {
                 lastName: "",
                 timeZone: "America/Phoenix",
                 photoUrl: "",
-                timeFormat: "h:mm:ss a"
+                timeFormat: "h:mm a",
+                dateFormat: "dd/MM/yyyy"
             },
             {
                 name: 'Emily',
@@ -120,7 +133,8 @@ export default class TeamServiceMock {
                 lastName: "",
                 timeZone: "America/Los_Angeles",
                 photoUrl: "",
-                timeFormat: "h:mm:ss a"
+                timeFormat: "h:mm a",
+                dateFormat: "dd/MM/yyyy"
             },
             {
                 name: 'Matt',
@@ -132,7 +146,8 @@ export default class TeamServiceMock {
                 lastName: "",
                 timeZone: "America/Los_Angeles",
                 photoUrl: "",
-                timeFormat: "h:mm:ss a"
+                timeFormat: "h:mm a",
+                dateFormat: "dd/MM/yyyy"
             },
             {
                 name: 'Rabia',
@@ -144,7 +159,8 @@ export default class TeamServiceMock {
                 lastName: "",
                 timeZone: "Australia/Brisbane",
                 photoUrl: "",
-                timeFormat: "h:mm:ss a"
+                timeFormat: "h:mm a",
+                dateFormat: "MM/dd/yyyy"
             },
             {
                 name: 'Todd',
@@ -156,7 +172,8 @@ export default class TeamServiceMock {
                 lastName: "",
                 timeZone: "America/Chicago",
                 photoUrl: "",
-                timeFormat: "h:mm:ss a"
+                timeFormat: "h:mm a",
+                dateFormat: "dd/MM/yyyy"
             },
             {
                 name: 'Tomomi',
@@ -168,7 +185,8 @@ export default class TeamServiceMock {
                 lastName: "",
                 timeZone: "America/Los_Angeles",
                 photoUrl: "",
-                timeFormat: "h:mm:ss a"
+                timeFormat: "h:mm a",
+                dateFormat: "dd/MM/yyyy"
             },
             {
                 name: 'Waldek',
@@ -180,7 +198,8 @@ export default class TeamServiceMock {
                 lastName: "",
                 timeZone: "Europe/Amsterdam",
                 photoUrl: "",
-                timeFormat: "h:mm:ss a"
+                timeFormat: "h:mm a",
+                dateFormat: "MM/dd/yyyy"
             },
         ];
         let clockService = new ClockService();

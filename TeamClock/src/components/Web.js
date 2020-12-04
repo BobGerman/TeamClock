@@ -3,6 +3,8 @@ import TeamService from '../services/TeamService';
 import ClockService from '../services/ClockService';
 import DigitalClock from './DigitalClock';
 import SlideShow from './SlideShow';
+import ScheduleComponent from './ScheduleComponent';
+
 
 /**
  * The web UI used when Teams pops out a browser window
@@ -14,10 +16,13 @@ class Web extends React.Component {
       teamService: null,
       clockService: null,
       currentUser: null,
-      teamMembers: null,
+      teamMembers: [],
       timeZones: null,
-      dataLoaded: false
-    }
+      dataLoaded: false,
+      participants: []
+    };
+    this._addParticipant = this._addParticipant.bind(this);
+    this._removeParticipant = this._removeParticipant.bind(this);
   }
 
   componentDidMount() {
@@ -26,9 +31,34 @@ class Web extends React.Component {
       teamService = service;
       return ClockService.factory();
     })
-    .then((clockSservice) => {
-      this.loadData(teamService, clockSservice);
-    });
+      .then((clockService) => {
+        this.loadData(teamService, clockService);
+      });
+  }
+
+  _addParticipant(participant) {
+    let participantArray = this.state.participants;
+    //If the meeting is empty add the current user
+    if (participantArray.length === 0) {
+      participantArray.push(this.state.currentUser);
+    }
+    if (!participantArray.includes(participant)) {
+      participantArray.push(participant);
+      this.setState({
+        participants: participantArray
+      });
+    }
+  }
+
+  _removeParticipant(participant) {
+    let participantArray = this.state.participants;
+    if (participantArray.includes(participant)) {
+
+      this.setState({
+        participants: participantArray.filter(x => x !== participant)
+      });
+    }
+    console.log(this.state.participants);
   }
 
   // Right now this is called only by componentDidMount()
@@ -45,7 +75,7 @@ class Web extends React.Component {
       teamMembers: teamMembers,
       timeZones: timeZones,
       dataLoaded: true
-    })
+    });
   }
 
   render() {
@@ -56,28 +86,47 @@ class Web extends React.Component {
       // const teamMembers = await teamService.getOtherTeamMembers(currentUser);
       // const timeZones = clockService.getTimeZones(teamMembers);
       return (
-        <div className='teamClock'>
-          <h1>What time is it now?</h1>
-          <a href="# ">Edit My Profile</a>
-          <div className='currentTimeContainer'>
+        <main className='teamClock'>
+          <header>
+            <h1>What time is it now?</h1>
 
+          </header>
+          <section className='currentTimeContainer'>
             <div className='currentUser'>
               <DigitalClock clockService={this.state.clockService}
-                            showPhoto={true}
-                            timeZoneObj={this.state.currentUser.timeZoneObj}
-                            user={this.state.currentUser}
-                            timeFormat={this.state.currentUser.timeFormat}
-                            currentUser={true} />
+                showPhoto={true}
+                timeZoneObj={this.state.currentUser.timeZoneObj}
+                user={this.state.currentUser}
+                timeFormat={this.state.currentUser.timeFormat}
+                currentUser={true}
+                addParticipant={this._addParticipant}
+                participants={this.state.participants} />
             </div>
             <div className="otherTeamMembers">
               <SlideShow slides={this.state.timeZones}
-                         clockService={this.state.clockService} 
-                         showPhoto={true} 
-                         user={this.state.currentUser} 
-                         timeFormat={this.state.currentUser.timeFormat} />
+                clockService={this.state.clockService}
+                showPhoto={true}
+                user={this.state.currentUser}
+                timeFormat={this.state.currentUser.timeFormat}
+                addParticipant={this._addParticipant}
+                participants={this.state.participants} />
             </div>
-          </div>
-        </div>
+          </section>
+          <section>
+            <ScheduleComponent
+              clockService={this.state.clockService}
+              timeZoneObj={this.state.currentUser.timeZoneObj}
+              currentUser={this.state.currentUser}
+              timeFormat={this.state.currentUser.timeFormat}
+              teamMembers={this.state.teamMembers}
+              participants={this.state.participants}
+              removeParticipant={this._removeParticipant}
+              addParticipant={this._addParticipant}>
+
+            </ScheduleComponent>
+          </section>
+
+        </main>
       );
     } else {
       return false;

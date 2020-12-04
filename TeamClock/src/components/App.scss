@@ -1,10 +1,10 @@
 * {box-sizing:border-box}
 
 .App {
-  text-align: center;
+  background-color: #f3f2f1;
 }
 h1 {
-  color: purple;
+  color: #464775;
 }
 h2 {
   font-size: .8em;
@@ -20,18 +20,86 @@ h2 {
 .Error {
   color: red;
 }
-
+header{
+  text-align: center;
+}
 .clock{
-  
+  text-align: center;
   .nextDay{
     color: red;
     display: block;
   }
 }
 
+.green{
+  background-color: #279F00 !important;
+  color: white;
+  font-weight: bold;
+}
+.yellow{
+  background-color: yellow !important;
+  font-weight: bold;
+}
+.red{
+  background-color: #DA291C !important;
+  color: white;
+  font-weight: bold;
+}
+
+.button {
+  background-color: #ddd;
+  border: none;
+  color: black;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+
+  &:hover{
+    background-color: #f1f1f1;
+  }
+
+}
+.left{
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+  border-right: 1px solid#E8E8E8;
+  margin-right: 0;
+}
+.right{
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
+  border-left: 1px solid#E8E8E8;
+  margin-left: 0;
+}
+.count{
+  display:inline-block;
+  background-color: #ddd;
+  padding: 5px 10px;
+  
+}
+.disabled{
+  cursor: default;
+  background-color: #C0C0C0;
+
+  &:hover{
+    background-color: #C0C0C0;
+  }
+}
+.navControls{
+  text-align: center;
+}
+img.addButton{
+  max-width: .9em;
+  vertical-align: middle;
+  margin-left: .25em;
+  cursor: pointer;
+}
+
 .currentTimeContainer{
   display: flex;
-  background-color: #eeeeee;
 
   .photo{
     &.multi{
@@ -42,34 +110,36 @@ h2 {
       overflow: hidden;
       border-radius: 50%;
       img{
-        margin-top:5px;
+        margin-top:12px;
         border-radius: initial;
       }
     }
     img{
       border-radius: 50%;
+      width:96px;
+      height: 96px;
+    }
+  }
+
+  .personName{
+    span{
+      display: block;
+      cursor: pointer;
     }
   }
 
   .currentUser{
-    flex-basis: 40%;
-    background-color: #eeeeee;
+    padding: 0 3em 0 1em;
   }
   .otherTeamMembers{
-    flex-basis: 60%;
-    position: relative;
-    overflow: hidden;
-
+      width:100%;
     .clock{
       padding: 0 1em;
-
-      
-      
     }
 
     /* Slideshow container */
     .slideshow-container {
-      max-width: 1000px;
+      /*max-width: 1000px;*/
       position: relative;
       margin: auto;
 
@@ -77,42 +147,139 @@ h2 {
       .mySlides {
         display: none;
       }
-      
-      /* Next & previous buttons */
-      .prev, .next {
-        cursor: pointer;
-        position: absolute;
-        top: 50%;
-        width: auto;
-        margin-top: -22px;
-        padding: 16px;
-        color: white;
-        font-weight: bold;
-        font-size: 18px;
-        transition: 0.6s ease;
-        border-radius: 0 3px 3px 0;
-        user-select: none;
-        background-color: #bbb;
-        text-decoration: none;
+
+      /* Fading animation */
+      .fade {
+        -webkit-animation-name: fade;
+        -webkit-animation-duration: 1.5s;
+        animation-name: fade;
+        animation-duration: 1.5s;
       }
-      /* Position the "next button" to the right */
-      .next {
-        right: 0;
-        border-radius: 3px 0 0 3px;
+
+      @-webkit-keyframes fade {
+        from {opacity: .4}
+        to {opacity: 1}
+      }
+
+      @keyframes fade {
+        from {opacity: .4}
+        to {opacity: 1}
+      }
+
+    }
+
+    
+  }
+}
+
+.scheduleComponent{
+
+  .schedules{
+    display: flex;
+    padding: 0 1em;
+
+    .header{
+      font-weight: bold;
+    }
+    aside{
+      min-width: 152px;
+    }
+    .peopleList{
+      display: flex;
+    border-top: 3px solid #f3f2f1;
+    border-bottom: 3px solid #f3f2f1;
+      padding-left: .5em;
+      /*border-bottom-right-radius: 16px;
+        border-top-right-radius: 16px;*/
+      span{
+        width: 100%;
+        display: flex;
+        padding-right: .5em;
+        justify-content: space-between;
+      }
+      &::after{
+        content:"";
+        background-color: #f3f2f1;
+        bottom: 0px;  
+        width: 8px;
+        height: 20px;
+        border-bottom-left-radius: 16px;
+        border-top-left-radius: 16px;
+      }
+    }
+    img.addButton{
+        margin-right:.5em;
+      }
+    
+
+    ul{
+      list-style: none;
+      padding-left:0;
+      width: 100%;
+      li{
+        display:grid;
+        grid-template-columns: repeat(auto-fill, minmax(8em, .5fr));
+        text-align: left;
+        &:nth-child(even) {background-color: #CCC}
+        div{
+          padding-right: .5em;
+
+        }
+        div:last-child{
+          padding-right: 0;
+        }
         
       }
-      .prev{
-        left: 0;
-        border-radius: 0 3px 3px 0;
+      
+
+    }
+    .rowHighlight{
+        &:hover{
+          li{
+            background-color:inherit;
+          }
+          background-color: rgba(255, 0, 0, 0.4) !important;
+          /*.green{
+            background-color: #279F00 !important;
+          }
+          .yellow{
+            background-color: yellow !important;
+          }
+          .red{
+            background-color: #DA291C !important;
+          }*/
+          
+        }
       }
 
-      /* On hover, add a black background color with a little bit see-through */
-      .prev:hover, .next:hover {
-        background-color: rgba(113,113,113,0.8);
-      }
+      /* Slideshow container */
+    .timeSlotsContainer {
+      /*max-width: 1000px;*/
+      position: relative;
+      /*margin: auto;*/
+      text-align: left;
+      width:100%;
 
       
 
+      /* Hide the images by default */
+      .timeSlides {
+        display: none;
+
+      }
+
+      .timeSlide{
+        li{
+          border-radius: 16px;
+          text-align: center;
+          /*border-left: 1px solid #f3f2f1;
+          border-right: 1px solid #f3f2f1;*/
+          border-left: 3px solid #f3f2f1;
+          border-right: 3px solid #f3f2f1;
+          border-top: 3px solid #f3f2f1;
+          border-bottom: 3px solid #f3f2f1;
+        }
+      }
       
       /* Fading animation */
       .fade {
@@ -133,38 +300,37 @@ h2 {
       }
 
     }
-    /* The dots/bullets/indicators */
-      .dot {
-        cursor: pointer;
-        height: 15px;
-        width: 15px;
-        margin: 0 2px;
-        background-color: #bbb;
-        border-radius: 50%;
-        display: inline-block;
-        transition: background-color 0.6s ease;
-      }
-      .active, .dot:hover {
-        background-color: #717171;
-      }
     
-
-    
-
-    
+  }
 }
-  
+.border{
+  text-align: left;
+  border: 1px solid black;
+}
 
-  
+.datePicker{
+  width: 100%;
+  background-color: green;
+  padding: 1em;
+  color: #ffffff;
+  font-weight: bold;
+}
+.calendar{
+  background-image: url('../common/img/Calendar.svg');
+  background-position: right;
+  background-repeat: no-repeat;
+  background-position-x: 95%;
+  cursor: pointer;
+
 }
 
 @media screen and (min-width : 800px){
   .currentTimeContainer {
     .currentUser{
-      flex-basis: 30%;
+      /*flex-basis: 20%;*/
     }
     .otherTeamMembers{
-      flex-basis: 70%;
+      /*flex-basis: 80%;*/
     }
   }        
 }
@@ -172,10 +338,10 @@ h2 {
 @media screen and (min-width : 900px){
   .currentTimeContainer {
     .currentUser{
-      flex-basis: 20%;
+      /*flex-basis: 10%;*/
     }
     .otherTeamMembers{
-      flex-basis: 80%;
+      /*flex-basis: 90%;*/
     }
   }        
 }
