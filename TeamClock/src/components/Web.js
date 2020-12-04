@@ -116,11 +116,12 @@ class Web extends React.Component {
             <ScheduleComponent
               clockService={this.state.clockService}
               timeZoneObj={this.state.currentUser.timeZoneObj}
-              user={this.state.currentUser}
+              currentUser={this.state.currentUser}
               timeFormat={this.state.currentUser.timeFormat}
               teamMembers={this.state.teamMembers}
               participants={this.state.participants}
-              removeParticipant={this._removeParticipant}>
+              removeParticipant={this._removeParticipant}
+              addParticipant={this._addParticipant}>
 
             </ScheduleComponent>
           </section>

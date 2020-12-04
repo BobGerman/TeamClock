@@ -8,7 +8,7 @@ class DigitalClock extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      time: this.props.clockService.getCurrentTime(this.props.timeFormat, this.props.timeZoneObj.timeZone),
+      time: this.props.clockService.getCurrentTime(new Date(), this.props.timeFormat, this.props.timeZoneObj.timeZone),
       participants: this.props.participants
     };
   }
@@ -23,7 +23,7 @@ class DigitalClock extends React.Component {
   }
   tick() {
     this.setState({
-      time: this.props.clockService.getCurrentTime(this.props.timeFormat, this.props.timeZoneObj.timeZone)
+      time: this.props.clockService.getCurrentTime(new Date(), this.props.timeFormat, this.props.timeZoneObj.timeZone)
     });
   }
 

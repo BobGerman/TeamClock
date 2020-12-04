@@ -1,5 +1,6 @@
 import React from 'react';
 import remove from '../common/img/Cancel.svg'
+import DatePickerComponent from './DatePickerComponent';
 
 class ScheduleComponent extends React.Component {
   constructor(props) {
@@ -8,10 +9,11 @@ class ScheduleComponent extends React.Component {
     this.state = {
       slideIndex: 0,
       numberOfSlides: this._getNumberOfSlides(),
-      time: this.props.clockService.getCurrentTime(this.props.timeFormat, this.props.timeZoneObj.timeZone),
+      time: new Date()
     }
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     this._removeParticipant = this._removeParticipant.bind(this);
+    this._addParticipant = this._addParticipant.bind(this);
   }
 
   componentDidMount() {
@@ -75,11 +77,11 @@ class ScheduleComponent extends React.Component {
   }
 
   //Render the slides and put the correct number of users in the slide
-  _renderSlides() {
+  _renderSlides(date) {
     let itemsPerSlide = this._getItemsPerSlide();
 
     //Get the next 12 hours for the current user to check schedules
-    let hours = this.props.clockService.getMeetingHours('H', this.props.timeZoneObj.timeZone, 12);
+    let hours = [];// this.props.clockService.getMeetingHours(date, 'H', this.props.timeZoneObj.timeZone, 24);
     //ddd. ha
     let timeSlots = [];
 
@@ -92,7 +94,7 @@ class ScheduleComponent extends React.Component {
         //Get the hour that is equivalent to the time represented in the current hour
         let hour = m;
 
-        let meetingDate = new Date()
+        let meetingDate = date
         meetingDate.setHours(m);
         hour = this.props.clockService.convertTimeZone(meetingDate, 'ddd. ha', participant.timeZone);
 
@@ -182,6 +184,13 @@ class ScheduleComponent extends React.Component {
   _removeParticipant(participant) {
     this.props.removeParticipant(participant);
   }
+  _addParticipant(participant, date) {
+    this.props.addParticipant(participant);
+    this.setState({
+      time: date
+    })
+  }
+
 
   _renderParticipants() {
     //Loop through participants
@@ -208,10 +217,16 @@ class ScheduleComponent extends React.Component {
         <header>
           <h1>Scheduling</h1>
         </header>
-        <div className="datePicker"></div>
+        <DatePickerComponent
+          clockService={this.props.clockService}
+          currentUser={this.props.currentUser}
+          participants={this.props.participants}
+          addParticipant={this._addParticipant}>
+
+        </DatePickerComponent>
         <section className="schedules">
           {this._renderParticipants()}
-          {this._renderSlides()}
+          {this._renderSlides(this.state.time)}
         </section>
       </div>
     );

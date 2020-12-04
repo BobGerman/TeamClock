@@ -308,6 +308,22 @@ img.addButton{
   border: 1px solid black;
 }
 
+.datePicker{
+  width: 100%;
+  background-color: green;
+  padding: 1em;
+  color: #ffffff;
+  font-weight: bold;
+}
+.calendar{
+  background-image: url('../common/img/Calendar.svg');
+  background-position: right;
+  background-repeat: no-repeat;
+  background-position-x: 95%;
+  cursor: pointer;
+
+}
+
 @media screen and (min-width : 800px){
   .currentTimeContainer {
     .currentUser{
