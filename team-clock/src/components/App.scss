@@ -1,0 +1,199 @@
+* {box-sizing:border-box}
+
+.App {
+  text-align: center;
+}
+h1 {
+  color: purple;
+}
+h2 {
+  font-size: .8em;
+}
+.PropName {
+  font-weight: bold;
+  color: #6264A7;
+}
+.Logo {
+  font-size: 45pt;
+  color: #6264A7;
+}
+.Error {
+  color: red;
+}
+
+.clock{
+  
+  .nextDay{
+    color: red;
+    display: block;
+  }
+}
+
+.currentTimeContainer{
+  display: flex;
+  background-color: #eeeeee;
+
+  .photo{
+    &.multi{
+      display: inline-block;
+      position: relative;
+      width: 96px;
+      height: 96px;
+      overflow: hidden;
+      border-radius: 50%;
+      img{
+        margin-top:5px;
+        border-radius: initial;
+      }
+    }
+    img{
+      border-radius: 50%;
+    }
+  }
+
+  .currentUser{
+    flex-basis: 40%;
+    background-color: #eeeeee;
+  }
+  .otherTeamMembers{
+    flex-basis: 60%;
+    position: relative;
+    overflow: hidden;
+
+    .clock{
+      padding: 0 1em;
+
+      
+      
+    }
+
+    /* Slideshow container */
+    .slideshow-container {
+      max-width: 1000px;
+      position: relative;
+      margin: auto;
+
+      /* Hide the images by default */
+      .mySlides {
+        display: none;
+      }
+      
+      /* Next & previous buttons */
+      .prev, .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        margin-top: -22px;
+        padding: 16px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+        background-color: #bbb;
+        text-decoration: none;
+      }
+      /* Position the "next button" to the right */
+      .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+        
+      }
+      .prev{
+        left: 0;
+        border-radius: 0 3px 3px 0;
+      }
+
+      /* On hover, add a black background color with a little bit see-through */
+      .prev:hover, .next:hover {
+        background-color: rgba(113,113,113,0.8);
+      }
+
+      
+
+      
+      /* Fading animation */
+      .fade {
+        -webkit-animation-name: fade;
+        -webkit-animation-duration: 1.5s;
+        animation-name: fade;
+        animation-duration: 1.5s;
+      }
+
+      @-webkit-keyframes fade {
+        from {opacity: .4}
+        to {opacity: 1}
+      }
+
+      @keyframes fade {
+        from {opacity: .4}
+        to {opacity: 1}
+      }
+
+    }
+    /* The dots/bullets/indicators */
+      .dot {
+        cursor: pointer;
+        height: 15px;
+        width: 15px;
+        margin: 0 2px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        transition: background-color 0.6s ease;
+      }
+      .active, .dot:hover {
+        background-color: #717171;
+      }
+    
+
+    
+
+    
+}
+  
+
+  
+}
+
+@media screen and (min-width : 800px){
+  .currentTimeContainer {
+    .currentUser{
+      flex-basis: 30%;
+    }
+    .otherTeamMembers{
+      flex-basis: 70%;
+    }
+  }        
+}
+
+@media screen and (min-width : 900px){
+  .currentTimeContainer {
+    .currentUser{
+      flex-basis: 20%;
+    }
+    .otherTeamMembers{
+      flex-basis: 80%;
+    }
+  }        
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
