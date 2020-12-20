@@ -1,12 +1,12 @@
 import React from 'react';
-import ITeamService from '../services/TeamService/ITeamService';
-import IClockService from '../services/ClockService/IClockService';
-import ServiceFactory from '../services/ServiceFactory';
+import ITeamService from '../../services/TeamService/ITeamService';
+import IClockService from '../../services/ClockService/IClockService';
+import ServiceFactory from '../../services/ServiceFactory';
 
-import DigitalClock from './DigitalClock';
-import SlideShow from './SlideShow';
-import ITimeZone from '../model/ITimeZone';
-import IUser from '../model/IUser';
+import DigitalClock from '../DigitalClock';
+import SlideShow from '../SlideShow';
+import ITimeZone from '../../model/ITimeZone';
+import IUser from '../../model/IUser';
 
 export interface IWebProps { };
 export interface IWebState {
@@ -20,7 +20,7 @@ export interface IWebState {
 /**
  * The web UI used when Teams pops out a browser window
  */
-class Web extends React.Component <IWebProps, IWebState> {
+export default class WebPage extends React.Component <IWebProps, IWebState> {
   constructor(props: IWebProps) {
     super(props);
     this.state = {
@@ -95,4 +95,3 @@ class Web extends React.Component <IWebProps, IWebState> {
   }
 
 }
-export default Web;

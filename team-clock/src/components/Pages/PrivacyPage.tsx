@@ -2,14 +2,13 @@
 // Licensed under the MIT License.
 
 import React from 'react';
-import './App.scss';
 
 /**
  * This component is used to display the required
  * privacy statement which can be found in a link in the
  * about tab.
  */
-class Privacy extends React.Component {
+export default class PrivacyPage extends React.Component {
   render() {
     return (
       <div>
@@ -18,5 +17,3 @@ class Privacy extends React.Component {
     );
   }
 }
-
-export default Privacy;
