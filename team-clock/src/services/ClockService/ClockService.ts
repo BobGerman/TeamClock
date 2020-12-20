@@ -1,13 +1,9 @@
 import moment from 'moment-timezone';
-import ITimeZone from '../model/ITimeZone';
-import IUser from '../model/IUser';
+import ITimeZone from '../../model/ITimeZone';
+import IUser from '../../model/IUser';
+import IClockService from './IClockService';
 
-export default class ClockService {
-
-  static factory() {
-    const service = new ClockService();
-    return Promise.resolve(service);
-  }
+export default class ClockService implements IClockService {
 
   getCurrentTime(format: string, timezone: string) {
     return moment.tz(new Date().toISOString(), timezone).format(format);

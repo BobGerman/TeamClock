@@ -1,12 +1,12 @@
 import React from 'react';
 import multiPhoto from '../common/img/Group.svg';
 import noPhoto from '../common/img/Contact.svg'
-import ClockService from '../services/ClockService';
+import IClockService from '../services/ClockService/IClockService';
 import ITimeZone from '../model/ITimeZone';
 import IUser from '../model/IUser';
 
 export interface IDigitalClockProps {
-  clockService: ClockService;
+  clockService: IClockService;
   user: IUser;
   currentUser: boolean;
   showPhoto: boolean;

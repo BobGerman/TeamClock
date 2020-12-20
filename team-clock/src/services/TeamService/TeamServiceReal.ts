@@ -1,14 +1,15 @@
-import noPhoto from '../common/img/PersonPlaceholder.96x96x32.png'
-import ClockService from './ClockService';
-import IUser from '../model/IUser';
-import { ITeamService } from './TeamService';
-import ITimeZone from '../model/ITimeZone';
+import noPhoto from '../../common/img/PersonPlaceholder.96x96x32.png'
+import IClockService from '../ClockService/IClockService';
+import IUser from '../../model/IUser';
+import ITimeZone from '../../model/ITimeZone';
+import ITeamService  from './ITeamService';
 
 export default class TeamServiceReal implements ITeamService {
 
-    static async factory(): Promise<ITeamService> {
-        const service = new TeamServiceReal();
-        return Promise.resolve(service); //((resolve) => { resolve(service); });
+    constructor (private clockService: IClockService) { };
+
+    public async init(): Promise<void> {
+        return Promise.resolve();
     }
 
     async getCurrentUser(format: string) {
@@ -28,10 +29,9 @@ export default class TeamServiceReal implements ITeamService {
         if (currentUser.photoUrl === "") {
             currentUser.photoUrl = noPhoto;
         }
-        let clockService = await ClockService.factory();
         let members = [];
         members.push(currentUser);
-        currentUser.timeZoneObj = clockService.getTimeZones(members)[0];
+        currentUser.timeZoneObj = this.clockService.getTimeZones(members)[0];
         return currentUser;
     };
 
@@ -168,10 +168,9 @@ export default class TeamServiceReal implements ITeamService {
                 timeZoneObj: this.getDefaultTimeZone()
             },
         ];
-        let clockService = new ClockService();
         mockMembers.forEach((m) => {
             m.photoUrl = m.photoUrl || noPhoto;
-            m.timeZoneObj = clockService.getTimeZones([m])[0];
+            m.timeZoneObj = this.clockService.getTimeZones([m])[0];
         });
         // I think the above foreach loop is the same ??
         // mockMembers.map((u) => {

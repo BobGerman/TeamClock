@@ -3,11 +3,11 @@ import DigitalClock from './DigitalClock';
 
 import ITimeZone from '../model/ITimeZone';
 import IUser from '../model/IUser';
-import ClockService from '../services/ClockService';
+import IClockService from '../services/ClockService/IClockService';
 
 export interface ISlideShowProps {
   slides: ITimeZone[];
-  clockService: ClockService;
+  clockService: IClockService;
   showPhoto: boolean;
   user: IUser;
   timeFormat: string;

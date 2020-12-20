@@ -1,15 +1,12 @@
-import noPhoto from '../common/img/PersonPlaceholder.96x96x32.png'
-import ClockService from './ClockService';
-import IUser from '../model/IUser';
-import { ITeamService } from './TeamService';
-import ITimeZone from '../model/ITimeZone';
+import noPhoto from '../../common/img/PersonPlaceholder.96x96x32.png'
+import IClockService from '../ClockService/IClockService';
+import IUser from '../../model/IUser';
+import ITimeZone from '../../model/ITimeZone';
+import ITeamService  from './ITeamService';
 
 export default class TeamServiceMock implements ITeamService {
 
-    static async factory(): Promise<ITeamService> {
-        const service = new TeamServiceMock();
-        return Promise.resolve(service); //((resolve) => { resolve(service); });
-    }
+    constructor (private clockService: IClockService) { };
 
     public async getCurrentUser(format: string) {
 
@@ -28,10 +25,9 @@ export default class TeamServiceMock implements ITeamService {
         if (currentUser.photoUrl === "") {
             currentUser.photoUrl = noPhoto;
         }
-        let clockService = await ClockService.factory();
         let members = [];
         members.push(currentUser);
-        currentUser.timeZoneObj = clockService.getTimeZones(members)[0];
+        currentUser.timeZoneObj = this.clockService.getTimeZones(members)[0];
         return currentUser;
     };
 
@@ -168,12 +164,13 @@ export default class TeamServiceMock implements ITeamService {
                 timeZoneObj: this.getMockTimeZoneObj()
             },
         ];
-        let clockService = new ClockService();
         mockMembers.forEach((m) => {
             m.photoUrl = m.photoUrl || noPhoto;
-            m.timeZoneObj = clockService.getTimeZones([m])[0];
+            m.timeZoneObj = this.clockService.getTimeZones([m])[0];
         });
         // I think the above foreach loop is the same ??
+        // Keeping the old code for now in case I misunderstood and broke something... -BG
+        //
         // mockMembers.map((u) => {
         //     if (u.photoUrl === "") {
         //         u.photoUrl = noPhoto;
@@ -185,6 +182,7 @@ export default class TeamServiceMock implements ITeamService {
         // });
 
         // ??? DO we need to sort anymore? How ?
+        // Now we are sorting by time I think - moved this logic
         // if (sortOrder === "time") {
         //     mockMembers.sort((a, b) => { return b.utcOffset - a.utcOffset })
         // } else {

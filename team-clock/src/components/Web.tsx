@@ -1,6 +1,8 @@
 import React from 'react';
-import { ITeamService, TeamService } from '../services/TeamService';
-import ClockService from '../services/ClockService';
+import ITeamService from '../services/TeamService/ITeamService';
+import IClockService from '../services/ClockService/IClockService';
+import ServiceFactory from '../services/ServiceFactory';
+
 import DigitalClock from './DigitalClock';
 import SlideShow from './SlideShow';
 import ITimeZone from '../model/ITimeZone';
@@ -8,8 +10,8 @@ import IUser from '../model/IUser';
 
 export interface IWebProps { };
 export interface IWebState {
-  teamService?: TeamService;
-  clockService?: ClockService;
+  teamService?: ITeamService;
+  clockService?: IClockService;
   currentUser?: IUser;
   teamMembers: IUser[];
   timeZones: ITimeZone[];
@@ -32,19 +34,20 @@ class Web extends React.Component <IWebProps, IWebState> {
 
   componentDidMount() {
     let teamService: ITeamService;
-    TeamService.factory().then((service) => {
+    ServiceFactory.getTeamService()
+    .then((service) => {
       teamService = service;
-      return ClockService.factory();
+      return ServiceFactory.getClockService();
     })
-    .then((clockSservice) => {
-      this.loadData(teamService, clockSservice);
+    .then((clockService) => {
+      this.loadData(teamService, clockService);
     });
   }
 
   // Right now this is called only by componentDidMount()
   // Some day an event handler will call this to reload data after a user
   // makes some changes
-  async loadData(teamService: ITeamService, clockService: ClockService) {
+  async loadData(teamService: ITeamService, clockService: IClockService) {
     const currentUser = await teamService.getCurrentUser("WHAT IS THIS");
     const teamMembers = await teamService.getOtherTeamMembers(currentUser);
     const timeZones = clockService.getTimeZones(teamMembers);
