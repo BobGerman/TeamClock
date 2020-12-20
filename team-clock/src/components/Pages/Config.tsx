@@ -1,5 +1,6 @@
 import React from 'react';
 import * as microsoftTeams from "@microsoft/teams-js";
+import { ConfigService } from '../../services/ConfigService/ConfigService';
 
 export interface IConfigProps { };
 export interface IConfigState {
@@ -18,18 +19,11 @@ export default class TabConfig extends React.Component<IConfigProps, IConfigStat
     }
   }
 
-  componentDidMount() {
-    microsoftTeams.getContext((context: microsoftTeams.Context) => {
-      if (context.entityId) {
-        this.setState({
-          listName: this.getListNameFromEntityId(context.entityId),
-          firstRun: false
-        });
-      } else {
-        this.setState({
-          firstRun: true
-        });
-      }
+  async componentDidMount() {
+    const configInfo = await ConfigService.getConfigInfo();
+    this.setState({
+      listName: configInfo.spListName,
+      firstRun: !configInfo.spListName
     });
   }
 
@@ -43,7 +37,9 @@ export default class TabConfig extends React.Component<IConfigProps, IConfigStat
       // This will run when the user clicks the "Save" button in the Teams config popup.
       microsoftTeams.settings.setSettings({
         suggestedDisplayName: this.state.tabName,
-        entityId: this.getEntityIdForListName(this.state.listName),
+        entityId: ConfigService.getEntityId({
+          spListName: this.state.listName
+        }),
         contentUrl: `${baseUrl}/Tab`,
         websiteUrl: `${baseUrl}/Web`
       });
@@ -97,15 +93,4 @@ export default class TabConfig extends React.Component<IConfigProps, IConfigStat
     microsoftTeams.settings.setValidityState(result);
   }
 
-  // The entity ID stores the SharePoint list name plus some
-  // randomness to ensure uniqueness
-  private getEntityIdForListName(listName: string): string {
-    return listName + "/" +
-      Math.random().toString(36).substring(2, 15) +
-      Math.random().toString(36).substring(2, 15);
-  }
-
-  private getListNameFromEntityId(entityId: string): string {
-    return entityId.split('/')[0];
-  }
 }
