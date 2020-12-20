@@ -35,7 +35,7 @@ function App() {
     }
 
     // Initialize the Microsoft Teams SDK
-    microsoftTeams.initialize(window as  any);
+    microsoftTeams.initialize(window as any);
 
     // Display the app home page hosted in Teams
     return (

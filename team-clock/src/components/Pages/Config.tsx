@@ -10,8 +10,8 @@ export default class TabConfig extends React.Component {
         microsoftTeams.settings.setSettings({
             suggestedDisplayName: "Team Clock",
             entityId: "TeamClock",
-            contentUrl: `${baseUrl}/#/Tab`,
-            websiteUrl: `${baseUrl}/#/Web`
+            contentUrl: `${baseUrl}/Tab`,
+            websiteUrl: `${baseUrl}/Web`
         });
         saveEvent.notifySuccess();
     });
