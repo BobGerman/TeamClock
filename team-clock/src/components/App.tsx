@@ -3,10 +3,10 @@ import './App.scss';
 import * as microsoftTeams from "@microsoft/teams-js";
 import { HashRouter as Router, Route } from "react-router-dom";
 import Privacy from "./Privacy";
-import TermsOfUse from "./Privacy"; // "./TermsOfUse";
+import TermsOfUse from "./TermsOfUse"; // "./TermsOfUse";
 // import Tab from './Tab';
-import TabConfig from "./Privacy"; //  './TabConfig';
-import Web from "./Privacy"; //  './Web';
+import TabConfig from "./TermsOfUse"; //  './TabConfig';
+import Web from "./Web"; //  './Web';
 
 /**
  * The main app which handles the initialization and routing

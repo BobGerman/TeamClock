@@ -8,5 +8,5 @@ export default interface IUser {
     workDays: string;
     workHours: string;
     timeFormat: string;
-    timeZoneObj: ITimeZone | null;
+    timeZoneObj: ITimeZone;
 }

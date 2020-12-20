@@ -1,10 +1,12 @@
 import noPhoto from '../common/img/PersonPlaceholder.96x96x32.png'
 import ClockService from './ClockService';
 import IUser from '../model/IUser';
+import { ITeamService } from './TeamService';
+import ITimeZone from '../model/ITimeZone';
 
-export default class TeamServiceReal {
+export default class TeamServiceReal implements ITeamService {
 
-    static async factory() {
+    static async factory(): Promise<ITeamService> {
         const service = new TeamServiceReal();
         return Promise.resolve(service); //((resolve) => { resolve(service); });
     }
@@ -21,7 +23,7 @@ export default class TeamServiceReal {
             workHours: 'nnnnnnneedddddddddeeeeen',
             photoUrl: "",
             timeFormat: "LTS",
-            timeZoneObj: null
+            timeZoneObj: this.getDefaultTimeZone()
         }
         if (currentUser.photoUrl === "") {
             currentUser.photoUrl = noPhoto;
@@ -61,7 +63,7 @@ export default class TeamServiceReal {
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
                 timeFormat: "h:mm:ss a",
-                timeZoneObj: null
+                timeZoneObj: this.getDefaultTimeZone()
             },
             {
                 firstName: "Ayca",
@@ -73,7 +75,7 @@ export default class TeamServiceReal {
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
                 timeFormat: "h:mm:ss a",
-                timeZoneObj: null
+                timeZoneObj: this.getDefaultTimeZone()
             },
             {
                 firstName: "Barnam",
@@ -83,7 +85,7 @@ export default class TeamServiceReal {
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
                 timeFormat: "h:mm:ss a",
-                timeZoneObj: null
+                timeZoneObj: this.getDefaultTimeZone()
             },
             {
                 firstName: "Bob",
@@ -93,7 +95,7 @@ export default class TeamServiceReal {
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
                 timeFormat: "h:mm:ss a",
-                timeZoneObj: null
+                timeZoneObj: this.getDefaultTimeZone()
             },
             {
                 firstName: "Dan",
@@ -103,7 +105,7 @@ export default class TeamServiceReal {
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
                 timeFormat: "h:mm:ss a",
-                timeZoneObj: null
+                timeZoneObj: this.getDefaultTimeZone()
             },
             {
                 firstName: "Emily",
@@ -113,7 +115,7 @@ export default class TeamServiceReal {
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
                 timeFormat: "h:mm:ss a",
-                timeZoneObj: null
+                timeZoneObj: this.getDefaultTimeZone()
             },
             {
                 firstName: "Matt",
@@ -123,7 +125,7 @@ export default class TeamServiceReal {
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
                 timeFormat: "h:mm:ss a",
-                timeZoneObj: null
+                timeZoneObj: this.getDefaultTimeZone()
             },
             {
                 firstName: "Rabia",
@@ -133,7 +135,7 @@ export default class TeamServiceReal {
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
                 timeFormat: "h:mm:ss a",
-                timeZoneObj: null
+                timeZoneObj: this.getDefaultTimeZone()
             },
             {
                 firstName: "Todd",
@@ -143,7 +145,7 @@ export default class TeamServiceReal {
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
                 timeFormat: "h:mm:ss a",
-                timeZoneObj: null
+                timeZoneObj: this.getDefaultTimeZone()
             },
             {
                 firstName: "Tomomi",
@@ -153,7 +155,7 @@ export default class TeamServiceReal {
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
                 timeFormat: "h:mm:ss a",
-                timeZoneObj: null
+                timeZoneObj: this.getDefaultTimeZone()
             },
             {
                 firstName: "Waldek",
@@ -163,7 +165,7 @@ export default class TeamServiceReal {
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
                 timeFormat: "h:mm:ss a",
-                timeZoneObj: null
+                timeZoneObj: this.getDefaultTimeZone()
             },
         ];
         let clockService = new ClockService();
@@ -189,6 +191,15 @@ export default class TeamServiceReal {
         //     mockMembers.sort((a, b) => { return a.name < b.name ? -1 : 1 })
         // }
         return mockMembers;
+    }
+
+    private getDefaultTimeZone(): ITimeZone {
+        return {
+            timeZone: "Etc/UTC",
+            abbreviation: "UTC",
+            offset: 0,
+            members: []
+        };
     }
 
 }

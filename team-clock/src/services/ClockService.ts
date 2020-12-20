@@ -1,6 +1,5 @@
 import moment from 'moment-timezone';
 import ITimeZone from '../model/ITimeZone';
-import TimeZone from '../model/ITimeZone';
 import IUser from '../model/IUser';
 
 export default class ClockService {

@@ -1,15 +1,17 @@
 import noPhoto from '../common/img/PersonPlaceholder.96x96x32.png'
 import ClockService from './ClockService';
 import IUser from '../model/IUser';
+import { ITeamService } from './TeamService';
+import ITimeZone from '../model/ITimeZone';
 
-export default class TeamServiceMock {
+export default class TeamServiceMock implements ITeamService {
 
-    static async factory() {
+    static async factory(): Promise<ITeamService> {
         const service = new TeamServiceMock();
         return Promise.resolve(service); //((resolve) => { resolve(service); });
     }
 
-    async getCurrentUser(format: string) {
+    public async getCurrentUser(format: string) {
 
         const currentUser: IUser = {
             firstName: "Derek",
@@ -21,7 +23,7 @@ export default class TeamServiceMock {
             workHours: 'nnnnnnneedddddddddeeeeen',
             photoUrl: "",
             timeFormat: "LTS",
-            timeZoneObj: null
+            timeZoneObj: this.getMockTimeZoneObj()
         }
         if (currentUser.photoUrl === "") {
             currentUser.photoUrl = noPhoto;
@@ -33,7 +35,7 @@ export default class TeamServiceMock {
         return currentUser;
     };
 
-    async getOtherTeamMembers(currentUser: IUser) {
+    public async getOtherTeamMembers(currentUser: IUser) {
         const allTeamMembers = await this.getTeamMembers('time');
         let otherTeamMembers: IUser[] = [];
 
@@ -48,7 +50,7 @@ export default class TeamServiceMock {
         return otherTeamMembers;
     }
 
-    async getTeamMembers(sortOrder: string): Promise<IUser[]> {
+    public async getTeamMembers(sortOrder: string): Promise<IUser[]> {
 
         let mockMembers: IUser[] = [
             {
@@ -61,7 +63,7 @@ export default class TeamServiceMock {
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
                 timeFormat: "h:mm:ss a",
-                timeZoneObj: null
+                timeZoneObj: this.getMockTimeZoneObj()
             },
             {
                 firstName: "Ayca",
@@ -73,7 +75,7 @@ export default class TeamServiceMock {
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
                 timeFormat: "h:mm:ss a",
-                timeZoneObj: null
+                timeZoneObj: this.getMockTimeZoneObj()
             },
             {
                 firstName: "Barnam",
@@ -83,7 +85,7 @@ export default class TeamServiceMock {
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
                 timeFormat: "h:mm:ss a",
-                timeZoneObj: null
+                timeZoneObj: this.getMockTimeZoneObj()
             },
             {
                 firstName: "Bob",
@@ -93,7 +95,7 @@ export default class TeamServiceMock {
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
                 timeFormat: "h:mm:ss a",
-                timeZoneObj: null
+                timeZoneObj: this.getMockTimeZoneObj()
             },
             {
                 firstName: "Dan",
@@ -103,7 +105,7 @@ export default class TeamServiceMock {
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
                 timeFormat: "h:mm:ss a",
-                timeZoneObj: null
+                timeZoneObj: this.getMockTimeZoneObj()
             },
             {
                 firstName: "Emily",
@@ -113,7 +115,7 @@ export default class TeamServiceMock {
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
                 timeFormat: "h:mm:ss a",
-                timeZoneObj: null
+                timeZoneObj: this.getMockTimeZoneObj()
             },
             {
                 firstName: "Matt",
@@ -123,7 +125,7 @@ export default class TeamServiceMock {
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
                 timeFormat: "h:mm:ss a",
-                timeZoneObj: null
+                timeZoneObj: this.getMockTimeZoneObj()
             },
             {
                 firstName: "Rabia",
@@ -133,7 +135,7 @@ export default class TeamServiceMock {
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
                 timeFormat: "h:mm:ss a",
-                timeZoneObj: null
+                timeZoneObj: this.getMockTimeZoneObj()
             },
             {
                 firstName: "Todd",
@@ -143,7 +145,7 @@ export default class TeamServiceMock {
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
                 timeFormat: "h:mm:ss a",
-                timeZoneObj: null
+                timeZoneObj: this.getMockTimeZoneObj()
             },
             {
                 firstName: "Tomomi",
@@ -153,7 +155,7 @@ export default class TeamServiceMock {
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
                 timeFormat: "h:mm:ss a",
-                timeZoneObj: null
+                timeZoneObj: this.getMockTimeZoneObj()
             },
             {
                 firstName: "Waldek",
@@ -163,7 +165,7 @@ export default class TeamServiceMock {
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
                 timeFormat: "h:mm:ss a",
-                timeZoneObj: null
+                timeZoneObj: this.getMockTimeZoneObj()
             },
         ];
         let clockService = new ClockService();
@@ -189,6 +191,15 @@ export default class TeamServiceMock {
         //     mockMembers.sort((a, b) => { return a.name < b.name ? -1 : 1 })
         // }
         return mockMembers;
+    }
+
+    private getMockTimeZoneObj(): ITimeZone {
+        return {
+            timeZone: "Etc/UTC",
+            abbreviation: "UTC",
+            offset: 0,
+            members: []
+        };
     }
 
 }
