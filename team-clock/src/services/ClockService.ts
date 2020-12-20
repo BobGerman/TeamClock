@@ -60,6 +60,10 @@ export default class ClockService {
 
 
     });
+    
+    // ??? Weren't the time zones sorted before? Somehow? Sorting by time -BG
+    timeZones.sort((a, b) => { return b.offset - a.offset });
+
     return timeZones;
   }
 }
