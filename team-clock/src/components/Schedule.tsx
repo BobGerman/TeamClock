@@ -1,11 +1,11 @@
 import React from 'react';
 
-export interface IScheduleComponentProps {
+export interface IScheduleProps {
 
 }
 
-class ScheduleComponent extends React.Component<IScheduleComponentProps> {
-  constructor(props: IScheduleComponentProps) {
+class Schedule extends React.Component<IScheduleProps> {
+  constructor(props: IScheduleProps) {
     super(props);
   }
 
@@ -33,4 +33,4 @@ class ScheduleComponent extends React.Component<IScheduleComponentProps> {
   }
 }
 
-export default ScheduleComponent;
+export default Schedule;
