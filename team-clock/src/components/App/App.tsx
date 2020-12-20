@@ -5,7 +5,7 @@ import { HashRouter as Router, Route } from "react-router-dom";
 import PrivacyPage from "../Pages/PrivacyPage";
 import TermsOfUsePage from "../Pages/TermsOfUsePage";
 // import Tab from './Tab';
-import TabConfigPage from "../Pages/TermsOfUsePage";
+import TabConfigPage from "../Pages/Config";
 import WebPage from "../Pages/WebPage";
 
 /**
@@ -27,7 +27,7 @@ function App() {
             <Route exact path="/termsofuse" component={TermsOfUsePage} />
             <Route exact path="/web" component={WebPage} />
             <Route exact path="/" component={WebPage} />
-            <Route exact path="/tab" component={WebPage} />
+            <Route exact path="/tab" component={TeamsHostError} />
             <Route exact path="/config" component={TeamsHostError} />
           </Router>
         </div>
