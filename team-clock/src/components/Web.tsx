@@ -8,12 +8,11 @@ import IUser from '../model/IUser';
 
 export interface IWebProps { };
 export interface IWebState {
-  teamService: TeamService;
-  clockService: ClockService;
-  currentUser: IUser;
+  teamService?: TeamService;
+  clockService?: ClockService;
+  currentUser?: IUser;
   teamMembers: IUser[];
   timeZones: ITimeZone[];
-  dataLoaded: boolean;
 };
 
 /**
@@ -22,14 +21,13 @@ export interface IWebState {
 class Web extends React.Component <IWebProps, IWebState> {
   constructor(props: IWebProps) {
     super(props);
-    // this.state = {
-    //   teamService: null,
-    //   clockService: null,
-    //   currentUser: null,
-    //   teamMembers: null,
-    //   timeZones: null,
-    //   dataLoaded: false
-    // }
+    this.state = {
+      teamService: undefined,
+      clockService: undefined,
+      currentUser: undefined,
+      teamMembers: [],
+      timeZones: []
+    }
   }
 
   componentDidMount() {
@@ -55,18 +53,14 @@ class Web extends React.Component <IWebProps, IWebState> {
       clockService: clockService,
       currentUser: currentUser,
       teamMembers: teamMembers,
-      timeZones: timeZones,
-      dataLoaded: true
+      timeZones: timeZones
     })
   }
 
   render() {
-    // const clockService = new ClockService();
-    // const teamService = new TeamService();
-    if (this.state.dataLoaded && this.state.currentUser && this.state.timeZones) {
-      // const currentUser = await teamService.getCurrentUser();
-      // const teamMembers = await teamService.getOtherTeamMembers(currentUser);
-      // const timeZones = clockService.getTimeZones(teamMembers);
+    if (this.state.clockService &&
+        this.state.currentUser &&
+        this.state.timeZones) {
       return (
         <div className='teamClock'>
           <h1>What time is it now?</h1>
