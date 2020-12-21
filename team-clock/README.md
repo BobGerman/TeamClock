@@ -20,9 +20,10 @@ npm install
 
 2. Edit `manifest.json' and make the following global replacements
 
-|---|---|
-| <HOSTNAME> | Your hostname (such as localhost) |
-| <PORT> | Your port (such as 3000) |
+| Symbol | Substitute with |
+|-----|-----|
+| &lt;HOSTNAME&gt; | Your hostname (such as localhost) |
+| &lt;PORT&gt; | Your port (such as 3000) |
 
 3. Build the manifest
 
