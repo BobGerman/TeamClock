@@ -23,7 +23,7 @@ class DigitalClock extends React.Component<IDigitalClockProps, IDigitalClockStat
   constructor(props: IDigitalClockProps) {
     super(props);
     this.state = {
-      time: this.props.clockService.getCurrentTime(this.props.timeFormat, this.props.timeZoneObj.timeZone),
+      time: this.props.clockService.getCurrentTime(new Date(), this.props.timeFormat, this.props.timeZoneObj.timeZone),
       intervalID: 0
     };
   }
@@ -44,7 +44,7 @@ class DigitalClock extends React.Component<IDigitalClockProps, IDigitalClockStat
 
   tick() {
     this.setState({
-      time: this.props.clockService.getCurrentTime(this.props.timeFormat, this.props.timeZoneObj.timeZone)
+      time: this.props.clockService.getCurrentTime(new Date(), this.props.timeFormat, this.props.timeZoneObj.timeZone)
     });
   }
 
@@ -63,7 +63,7 @@ class DigitalClock extends React.Component<IDigitalClockProps, IDigitalClockStat
       header = <div>{this.props.timeZoneObj.abbreviation} {offset} hrs </div>;
     }
     if (this.props.currentUser) {
-      header = <div>My Current Time</div>;
+      header = <div>Current Time</div>;
     }
 
     return header;

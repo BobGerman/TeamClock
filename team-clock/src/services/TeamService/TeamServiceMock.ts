@@ -19,7 +19,8 @@ export default class TeamServiceMock implements ITeamService {
             /* Preferred work day, 1 char/hour, n=night, e=extended, d=day */
             workHours: 'nnnnnnneedddddddddeeeeen',
             photoUrl: "",
-            timeFormat: "LTS",
+            dateFormat: "MM/dd/yyyy",
+            timeFormat: "h:mm a",
             timeZoneObj: this.getMockTimeZoneObj()
         }
         if (currentUser.photoUrl === "") {
@@ -58,7 +59,8 @@ export default class TeamServiceMock implements ITeamService {
                 /* Preferred work day, 1 char/hour, n=night, e=extended, d=day */
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
-                timeFormat: "h:mm:ss a",
+                dateFormat: "MM/dd/yyyy",
+                timeFormat: "h:mm a",
                 timeZoneObj: this.getMockTimeZoneObj()
             },
             {
@@ -70,7 +72,8 @@ export default class TeamServiceMock implements ITeamService {
                 /* Preferred work day, 1 char/hour, n=night, e=extended, d=day */
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
-                timeFormat: "h:mm:ss a",
+                dateFormat: "MM/dd/yyyy",
+                timeFormat: "h:mm a",
                 timeZoneObj: this.getMockTimeZoneObj()
             },
             {
@@ -80,7 +83,8 @@ export default class TeamServiceMock implements ITeamService {
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
-                timeFormat: "h:mm:ss a",
+                dateFormat: "MM/dd/yyyy",
+                timeFormat: "h:mm a",
                 timeZoneObj: this.getMockTimeZoneObj()
             },
             {
@@ -90,7 +94,8 @@ export default class TeamServiceMock implements ITeamService {
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
-                timeFormat: "h:mm:ss a",
+                dateFormat: "MM/dd/yyyy",
+                timeFormat: "h:mm a",
                 timeZoneObj: this.getMockTimeZoneObj()
             },
             {
@@ -100,7 +105,8 @@ export default class TeamServiceMock implements ITeamService {
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
-                timeFormat: "h:mm:ss a",
+                dateFormat: "MM/dd/yyyy",
+                timeFormat: "h:mm a",
                 timeZoneObj: this.getMockTimeZoneObj()
             },
             {
@@ -110,7 +116,8 @@ export default class TeamServiceMock implements ITeamService {
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
-                timeFormat: "h:mm:ss a",
+                dateFormat: "MM/dd/yyyy",
+                timeFormat: "h:mm a",
                 timeZoneObj: this.getMockTimeZoneObj()
             },
             {
@@ -120,7 +127,8 @@ export default class TeamServiceMock implements ITeamService {
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
-                timeFormat: "h:mm:ss a",
+                dateFormat: "MM/dd/yyyy",
+                timeFormat: "h:mm a",
                 timeZoneObj: this.getMockTimeZoneObj()
             },
             {
@@ -130,7 +138,8 @@ export default class TeamServiceMock implements ITeamService {
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
-                timeFormat: "h:mm:ss a",
+                dateFormat: "MM/dd/yyyy",
+                timeFormat: "h:mm a",
                 timeZoneObj: this.getMockTimeZoneObj()
             },
             {
@@ -140,7 +149,8 @@ export default class TeamServiceMock implements ITeamService {
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
-                timeFormat: "h:mm:ss a",
+                dateFormat: "MM/dd/yyyy",
+                timeFormat: "h:mm a",
                 timeZoneObj: this.getMockTimeZoneObj()
             },
             {
@@ -150,7 +160,8 @@ export default class TeamServiceMock implements ITeamService {
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
-                timeFormat: "h:mm:ss a",
+                dateFormat: "MM/dd/yyyy",
+                timeFormat: "h:mm a",
                 timeZoneObj: this.getMockTimeZoneObj()
             },
             {
@@ -160,7 +171,8 @@ export default class TeamServiceMock implements ITeamService {
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
-                timeFormat: "h:mm:ss a",
+                dateFormat: "MM/dd/yyyy",
+                timeFormat: "h:mm a",
                 timeZoneObj: this.getMockTimeZoneObj()
             },
         ];
@@ -168,26 +180,7 @@ export default class TeamServiceMock implements ITeamService {
             m.photoUrl = m.photoUrl || noPhoto;
             m.timeZoneObj = this.clockService.getTimeZones([m])[0];
         });
-        // I think the above foreach loop is the same ??
-        // Keeping the old code for now in case I misunderstood and broke something... -BG
-        //
-        // mockMembers.map((u) => {
-        //     if (u.photoUrl === "") {
-        //         u.photoUrl = noPhoto;
-        //     }
-        //     let members: IUser[] = [];
-        //     members.push(u);
-        //     u.timeZoneObj = clockService.getTimeZones(members);
-        //     return u;
-        // });
 
-        // ??? DO we need to sort anymore? How ?
-        // Now we are sorting by time I think - moved this logic
-        // if (sortOrder === "time") {
-        //     mockMembers.sort((a, b) => { return b.utcOffset - a.utcOffset })
-        // } else {
-        //     mockMembers.sort((a, b) => { return a.name < b.name ? -1 : 1 })
-        // }
         return mockMembers;
     }
 

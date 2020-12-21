@@ -5,9 +5,24 @@ import IClockService from './IClockService';
 
 export default class ClockService implements IClockService {
 
-  getCurrentTime(format: string, timezone: string) {
-    return moment.tz(new Date().toISOString(), timezone).format(format);
+  getCurrentTime(date: Date, format: string, timezone: string) {
+    return moment.tz(date.toISOString(), timezone).format(format);
   };
+
+  getMeetingHours(date: Date, format: string, timezone: string, numberofHours: number) {
+    let hours = [];
+    let currentTime = /* new */ moment.tz(date.toISOString(), timezone).format(format);
+    //currentTime = parseInt(currentTime, 10)
+    let x = 1;
+    hours.push(currentTime);
+    for (x = 1; x <= numberofHours; x++) {
+      date.setHours(date.getHours() + 1);
+      currentTime = /* new */ moment.tz(date.toISOString(), timezone).format(format);
+      //currentTime = parseInt(currentTime, 10)
+      hours.push(currentTime);
+    }
+    return hours;
+  }
 
   isNextDay(timezone: string) {
     let isNextDay = false;
@@ -61,5 +76,13 @@ export default class ClockService implements IClockService {
     timeZones.sort((a, b) => { return b.offset - a.offset });
 
     return timeZones;
+  }
+
+  convertTimeZone(originalTime: string, convertToTimeZone: string) {
+    return moment(originalTime /*, null */).tz(convertToTimeZone);
+  }
+
+  isLeapYear(date: Date): () => boolean {
+    return moment(date.getFullYear()).isLeapYear;
   }
 }

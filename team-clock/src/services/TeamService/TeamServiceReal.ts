@@ -23,7 +23,8 @@ export default class TeamServiceReal implements ITeamService {
             /* Preferred work day, 1 char/hour, n=night, e=extended, d=day */
             workHours: 'nnnnnnneedddddddddeeeeen',
             photoUrl: "",
-            timeFormat: "LTS",
+            dateFormat: "MM/dd/yyyy",
+            timeFormat: "h:mm a",
             timeZoneObj: this.getDefaultTimeZone()
         }
         if (currentUser.photoUrl === "") {
@@ -62,7 +63,8 @@ export default class TeamServiceReal implements ITeamService {
                 /* Preferred work day, 1 char/hour, n=night, e=extended, d=day */
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
-                timeFormat: "h:mm:ss a",
+                dateFormat: "MM/dd/yyyy",
+                timeFormat: "h:mm a",
                 timeZoneObj: this.getDefaultTimeZone()
             },
             {
@@ -74,7 +76,8 @@ export default class TeamServiceReal implements ITeamService {
                 /* Preferred work day, 1 char/hour, n=night, e=extended, d=day */
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
-                timeFormat: "h:mm:ss a",
+                dateFormat: "MM/dd/yyyy",
+                timeFormat: "h:mm a",
                 timeZoneObj: this.getDefaultTimeZone()
             },
             {
@@ -84,7 +87,8 @@ export default class TeamServiceReal implements ITeamService {
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
-                timeFormat: "h:mm:ss a",
+                dateFormat: "MM/dd/yyyy",
+                timeFormat: "h:mm a",
                 timeZoneObj: this.getDefaultTimeZone()
             },
             {
@@ -94,7 +98,8 @@ export default class TeamServiceReal implements ITeamService {
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
-                timeFormat: "h:mm:ss a",
+                dateFormat: "MM/dd/yyyy",
+                timeFormat: "h:mm a",
                 timeZoneObj: this.getDefaultTimeZone()
             },
             {
@@ -104,7 +109,8 @@ export default class TeamServiceReal implements ITeamService {
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
-                timeFormat: "h:mm:ss a",
+                dateFormat: "MM/dd/yyyy",
+                timeFormat: "h:mm a",
                 timeZoneObj: this.getDefaultTimeZone()
             },
             {
@@ -114,7 +120,8 @@ export default class TeamServiceReal implements ITeamService {
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
-                timeFormat: "h:mm:ss a",
+                dateFormat: "MM/dd/yyyy",
+                timeFormat: "h:mm a",
                 timeZoneObj: this.getDefaultTimeZone()
             },
             {
@@ -124,7 +131,8 @@ export default class TeamServiceReal implements ITeamService {
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
-                timeFormat: "h:mm:ss a",
+                dateFormat: "MM/dd/yyyy",
+                timeFormat: "h:mm a",
                 timeZoneObj: this.getDefaultTimeZone()
             },
             {
@@ -134,7 +142,8 @@ export default class TeamServiceReal implements ITeamService {
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
-                timeFormat: "h:mm:ss a",
+                dateFormat: "MM/dd/yyyy",
+                timeFormat: "h:mm a",
                 timeZoneObj: this.getDefaultTimeZone()
             },
             {
@@ -144,7 +153,8 @@ export default class TeamServiceReal implements ITeamService {
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
-                timeFormat: "h:mm:ss a",
+                dateFormat: "MM/dd/yyyy",
+                timeFormat: "h:mm a",
                 timeZoneObj: this.getDefaultTimeZone()
             },
             {
@@ -154,7 +164,8 @@ export default class TeamServiceReal implements ITeamService {
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
-                timeFormat: "h:mm:ss a",
+                dateFormat: "MM/dd/yyyy",
+                timeFormat: "h:mm a",
                 timeZoneObj: this.getDefaultTimeZone()
             },
             {
@@ -164,7 +175,8 @@ export default class TeamServiceReal implements ITeamService {
                 workDays: 'owwwwwo',
                 workHours: 'nnnnnnneedddddddddeeeeen',
                 photoUrl: "",
-                timeFormat: "h:mm:ss a",
+                dateFormat: "MM/dd/yyyy",
+                timeFormat: "h:mm a",
                 timeZoneObj: this.getDefaultTimeZone()
             },
         ];

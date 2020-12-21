@@ -7,6 +7,7 @@ export default interface IUser {
     photoUrl: string;
     workDays: string;
     workHours: string;
+    dateFormat: string;
     timeFormat: string;
     timeZoneObj: ITimeZone;
 }
