@@ -6,6 +6,7 @@ import PrivacyPage from "../Pages/PrivacyPage";
 import TermsOfUsePage from "../Pages/TermsOfUsePage";
 // import Tab from './Tab';
 import TabConfigPage from "../Pages/Config";
+import TestPage from "../Pages/TestPage";
 import WebPage from "../Pages/WebPage";
 
 /**
@@ -29,6 +30,7 @@ function App() {
             <Route exact path="/" component={WebPage} />
             <Route exact path="/tab" component={TeamsHostError} />
             <Route exact path="/config" component={TeamsHostError} />
+            <Route exact path="/test" component={TestPage} />
           </Router>
         </div>
       );
@@ -42,6 +44,7 @@ function App() {
       <div className="App">
         <Router>
           <Route exact path="/tab" component={WebPage} />
+          <Route exact path="/test" component={TestPage} />
           <Route exact path="/config" component={TabConfigPage} />
         </Router>
       </div>
