@@ -11,6 +11,8 @@ export interface ISlideShowProps {
   showPhoto: boolean;
   user: IUser;
   timeFormat: string;
+  addParticipant: (participant: IUser) => void;
+  participants: IUser[];
 }
 
 class SlideShow extends React.Component<ISlideShowProps> {
@@ -98,7 +100,9 @@ class SlideShow extends React.Component<ISlideShowProps> {
         showPhoto={true}
         currentUser={false}
         user={this.props.user}
-        timeFormat={this.props.timeFormat}>
+        timeFormat={this.props.timeFormat}
+        addParticipant={this.props.addParticipant.bind(this)}
+        participants={this.props.participants}>
       </DigitalClock>
     );
 

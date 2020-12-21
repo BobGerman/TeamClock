@@ -6,6 +6,7 @@ import ServiceFactory from '../../services/ServiceFactory';
 import DigitalClock from '../DigitalClock';
 import SlideShow from '../SlideShow';
 import ITimeZone from '../../model/ITimeZone';
+import ScheduleComponent from '../ScheduleComponent';
 import IUser from '../../model/IUser';
 
 export interface IWebProps { };
@@ -15,6 +16,7 @@ export interface IWebState {
   currentUser?: IUser;
   teamMembers: IUser[];
   timeZones: ITimeZone[];
+  participants: IUser[];
 };
 
 /**
@@ -28,8 +30,9 @@ export default class WebPage extends React.Component <IWebProps, IWebState> {
       clockService: undefined,
       currentUser: undefined,
       teamMembers: [],
-      timeZones: []
-    }
+      timeZones: [],
+      participants: []
+    };
   }
 
   componentDidMount() {
@@ -60,15 +63,42 @@ export default class WebPage extends React.Component <IWebProps, IWebState> {
     })
   }
 
+  public _addParticipant(participant: IUser) {
+    let participantArray = this.state.participants;
+    //If the meeting is empty add the current user
+    if (participantArray.length === 0 && this.state.currentUser) {
+      participantArray.push(this.state.currentUser);
+    }
+    if (!participantArray.includes(participant)) {
+      participantArray.push(participant);
+      this.setState({
+        participants: participantArray
+      });
+    }
+  }
+
+  public _removeParticipant(participant: IUser) {
+    let participantArray = this.state.participants;
+    if (participantArray.includes(participant)) {
+
+      this.setState({
+        participants: participantArray.filter(x => x !== participant)
+      });
+    }
+    console.log(this.state.participants);
+  }
+
   render() {
     if (this.state.clockService &&
         this.state.currentUser &&
         this.state.timeZones) {
       return (
-        <div className='teamClock'>
-          <h1>What time is it now?</h1>
+        <main className='teamClock'>
+          <header>
+            <h1>What time is it now?</h1>
+          </header>
           <a href="# ">Edit My Profile</a>
-          <div className='currentTimeContainer'>
+          <section className='currentTimeContainer'>
 
             <div className='currentUser'>
               <DigitalClock clockService={this.state.clockService}
@@ -76,17 +106,21 @@ export default class WebPage extends React.Component <IWebProps, IWebState> {
                             timeZoneObj={this.state.currentUser.timeZoneObj}
                             user={this.state.currentUser}
                             timeFormat={this.state.currentUser.timeFormat}
-                            currentUser={true} />
+                            currentUser={true} 
+                            addParticipant={ this._addParticipant.bind(this) }
+                            participants={this.state.participants} />
             </div>
             <div className="otherTeamMembers">
               <SlideShow slides={this.state.timeZones}
                          clockService={this.state.clockService} 
                          showPhoto={true} 
                          user={this.state.currentUser} 
-                         timeFormat={this.state.currentUser.timeFormat} />
+                         timeFormat={this.state.currentUser.timeFormat}
+                         addParticipant={ this._addParticipant.bind(this) }
+                         participants={this.state.participants} />
             </div>
-          </div>
-        </div>
+          </section>
+        </main>
       );
     } else {
       return false;

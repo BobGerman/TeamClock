@@ -78,11 +78,13 @@ export default class ClockService implements IClockService {
     return timeZones;
   }
 
-  convertTimeZone(originalTime: string, convertToTimeZone: string) {
-    return moment(originalTime /*, null */).tz(convertToTimeZone);
+  convertTimeZone(originalTime: Date, convertToTimeZone: string) {
+    // WOuld not compile, said the 2nd arg to moment was not valid
+    // return moment(originalTime, null).tz(convertToTimeZone);
+    return moment(originalTime).tz(convertToTimeZone);
   }
 
-  isLeapYear(date: Date): () => boolean {
-    return moment(date.getFullYear()).isLeapYear;
+  isLeapYear(date: Date): boolean {
+    return moment(date.getFullYear()).isLeapYear();
   }
 }

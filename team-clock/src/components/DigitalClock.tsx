@@ -1,6 +1,7 @@
 import React from 'react';
 import multiPhoto from '../common/img/Group.svg';
-import noPhoto from '../common/img/Contact.svg'
+import noPhoto from '../common/img/Contact.svg';
+import add from '../common/img/Add.svg';
 import IClockService from '../services/ClockService/IClockService';
 import ITimeZone from '../model/ITimeZone';
 import IUser from '../model/IUser';
@@ -12,10 +13,13 @@ export interface IDigitalClockProps {
   showPhoto: boolean;
   timeFormat: string;
   timeZoneObj: ITimeZone;
+  addParticipant: (participant: IUser) => void;
+  participants: IUser[];
 };
 export interface IDigitalClockState {
   time: string;
   intervalID: number;
+  participants: IUser[];
 };
 
 
@@ -24,7 +28,8 @@ class DigitalClock extends React.Component<IDigitalClockProps, IDigitalClockStat
     super(props);
     this.state = {
       time: this.props.clockService.getCurrentTime(new Date(), this.props.timeFormat, this.props.timeZoneObj.timeZone),
-      intervalID: 0
+      intervalID: 0,
+      participants: this.props.participants
     };
   }
 
@@ -106,23 +111,33 @@ class DigitalClock extends React.Component<IDigitalClockProps, IDigitalClockStat
     return nextDaySpan;
   }
 
-  _renderPeople() {
-    let names = "";
+  _addParticipant(participant: IUser) {
+    this.props.addParticipant(participant);
+  }
 
+  _renderAddButton(participant: IUser) {
+    let addButton;
+    if (!this.props.participants.includes(participant)) {
+      addButton = React.createElement('img', { className: 'addButton', src: add }, null)
+    }
+    return addButton
+  }
+  _renderPeople() {
+    let person = [];
     if (this.props.timeZoneObj.members.length === 1) {
-      names = this.props.timeZoneObj.members[0].firstName + " + ";
+      person.push(React.createElement('span', { onClick: () => this._addParticipant(this.props.timeZoneObj.members[0]) }, [this.props.timeZoneObj.members[0].firstName, this._renderAddButton(this.props.timeZoneObj.members[0])]));
     } else {
       this.props.timeZoneObj.members.map((m, index) => {
-        if (index > 0) {
-          names = names + "</br>" + m.firstName + " + ";
-        } else {
-          names = m.firstName + " + ";
-        }
-        return names;
+
+        person.push(React.createElement('span', { onClick: () => this._addParticipant(m) }, [m.firstName, this._renderAddButton(m)]));
+
+        return null;
       });
     }
+    let personContainer = React.createElement('div', { className: 'personName' }, person);
+    //<div className='personName' dangerouslySetInnerHTML={{ __html: this._renderPeople() }} ></div>
 
-    return names
+    return personContainer
   }
 
   render() {
@@ -131,7 +146,7 @@ class DigitalClock extends React.Component<IDigitalClockProps, IDigitalClockStat
         {this._renderHeader()}
         {this._renderPhoto()}
         <div>{this.state.time} {this._isNextDay()}</div>
-        <div className='personName' dangerouslySetInnerHTML={{ __html: this._renderPeople() }} ></div>
+        {this._renderPeople()}
       </div>
     );
   }

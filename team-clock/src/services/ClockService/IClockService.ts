@@ -10,6 +10,6 @@ export default interface IClockService {
         string[];
     isNextDay: (timezone: string) => boolean;
     getTimeZones: (teamMembers: IUser[]) => ITimeZone[];
-    convertTimeZone: (originalTime: string, convertToTimeZone: string) => moment.Moment;
-    isLeapYear: (date: Date) => () => boolean;
+    convertTimeZone: (originalTime: Date, convertToTimeZone: string) => moment.Moment;
+    isLeapYear: (date: Date) => boolean;
 }
