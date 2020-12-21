@@ -63,28 +63,37 @@ export default class TestPage extends React.Component<ITestPageProps, ITestPageS
         this.state.currentUser &&
         this.state.timeZones) {
 
+      const mainStyle = { padding: 20 }
+      const headerStyle = { textAlign: 'left' as 'left'};
       const tableStyle = { border: '1px' };
-      const tdStyle = {  };
+      const tdStyle = { 
+        fontSize: 'large',
+        textAlign: 'left' as 'left',
+        verticalAlign: 'top',
+        border: '1px solid',
+        padding: 5
+      };
 
+      let userCount = 1;
       return (
-        <div>
-          <h1>Test</h1>
+        <div style={mainStyle}>
+          <h1 style={headerStyle}>Test</h1>
 
-          <h3>Team members</h3>
+          <h3 style={headerStyle}>Team members</h3>
           <table style={tableStyle}>
             <tr>
               <td style={tdStyle}>Current user</td>
-              <td style={tdStyle}>{this.state.currentUser.firstName} {this.state.currentUser.lastName}</td>
+              <td style={tdStyle}><User user={this.state.currentUser} /></td>
             </tr>
             {this.state.teamMembers.map(m =>
               <tr>
-                <td style={tdStyle}></td>
+                <td style={tdStyle}>User {userCount++}</td>
                 <td style={tdStyle}><User user={m} /></td>
               </tr>
             )}
           </table>
 
-          <h3>Time zones</h3>
+          <h3 style={headerStyle}>Time zones</h3>
           <table style={tableStyle}>
             {this.state.timeZones.map(tz =>
               <tr>
