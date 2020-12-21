@@ -15,7 +15,8 @@ export default class TeamServiceReal {
             lastName: "Service",
             timeZone: "America/New_York",
             photoUrl: "",
-            timeFormat: "LTS"
+            timeFormat: "h:mm a",
+            dateFormat: "MM/dd/yyyy"
 
         }
         if (currentUser.photoUrl === "") {
@@ -58,7 +59,8 @@ export default class TeamServiceReal {
                 lastName: "Cash-Peterson",
                 timeZone: "America/New_York",
                 photoUrl: "",
-                timeFormat: "h:mm:ss a"
+                timeFormat: "h:mm a",
+                dateFormat: "MM/dd/yyyy"
             },
             {
                 name: 'Ayca',
@@ -72,7 +74,8 @@ export default class TeamServiceReal {
                 lastName: "",
                 timeZone: "Asia/Dubai",
                 photoUrl: "",
-                timeFormat: "h:mm:ss a"
+                timeFormat: "h:mm a",
+                dateFormat: "MM/dd/yyyy"
 
             },
             {
@@ -85,7 +88,8 @@ export default class TeamServiceReal {
                 lastName: "",
                 timeZone: "Australia/Melbourne",
                 photoUrl: "",
-                timeFormat: "h:mm:ss a"
+                timeFormat: "h:mm a",
+                dateFormat: "MM/dd/yyyy"
             },
             {
                 name: 'Bob',
@@ -97,7 +101,8 @@ export default class TeamServiceReal {
                 lastName: "German",
                 timeZone: "America/New_York",
                 photoUrl: "",
-                timeFormat: "h:mm:ss a"
+                timeFormat: "h:mm a",
+                dateFormat: "MM/dd/yyyy"
             },
             {
                 name: 'Dan',
@@ -109,7 +114,8 @@ export default class TeamServiceReal {
                 lastName: "",
                 timeZone: "America/Phoenix",
                 photoUrl: "",
-                timeFormat: "h:mm:ss a"
+                timeFormat: "h:mm a",
+                dateFormat: "dd/MM/yyyy"
             },
             {
                 name: 'Emily',
@@ -121,7 +127,8 @@ export default class TeamServiceReal {
                 lastName: "",
                 timeZone: "America/Los_Angeles",
                 photoUrl: "",
-                timeFormat: "h:mm:ss a"
+                timeFormat: "h:mm a",
+                dateFormat: "dd/MM/yyyy"
             },
             {
                 name: 'Matt',
@@ -133,7 +140,8 @@ export default class TeamServiceReal {
                 lastName: "",
                 timeZone: "America/Los_Angeles",
                 photoUrl: "",
-                timeFormat: "h:mm:ss a"
+                timeFormat: "h:mm a",
+                dateFormat: "dd/MM/yyyy"
             },
             {
                 name: 'Rabia',
@@ -145,7 +153,8 @@ export default class TeamServiceReal {
                 lastName: "",
                 timeZone: "Australia/Brisbane",
                 photoUrl: "",
-                timeFormat: "h:mm:ss a"
+                timeFormat: "h:mm a",
+                dateFormat: "MM/dd/yyyy"
             },
             {
                 name: 'Todd',
@@ -157,7 +166,8 @@ export default class TeamServiceReal {
                 lastName: "",
                 timeZone: "America/Chicago",
                 photoUrl: "",
-                timeFormat: "h:mm:ss a"
+                timeFormat: "h:mm a",
+                dateFormat: "dd/MM/yyyy"
             },
             {
                 name: 'Tomomi',
@@ -169,7 +179,8 @@ export default class TeamServiceReal {
                 lastName: "",
                 timeZone: "America/Los_Angeles",
                 photoUrl: "",
-                timeFormat: "h:mm:ss a"
+                timeFormat: "h:mm a",
+                dateFormat: "dd/MM/yyyy"
             },
             {
                 name: 'Waldek',
@@ -181,7 +192,8 @@ export default class TeamServiceReal {
                 lastName: "",
                 timeZone: "Europe/Amsterdam",
                 photoUrl: "",
-                timeFormat: "h:mm:ss a"
+                timeFormat: "h:mm a",
+                dateFormat: "MM/dd/yyyy"
             },
         ];
         let clockService = new ClockService();

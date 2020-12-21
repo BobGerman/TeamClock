@@ -5,12 +5,17 @@ class SlideShow extends React.Component {
   constructor(props) {
     super(props);
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-    this.slideIndex = 0;
+    this._addParticipant = this._addParticipant.bind(this);
+    this.state = {
+      slideIndex: 0,
+      numberOfSlides: this._getNumberOfSlides()
+    }
   }
 
   componentDidMount() {
-    this.showSlides(this.slideIndex);
+    this.showSlides(this.state.slideIndex);
     window.addEventListener("resize", this.updateWindowDimensions);
+    this.forceUpdate();
   }
   componentWillUnmount() {
 
@@ -18,83 +23,81 @@ class SlideShow extends React.Component {
 
   updateWindowDimensions() {
     // When the window resizes we want to reset the number of slides we have 
-    this.forceUpdate();
+    this.setState({
+      slideIndex: 0,
+      numberOfSlides: this._getNumberOfSlides()
+    });
+
   }
 
   //The left and right slide buttons
   plusSlides(n) {
-    this.slideIndex += n;
-    this.showSlides(this.slideIndex);
+    if ((this.state.slideIndex + n) === this.state.numberOfSlides) {
+      this.setState({ slideIndex: 0 });
+    } else {
+      this.setState({ slideIndex: this.state.slideIndex + n }); //.state.slideIndex += n;
+    }
+
+    this.showSlides(this.state.slideIndex);
   }
 
   //Change the slide based on buttons
   currentSlide(n) {
-    this.slideIndex = n;
-    this.showSlides(this.slideIndex);
+    this.setState({ slideIndex: n });
+    this.showSlides(this.state.slideIndex);
   }
 
   //Show the slides and set the active states
   showSlides(n) {
     var i;
     var slides = document.getElementsByClassName("mySlides");
-    var dots = document.getElementsByClassName("dot");
-    if (n > slides.length - 1) { this.slideIndex = 0 }
-    if (n < 0) { this.slideIndex = slides.length - 1 }
+    if (n > slides.length - 1) { this.setState({ slideIndex: 0 }) }
+    if (n < 0) { this.setState({ slideIndex: slides.length - 1 }) }
 
     for (i = 0; i < slides.length; i++) {
       slides[i].style = "display:none";
     }
-    for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-    }
-    slides[this.slideIndex].style = "display:inline-flex";
-    if (dots.length > 0) {
-      dots[this.slideIndex].className = dots[this.slideIndex].className + " active";
-    }
-
+    slides[this.state.slideIndex].style = "display:inline-flex";
   }
 
   //Get the width of the screen and decide how many users to show per slide
-  _getSlideWidth() {
-    let containerWidth = window.innerWidth;
-    let itemsPerSlide = 1;
-
-    if ((containerWidth > 500) && (containerWidth < 800)) {
-      itemsPerSlide = 2;
-    } else if ((containerWidth >= 800) && (containerWidth < 1000)) {
-      itemsPerSlide = 3;
-    } else if (containerWidth > 1000) {
-      itemsPerSlide = this.props.slides.length;
+  _getItemsPerSlide() {
+    let containerWidth;
+    let slideElement = document.getElementsByClassName("slideshow-container");
+    if (slideElement.length <= 0) {
+      containerWidth = window.innerWidth;
+    } else {
+      containerWidth = slideElement[0].offsetWidth;
     }
 
-    return itemsPerSlide;
+    return Math.floor(containerWidth / 125);;
+  }
+
+  _getNumberOfSlides() {
+    return Math.ceil(this.props.slides.length / this._getItemsPerSlide());
+  }
+
+  _addParticipant(participant) {
+    this.props.addParticipant(participant);
   }
 
   //Render the slides and put the correct number of users in the slide
   _renderSlides() {
-    let itemsPerSlide = this._getSlideWidth();
+    let itemsPerSlide = this._getItemsPerSlide();
     let clocks = [];
 
     //Create an array of all the users
     this.props.slides.map((m, index) => {
-      let clock = <DigitalClock clockService={this.props.clockService} key={`clock-` + index} timeZoneObj={m} showPhoto={true} user={this.props.user} timeFormat={this.props.timeFormat}></DigitalClock>;
+      let clock = <DigitalClock clockService={this.props.clockService} key={`clock-` + index} timeZoneObj={m} showPhoto={true} user={this.props.user} timeFormat={this.props.timeFormat} addParticipant={this._addParticipant} participants={this.props.participants}></DigitalClock>;
       return clocks.push(clock);
     });
 
-    //Figure out the number of slides we need based on the number of clocks
-    let numberOfSlides = this.props.slides.length / itemsPerSlide;
-    //If there is a remainder add an extra slide
-    if (this.props.slides.length % itemsPerSlide !== 0) {
-      numberOfSlides = numberOfSlides + 1;
-    }
-
     let slideCounter = 0;
-
 
     let x;
     let slideCollection = [];
     //Create a slide for each one
-    for (x = 0; x < numberOfSlides; x++) {
+    for (x = 0; x < this.state.numberOfSlides; x++) {
       let slideMembers = [];
       let i;
       //For each slide add the correct number of clocks per slide
@@ -103,7 +106,7 @@ class SlideShow extends React.Component {
         slideCounter = slideCounter + 1;
       }
       let active = "";
-      if (x === this.slideIndex) {
+      if (x === this.state.slideIndex) {
         active = " inline-flex";
       } else {
         active = "none";
@@ -114,31 +117,30 @@ class SlideShow extends React.Component {
       slideCollection.push(slide);
     }
 
-    //If we have more than one slide add the left and right arrows
-    if (numberOfSlides > 1) {
-      slideCollection.push(<a href="# " className="prev" key="prev" onClick={() => { this.plusSlides(-1) }}>&#10094;</a>);
-      slideCollection.push(<a href="# " className="next" key="next" onClick={() => { this.plusSlides(1) }}>&#10095;</a>);
-      slideCollection.push(<br key="br" />);
-    }
 
-    let slideContainer = React.createElement('div', { className: "slideshow-container" }, slideCollection);
-    let dotsArray = [];
+    let navigationArray = [];
 
-    //If we have more than one slide add the dots
-    if (numberOfSlides > 1) {
-      let d = 0;
-      for (d = 0; d < numberOfSlides; d++) {
-        let m = d;
-        let active = "";
-        //If we are resizing make sure we set the active state for the dots
-        if (d === this.slideIndex) {
-          active = " active";
-        }
-        dotsArray.push(React.createElement('span', { className: `dot ` + d + active, key: `dot-` + d, onClick: () => this.currentSlide(m) }, ""));
+    if (this.state.numberOfSlides > 1) {
+      var currentSlide = this.state.slideIndex + 1;
+      if (currentSlide === 1) {
+        navigationArray.push(React.createElement('div', { className: `button left disabled` }, "<"));
+      } else {
+        navigationArray.push(React.createElement('div', { className: `button left`, onClick: () => this.plusSlides(-1) }, "<"));
       }
+
+      navigationArray.push(React.createElement('div', { className: `count`, onClick: () => this.plusSlides(-1) }, currentSlide + " of " + this.state.numberOfSlides));
+
+      if (this.state.slideIndex === this.state.numberOfSlides - 1) {
+        navigationArray.push(React.createElement('div', { className: `button right disabled` }, ">"));
+      } else {
+        navigationArray.push(React.createElement('div', { className: `button right`, onClick: () => this.plusSlides(1) }, ">"));
+      }
+
     }
+    let navDiv = React.createElement('div', { className: 'navControls' }, navigationArray);
+    let slideContainer = React.createElement('div', { className: "slideshow-container" }, slideCollection, navDiv);
     //Render the slides container
-    let container = React.createElement('div', {}, [slideContainer, dotsArray]);
+    let container = React.createElement('div', {}, [slideContainer]);
     return container;
 
   }

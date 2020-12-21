@@ -7,7 +7,7 @@ export default class TeamService {
         let service = null;
         if (process.env.REACT_APP_MOCK) {
             service = await TeamServiceMock.factory();
-       } else {
+        } else {
             service = await TeamServiceReal.factory();
         }
         return service;

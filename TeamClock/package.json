@@ -10,6 +10,7 @@
         "moment-timezone": "^0.5.31",
         "node-sass": "^4.14.1",
         "react": "^16.13.1",
+        "react-datepicker": "^3.3.0",
         "react-dom": "^16.13.1",
         "react-router-dom": "^5.1.2",
         "react-scripts": "3.4.1"
@@ -36,6 +37,6 @@
         "gh-pages": "^3.1.0"
     },
     "msteams": {
-        "teamsAppId": "fdface0a-d067-4345-96ee-410757fe13e5"
+        "teamsAppId": "48520b61-9792-43ec-8b0f-5bf91b6866f6"
     }
 }
