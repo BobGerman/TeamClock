@@ -5,16 +5,27 @@
 ### A. Add and trust certificates
 
 Follow the steps in [this article](https://bob1german.com/2020/10/17/setting-up-ssl-for-tabs-in-the-teams-toolkit-for-visual-studio-code/)
- * Step 1 - Follow this from the article
- * Step 2 - You do need to create the .cert file in this project folder (part a). The .env and .gitignore changes are already done (parts b and c).
+ * Step 1 - Follow this from the article; it will walk you through creating new certificates and trusting a new root certificate. Once you do this, you can reuse the certs in other projects as well.
+ * Step 2 - You only need to do the first part (part a) and create a `.cert` folder under `/team-clock` containing your `cert.crt` and `cert.key` files. You don't need to update the .env and .gitignore files because they are already set up for you in this repo. Besides, you haven't created your .env file yet!
 
-### B. Install dependencies
+### B. Set up your .env file
+
+In the /team-clock folder, make a copy of `.env.sample` called `.env`. These are your personal environment settings and won't be checked into source control. Fill in these values in your .env file:
+
+| Value | Description |
+|---|---|
+| HTTPS | You shouldn't need to change this value; set to true as SSL is required by Microsoft Teams |
+| SSL_CRT_FILE | You shouldn't need to change this value; should point to the .crt file you created above |
+| SSL_KEY_FILE | You shouldn't need to change this value; should point to the .key file you created above |
+| REACT_APP_MOCK | Set to true to use mock data, false to use data from SharePoint |
+
+### C. Install dependencies
 
 ~~~bash
 npm install
 ~~~
 
-### C. Build the Manifest
+### D. Build the Manifest
 
 1. Copy the file `manifest/manifest sample.json` to a new file called `manifest/manifest.json`
 
@@ -31,15 +42,14 @@ npm install
 npm run manifest
 ~~~
 
-### D. Start the server
+### E. Start the server
 
 ~~~bash
 npm run start
 ~~~
 
 Leave it running.
-
-### E. Install the app in Teams
+### F. Install the app in Teams
 
 Find a Team where you wish to test and where you have the permission to upload an app. This requires an [App Setup Policy](https://docs.microsoft.com/en-us/MicrosoftTeams/teams-app-setup-policies) which allows "Upload custom apps" and a Team where you are an owner.
 
@@ -55,7 +65,7 @@ Select "Team Clock".
 
 ![Install the Teams app](./docs/images/NewToolchain-InstallManifest-03.png)
 
-Fill in the configuration screen with a name for the tab 1️⃣ and a name for your SharePoint list2️⃣, then click Save.3️⃣
+Fill in the configuration screen with a name for the tab 1️⃣ and a name for your SharePoint list 2️⃣, then click Save. 3️⃣
 
 ![Install the Teams app](./docs/images/NewToolchain-InstallManifest-04.png)
 
