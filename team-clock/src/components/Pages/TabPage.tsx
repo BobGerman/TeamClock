@@ -83,7 +83,7 @@ export default class TabPage extends React.Component<ITabPageProps, ITabPageStat
           <p>You are logged in as: {AuthService.getUsername()}</p>
           <p>Your app is running in the Teams UI</p>
           { this.state.teamsContext?.teamName ? <p>You are in {this.state.teamsContext?.teamName}</p> : null}
-          { this.state.config?.shortMessage ? <p>You configured a short message for this tab: {this.state.config?.shortMessage}</p> : null }
+          { this.state.config?.spListName ? <p>You configured a short message for this tab: {this.state.config?.spListName}</p> : null }
           <ol>
             {
               this.state.messages.map(message => (

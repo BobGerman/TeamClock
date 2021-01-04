@@ -26,8 +26,8 @@ export default class TabConfig extends React.Component<ITabConfigPageProps, ITab
   async componentDidMount() {
     let { config, teamsContext } = await ConfigService.getContextAndConfig();
     this.setState({
-      shortMessage: config.shortMessage,
-      firstRun: !config.shortMessage,
+      shortMessage: config.spListName,
+      firstRun: !config.spListName,
       theme: ThemeService.getFluentTheme(teamsContext.theme)
     });
     microsoftTeams.appInitialization.notifySuccess();
@@ -44,7 +44,7 @@ export default class TabConfig extends React.Component<ITabConfigPageProps, ITab
       microsoftTeams.settings.setSettings({
         suggestedDisplayName: this.state.tabName,
         entityId: ConfigService.getEntityId({
-          shortMessage: this.state.shortMessage
+          spListName: this.state.shortMessage
         }),
         contentUrl: `${baseUrl}/Tab`,
         websiteUrl: `${baseUrl}/Web`

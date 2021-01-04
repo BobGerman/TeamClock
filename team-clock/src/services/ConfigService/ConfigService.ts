@@ -1,7 +1,7 @@
 import * as microsoftTeams from "@microsoft/teams-js";
 
 export interface IConfig {
-  shortMessage: string;
+  spListName: string;
 }
 
 export interface IContextAndConfig {
@@ -13,7 +13,7 @@ export interface IContextAndConfig {
 export class ConfigService {
 
   public static getEntityId(configInfo: IConfig): string {
-    return configInfo.shortMessage + "/" +
+    return configInfo.spListName + "/" +
       Math.random().toString(36).substring(2, 15) +
       Math.random().toString(36).substring(2, 15);
   }
@@ -25,7 +25,7 @@ export class ConfigService {
         resolve({
           teamsContext: context,
           config: {
-            shortMessage: context.entityId.split('/')[0]
+            spListName: context.entityId.split('/')[0]
           },
         });
       });

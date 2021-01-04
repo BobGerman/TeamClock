@@ -20,10 +20,10 @@ export default class TabConfig extends React.Component<IConfigProps, IConfigStat
   }
 
   async componentDidMount() {
-    const configInfo = await ConfigService.getConfigInfo();
+    const configInfo = await ConfigService.getContextAndConfig();
     this.setState({
-      listName: configInfo.spListName,
-      firstRun: !configInfo.spListName
+      listName: configInfo.config.spListName,
+      firstRun: !configInfo.config.spListName
     });
   }
 

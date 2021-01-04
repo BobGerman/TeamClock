@@ -4,12 +4,11 @@ import './index.css';
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 
-import { Provider, themes } from '@fluentui/react-northstar' //https://fluentsite.z22.web.core.windows.net/quick-start
-
 ReactDOM.render(
-  <Provider theme={themes.teams}>
+  <React.StrictMode>
     <App />
-  </Provider>, document.getElementById('root')
+  </React.StrictMode>,
+  document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
