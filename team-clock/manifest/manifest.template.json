@@ -1,0 +1,67 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.8/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.8",
+  "version": "<APP_VERSION>",
+  "id": "<TEAMS_APP_ID>",
+  "packageName": "io.github.pnp.teamsdevsamples.tab-create-react-app-ts-msal",
+  "developer": {
+      "name": "Developer Name",
+      "websiteUrl": "https://pnp.github.io",
+      "privacyUrl": "https://<HOSTNAME>:<PORT>/#/privacy",
+      "termsOfUseUrl": "https://<HOSTNAME>:<PORT>/#/termsofuse"
+  },
+  "icons": {
+      "color": "<ICON_192>.png",
+      "outline": "<ICON_32>.png"
+  },
+  "name": {
+      "short": "My MSAL App",
+      "full": "Sample tab app using Create React App with Typescript and MSAL 2.0"
+  },
+  "description": {
+      "short": "Please try my app!",
+      "full": "Now with Microsoft Graph and Azure AD!"
+  },
+  "accentColor": "#FFFFFF",
+  "configurableTabs": [
+    {
+      "configurationUrl": "https://<HOSTNAME>:<PORT>/#/config",
+      "canUpdateConfiguration": true,
+      "scopes": [
+        "team",
+        "groupchat"
+      ]
+    }
+  ],
+  "staticTabs": [
+    {
+      "entityId": "<NAME>",
+      "name": "<NAME>",
+      "contentUrl": "https://<HOSTNAME>:<PORT>/#/tab",
+      "websiteUrl": "https://<HOSTNAME>:<PORT>/#/web",
+      "scopes": [
+        "personal"
+      ]
+    },
+    {
+      "entityId": "<NAME> Test Page",
+      "name": "<NAME> Test Page",
+      "contentUrl": "https://<HOSTNAME>:<PORT>/#/tabTest",
+      "websiteUrl": "https://<HOSTNAME>:<PORT>/#/webTest",
+      "scopes": [
+        "personal"
+      ]
+    }
+
+  ],
+  "bots": [ ],
+  "showLoadingIndicator": true,
+  "permissions": [
+      "identity",
+      "messageTeamMembers"
+  ],
+  "validDomains": [
+      "<HOSTNAME>:<PORT>",
+      "login.microsoftonline.com"
+  ]
+}

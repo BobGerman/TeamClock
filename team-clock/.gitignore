@@ -22,7 +22,7 @@
 .cert
 .env
 manifest/manifest.json
-manifest/TeamClock.zip
+manifest/*.zip
 
 npm-debug.log*
 yarn-debug.log*
