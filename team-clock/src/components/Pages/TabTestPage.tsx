@@ -20,7 +20,7 @@ export interface ITabPageState {
   error: string;
 }
 
-export default class TabPage extends React.Component<ITabPageProps, ITabPageState> {
+export default class TabTestPage extends React.Component<ITabPageProps, ITabPageState> {
 
   constructor(props: ITabPageProps) {
     super(props);
@@ -65,7 +65,7 @@ export default class TabPage extends React.Component<ITabPageProps, ITabPageStat
       // Earlier attempt to log in failed - show the button
       return (
         <Provider theme={this.state.theme}>
-          <Header>{process.env.REACT_APP_MANIFEST_NAME}</Header>
+          <Header>{process.env.REACT_APP_MANIFEST_NAME} Test Page</Header>
           <p>Version {process.env.REACT_APP_MANIFEST_APP_VERSION}</p>
           { this.state.error ? <p>Error: {this.state.error}</p> : null}
           <button onClick={async () => { await this.getMessages(); }}>Log in</button>
