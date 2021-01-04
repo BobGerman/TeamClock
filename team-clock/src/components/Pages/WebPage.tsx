@@ -36,11 +36,11 @@ export default class WebPage extends React.Component<IWebProps, IWebState> {
           clockService: clockService
         });
       });
-    }
+  }
 
   render() {
 
-        if(this.state.clockService && this.state.teamService) {
+    if (this.state.clockService && this.state.teamService) {
       return (<TeamClock clockService={this.state.clockService} teamService={this.state.teamService} />);
     } else {
       return false;
