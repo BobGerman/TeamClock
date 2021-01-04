@@ -8,57 +8,91 @@ import TabPage from '../Pages/TabPage';
 import TabTestPage from '../Pages/TabTestPage';
 import TabConfigPage from "../Pages/Config";
 import WebPage from "../Pages/WebPage";
-import WebTestPage from '../Pages/WebTestPage';
+import WebTestPage from "../Pages/WebTestPage";
+import AuthService from '../../services/AuthService/MsalRefreshAuthService';
 
 /**
  * The main app which handles the initialization and routing
  * of the app.
  */
-function App() {
-  // Check for the Microsoft Teams SDK object.
-  if (microsoftTeams) {
+export interface IAppProps { };
+export interface IAppState {
+  redirectHandled: boolean;
+}
 
-    // Set app routings that don't require microsoft Teams
-    // SDK functionality.  Show an error if trying to access the
-    // Home page.
-    if (window.parent === window.self) {
-      return (
-        <div className="App">
-          <Router>
-            <Route exact path="/privacy" component={PrivacyPage} />
-            <Route exact path="/termsofuse" component={TermsOfUsePage} />
-            <Route exact path="/web" component={WebPage} />
-            <Route exact path="/webTest" component={WebTestPage} />
-            <Route exact path="/test" component={WebTestPage} />
-            <Route exact path="/" component={WebPage} />
-            <Route exact path="/tab" component={TeamsHostError} />
-            <Route exact path="/tabTest" component={TeamsHostError} />
-            <Route exact path="/config" component={TeamsHostError} />
-          </Router>
-        </div>
-      );
-    }
+export default class App extends React.Component<IAppProps, IAppState> {
 
-    // Initialize the Microsoft Teams SDK
-    microsoftTeams.initialize(window as any);
-
-    // Display the app home page hosted in Teams
-    return (
-      <div className="App">
-        <Router>
-        <Route exact path="/tab" component={TabPage} />
-          <Route exact path="/tabTest" component={TabTestPage} />
-          <Route exact path="/config" component={TabConfigPage} />
-        </Router>
-      </div>
-    );
+  constructor(props: IAppProps) {
+    super(props);
+    this.state = {
+      redirectHandled: false
+    };
   }
 
-  // Error when the Microsoft Teams SDK is not found
-  // in the project.
-  return (
-    <h3>Microsoft Teams SDK not found.</h3>
-  );
+  componentDidMount() {
+    // React routing and OAuth don't play nice together
+    // Take care of the OAuth fun before routing
+    AuthService.handleRedirect().then(() => {
+      this.setState({
+        redirectHandled: true
+      });
+    })
+  }
+
+  render() {
+
+    if (microsoftTeams) {
+
+      if (!this.state.redirectHandled) {
+
+        return (
+          <div className="App">
+            <p>Authorizing (Part 2: Exchanging auth code for access token)</p>
+          </div>
+        );
+
+      } else {
+        // We are not running in a Teams IFrame, set up applicable routes:
+        if (window.parent === window.self) {
+          return (
+            <div className="App">
+              <Router>
+                <Route exact path="/privacy" component={PrivacyPage} />
+                <Route exact path="/termsofuse" component={TermsOfUsePage} />
+                <Route exact path="/web" component={WebPage} />
+                <Route exact path="/webTest" component={WebTestPage} />
+                <Route exact path="/test" component={WebTestPage} />
+                <Route exact path="/" component={WebTestPage} />
+                <Route exact path="/tab" component={TeamsHostError} />
+                <Route exact path="/tabTest" component={TeamsHostError} />
+                <Route exact path="/config" component={TeamsHostError} />
+              </Router>
+            </div>
+          );
+        }
+
+        // Initialize the Microsoft Teams SDK
+        microsoftTeams.initialize(window as any);
+
+        // We are running in a Teams IFrame, set up applicable routes:
+        return (
+          <div className="App">
+            <Router>
+              <Route exact path="/tab" component={TabPage} />
+              <Route exact path="/tabTest" component={TabTestPage} />
+              <Route exact path="/config" component={TabConfigPage} />
+            </Router>
+          </div>
+        );
+      }
+    }
+
+    // Error when the Microsoft Teams SDK is not found
+    // in the project.
+    return (
+      <h3>Microsoft Teams SDK not found.</h3>
+    );
+  }
 }
 
 /**
@@ -74,37 +108,3 @@ class TeamsHostError extends React.Component {
     );
   }
 }
-
-export default App;
-
-
-
-// #region OLD CODE
-
-// import React from 'react';
-// import logo from '../common/img/logo.svg';
-// import './App.css';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.tsx</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-
-// export default App;
-// #endregion
