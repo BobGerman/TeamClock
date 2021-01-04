@@ -4,10 +4,11 @@ import * as microsoftTeams from "@microsoft/teams-js";
 import { HashRouter as Router, Route } from "react-router-dom";
 import PrivacyPage from "../Pages/PrivacyPage";
 import TermsOfUsePage from "../Pages/TermsOfUsePage";
-// import Tab from './Tab';
+import TabPage from '../Pages/TabPage';
+import TabTestPage from '../Pages/TabTestPage';
 import TabConfigPage from "../Pages/Config";
-import TestPage from "../Pages/TestPage";
 import WebPage from "../Pages/WebPage";
+import WebTestPage from '../Pages/WebTestPage';
 
 /**
  * The main app which handles the initialization and routing
@@ -27,10 +28,12 @@ function App() {
             <Route exact path="/privacy" component={PrivacyPage} />
             <Route exact path="/termsofuse" component={TermsOfUsePage} />
             <Route exact path="/web" component={WebPage} />
+            <Route exact path="/webTest" component={WebTestPage} />
+            <Route exact path="/test" component={WebTestPage} />
             <Route exact path="/" component={WebPage} />
             <Route exact path="/tab" component={TeamsHostError} />
+            <Route exact path="/tabTest" component={TeamsHostError} />
             <Route exact path="/config" component={TeamsHostError} />
-            <Route exact path="/test" component={TestPage} />
           </Router>
         </div>
       );
@@ -43,8 +46,8 @@ function App() {
     return (
       <div className="App">
         <Router>
-          <Route exact path="/tab" component={WebPage} />
-          <Route exact path="/test" component={TestPage} />
+        <Route exact path="/tab" component={TabPage} />
+          <Route exact path="/tabTest" component={TabTestPage} />
           <Route exact path="/config" component={TabConfigPage} />
         </Router>
       </div>
