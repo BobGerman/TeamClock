@@ -20,7 +20,6 @@
 .env.production.local
 
 .cert
-.env
 manifest/manifest.json
 manifest/*.zip
 
