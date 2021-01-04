@@ -7,7 +7,7 @@ import { Provider, Header, ThemePrepared } from "@fluentui/react-northstar";
 export interface ITabConfigPageProps { };
 export interface ITabConfigPageState {
   tabName?: string;
-  shortMessage: string;
+  spListName: string;
   firstRun: boolean;
   theme: ThemePrepared
 }
@@ -17,7 +17,7 @@ export default class TabConfig extends React.Component<ITabConfigPageProps, ITab
     super(props);
     this.state = {
       tabName: process.env.REACT_APP_MANIFEST_NAME,
-      shortMessage: "",
+      spListName: "",
       firstRun: false,
       theme: ThemeService.getFluentTheme()
     }
@@ -26,7 +26,7 @@ export default class TabConfig extends React.Component<ITabConfigPageProps, ITab
   async componentDidMount() {
     let { config, teamsContext } = await ConfigService.getContextAndConfig();
     this.setState({
-      shortMessage: config.spListName,
+      spListName: config.spListName,
       firstRun: !config.spListName,
       theme: ThemeService.getFluentTheme(teamsContext.theme)
     });
@@ -44,7 +44,7 @@ export default class TabConfig extends React.Component<ITabConfigPageProps, ITab
       microsoftTeams.settings.setSettings({
         suggestedDisplayName: this.state.tabName,
         entityId: ConfigService.getEntityId({
-          spListName: this.state.shortMessage
+          spListName: this.state.spListName
         }),
         contentUrl: `${baseUrl}/Tab`,
         websiteUrl: `${baseUrl}/Web`
@@ -69,10 +69,10 @@ export default class TabConfig extends React.Component<ITabConfigPageProps, ITab
             </tr>
             : null }
           <tr>
-            <td>Short message: </td>
+            <td>SharePoint List Name: </td>
             <td>
               <input onChange={this.handleShortMessageChange.bind(this)}
-                value={this.state.shortMessage}
+                value={this.state.spListName}
               />
             </td>
           </tr>
@@ -87,13 +87,13 @@ export default class TabConfig extends React.Component<ITabConfigPageProps, ITab
   }
 
   private handleShortMessageChange(event: React.FormEvent<HTMLInputElement>) {
-    this.setState({ shortMessage: event.currentTarget.value });
+    this.setState({ spListName: event.currentTarget.value });
     this.checkValidityState();
   }
 
   private checkValidityState() {
     let result = false;
-    if (this.state.tabName && this.state.shortMessage) {
+    if (this.state.tabName && this.state.spListName) {
       result = true;
     }
     microsoftTeams.settings.setValidityState(result);

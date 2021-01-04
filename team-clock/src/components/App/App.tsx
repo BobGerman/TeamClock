@@ -6,7 +6,7 @@ import PrivacyPage from "../Pages/PrivacyPage";
 import TermsOfUsePage from "../Pages/TermsOfUsePage";
 import TabPage from '../Pages/TabPage';
 import TabTestPage from '../Pages/TabTestPage';
-import TabConfigPage from "../Pages/Config";
+import TabConfigPage from "../Pages/TabConfigPage";
 import TeamsAuthPopup from "../Pages/TeamsAuthPopup";
 import WebPage from "../Pages/WebPage";
 import WebTestPage from "../Pages/WebTestPage";
