@@ -5,22 +5,22 @@
   "id": "<TEAMS_APP_ID>",
   "packageName": "io.github.pnp.teamsdevsamples.tab-create-react-app-ts-msal",
   "developer": {
-      "name": "Developer Name",
-      "websiteUrl": "https://pnp.github.io",
-      "privacyUrl": "https://<HOSTNAME>:<PORT>/#/privacy",
-      "termsOfUseUrl": "https://<HOSTNAME>:<PORT>/#/termsofuse"
+    "name": "Derek and Bob",
+    "websiteUrl": "https://pnp.github.io",
+    "privacyUrl": "https://<HOSTNAME>:<PORT>/#/privacy",
+    "termsOfUseUrl": "https://<HOSTNAME>:<PORT>/#/termsofuse"
   },
   "icons": {
-      "color": "<ICON_192>.png",
-      "outline": "<ICON_32>.png"
+      "color": "<ICON_192>",
+      "outline": "<ICON_32>"
   },
   "name": {
-      "short": "My MSAL App",
-      "full": "Sample tab app using Create React App with Typescript and MSAL 2.0"
+    "short": "Team Clock",
+    "full": "Team Clock helps teams who are spread around the world"
   },
   "description": {
-      "short": "Please try my app!",
-      "full": "Now with Microsoft Graph and Azure AD!"
+    "short": "Displays time for a list of people in different time zones",
+    "full": "Displays time and assists with scheduling meetings with teammates who are spread across multiple time zones"
   },
   "accentColor": "#FFFFFF",
   "configurableTabs": [
@@ -44,8 +44,8 @@
       ]
     },
     {
-      "entityId": "<NAME> Test Page",
-      "name": "<NAME> Test Page",
+      "entityId": "Test Page",
+      "name": "Test Page",
       "contentUrl": "https://<HOSTNAME>:<PORT>/#/tabTest",
       "websiteUrl": "https://<HOSTNAME>:<PORT>/#/webTest",
       "scopes": [
