@@ -157,7 +157,6 @@ export default class TabTestPage extends React.Component<ITabPageProps, ITabPage
             </ol>
             */}
             <h3>You received {this.state.messages.length} messages</h3>
-            <h1 style={headerStyle}>Test</h1>
     
             <h3 style={headerStyle}>Team members</h3>
             <table style={tableStyle}>
