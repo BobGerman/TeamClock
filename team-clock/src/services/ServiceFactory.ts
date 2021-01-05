@@ -5,31 +5,51 @@ import TeamServiceMock from './TeamService/TeamServiceMock';
 import IClockService from './ClockService/IClockService';
 import ClockService from './ClockService/ClockService';
 
-export default class ServiceFactory {
+export enum ServiceOption {
+    mockData,           // Use mock data
+    msalAuth,           // Use the MSAL Refresh auth provider
+    teamsAuth           // Use the MS Teams auth provider
+}
 
-    // Singletons for each service
+export class ServiceFactory {
+
+    // Clock service is a singleton
     private static clockService?: IClockService;
-    private static teamService?: ITeamService;
-
     static async getClockService(): Promise<IClockService> {
+
         if (!ServiceFactory.clockService) {
             ServiceFactory.clockService = new ClockService();
         }
         return Promise.resolve(ServiceFactory.clockService);
+
     }
 
-    static async getTeamService(): Promise<ITeamService> {
+    // Team service has a singleton for each service option
+    private static mockTeamService?: ITeamService;
+    private static msalTeamService?: ITeamService;
+    private static teamsTeamService?: ITeamService;
+    static async getTeamService(serviceOption: ServiceOption): Promise<ITeamService> {
 
+        let result: ITeamService;
         const clockService = await ServiceFactory.getClockService();
-        if (!ServiceFactory.teamService) {
-            if (process.env.REACT_APP_MOCK) {
-                ServiceFactory.teamService = new TeamServiceMock(clockService);
-            } else {
-                const teamService = new TeamServiceReal(clockService);
-                await teamService.init();
-                ServiceFactory.teamService = teamService;
-            }
+
+        if (serviceOption === ServiceOption.mockData ||
+            process.env.REACT_APP_MOCK) {
+            // Provide mock service
+            ServiceFactory.mockTeamService = ServiceFactory.mockTeamService || new TeamServiceMock(clockService);
+            result = ServiceFactory.mockTeamService;
+        } else if (serviceOption === ServiceOption.msalAuth) {
+            // Provide msal service
+            ServiceFactory.msalTeamService = ServiceFactory.msalTeamService || new TeamServiceReal(clockService);
+            result = ServiceFactory.msalTeamService;
+        } else if (serviceOption === ServiceOption.teamsAuth) {
+            // Provide teams service
+            ServiceFactory.teamsTeamService = ServiceFactory.msalTeamService || new TeamServiceReal(clockService);
+            result = ServiceFactory.teamsTeamService;
+        } else {
+            throw new Error("Invalid service option in ServiceFactory.getTeamService()");
         }
-        return ServiceFactory.teamService;
+
+        return result;
     }
 }

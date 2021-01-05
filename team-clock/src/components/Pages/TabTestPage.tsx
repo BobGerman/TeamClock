@@ -10,7 +10,7 @@ import * as MicrosoftGraph from "@microsoft/microsoft-graph-types";
 
 import ITeamService from '../../services/TeamService/ITeamService';
 import IClockService from '../../services/ClockService/IClockService';
-import ServiceFactory from '../../services/ServiceFactory';
+import { ServiceFactory, ServiceOption } from '../../services/ServiceFactory';
 
 import ITimeZone from '../../model/ITimeZone';
 import IUser from '../../model/IUser';
@@ -66,7 +66,7 @@ export default class TabTestPage extends React.Component<ITabPageProps, ITabPage
 
     // 3. Connect to services
     let teamService: ITeamService;
-    ServiceFactory.getTeamService()
+    ServiceFactory.getTeamService(ServiceOption.teamsAuth)
       .then((service) => {
         teamService = service;
         return ServiceFactory.getClockService();
@@ -120,25 +120,22 @@ export default class TabTestPage extends React.Component<ITabPageProps, ITabPage
         this.state.currentUser &&
         this.state.timeZones) {
 
+        // Hack styles for the test page
+        const mainStyle = { padding: 20 }
+        const headerStyle = { textAlign: 'left' as 'left' };
+        const tableStyle = { border: '1px' };
+        const tdStyle = {
+          fontSize: 'large',
+          textAlign: 'left' as 'left',
+          verticalAlign: 'top',
+          border: '1px solid',
+          padding: 5
+        };
 
-          const mainStyle = { padding: 20 }
-          const headerStyle = { textAlign: 'left' as 'left' };
-          const tableStyle = { border: '1px' };
-          const tdStyle = {
-            fontSize: 'large',
-            textAlign: 'left' as 'left',
-            verticalAlign: 'top',
-            border: '1px solid',
-            padding: 5
-          };
-      
-          let userCount = 1;
-  
+        let userCount = 1;
 
-
-        let key = 0;
         return (
-          <Provider theme={this.state.theme}>
+          <Provider theme={this.state.theme} style={mainStyle}>
             <Header>{process.env.REACT_APP_MANIFEST_NAME}</Header>
             <p>Version {process.env.REACT_APP_MANIFEST_APP_VERSION}</p>
             { this.state.error ? <p>Error: {this.state.error}</p> : null}
@@ -146,18 +143,8 @@ export default class TabTestPage extends React.Component<ITabPageProps, ITabPage
             <p>Your app is running in the Teams UI</p>
             { this.state.teamsContext?.teamName ? <p>You are in {this.state.teamsContext?.teamName}</p> : null}
             { this.state.config?.spListName ? <p>You configured a SharePoint list for this tab: {this.state.config?.spListName}</p> : null}
-            { /* 
-            <ol>
-              {
-                this.state.messages.map(message => (
-                  <li key={key++}>EMAIL: {message.receivedDateTime}<br />{message.subject}
-                  </li>
-                ))
-              }
-            </ol>
-            */}
             <h3>You received {this.state.messages.length} messages</h3>
-    
+
             <h3 style={headerStyle}>Team members</h3>
             <table style={tableStyle}>
               <tr>
@@ -171,7 +158,7 @@ export default class TabTestPage extends React.Component<ITabPageProps, ITabPage
                 </tr>
               )}
             </table>
-    
+
             <h3 style={headerStyle}>Time zones</h3>
             <table style={tableStyle}>
               {this.state.timeZones.map(tz =>
@@ -184,95 +171,37 @@ export default class TabTestPage extends React.Component<ITabPageProps, ITabPage
                 </tr>
               )}
             </table>
-    
+
           </Provider>
         );
-    
+
       }
     }
   }
 
-//   render() {
-//     // if (this.state.clockService &&
-//     //     this.state.currentUser &&
-//     //     this.state.timeZones) {
+  private async getMessages(silent = false): Promise<void> {
 
-//     const mainStyle = { padding: 20 }
-//     const headerStyle = { textAlign: 'left' as 'left' };
-//     const tableStyle = { border: '1px' };
-//     const tdStyle = {
-//       fontSize: 'large',
-//       textAlign: 'left' as 'left',
-//       verticalAlign: 'top',
-//       border: '1px solid',
-//       padding: 5
-//     };
-
-//     let userCount = 1;
-//     return (
-//       <div style={mainStyle}>
-//         <h1 style={headerStyle}>Test</h1>
-
-//         <h3 style={headerStyle}>Team members</h3>
-//         <table style={tableStyle}>
-//           <tr>
-//             <td style={tdStyle}>Current user</td>
-//             <td style={tdStyle}><User user={this.state.currentUser} /></td>
-//           </tr>
-//           {this.state.teamMembers.map(m =>
-//             <tr>
-//               <td style={tdStyle}>User {userCount++}</td>
-//               <td style={tdStyle}><User user={m} /></td>
-//             </tr>
-//           )}
-//         </table>
-
-//         <h3 style={headerStyle}>Time zones</h3>
-//         <table style={tableStyle}>
-//           {this.state.timeZones.map(tz =>
-//             <tr>
-//               <td style={tdStyle}>{tz.timeZone} ({tz.abbreviation}) -
-//                 UTC{(tz.offset < 0 ? "" : "+") + tz.offset}</td>
-//               <td style={tdStyle}>{tz.members.map((m) =>
-//                 <User user={m} />
-//               )}</td>
-//             </tr>
-//           )}
-//         </table>
-
-//       </div>
-//     );
-//   } else {
-//   return (
-//     <div>loading</div>
-//   );
-// }
-//   }
-
-
-  private async getMessages(silent = false): Promise < void> {
-
-  try {
-    let graphService = await MSGraphService.Factory(AuthService);
-    let messages = await graphService.getMessages();
-    this.setState({
-      messages: messages,
-      error: ""
-    });
-  }
-    catch(error) {
-    if (silent) {
+    try {
+      let graphService = await MSGraphService.Factory(AuthService);
+      let messages = await graphService.getMessages();
       this.setState({
-        messages: []
-      });
-    } else {
-      this.setState({
-        messages: [],
-        error: error
+        messages: messages,
+        error: ""
       });
     }
+    catch (error) {
+      if (silent) {
+        this.setState({
+          messages: []
+        });
+      } else {
+        this.setState({
+          messages: [],
+          error: error
+        });
+      }
+    }
   }
-}
 }
 class Timezone extends React.Component<{ timeZone: ITimeZone }> {
   render() {

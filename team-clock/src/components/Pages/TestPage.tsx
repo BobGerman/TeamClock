@@ -1,7 +1,7 @@
 import React from 'react';
 import ITeamService from '../../services/TeamService/ITeamService';
 import IClockService from '../../services/ClockService/IClockService';
-import ServiceFactory from '../../services/ServiceFactory';
+import { ServiceFactory, ServiceOption } from '../../services/ServiceFactory';
 
 import ITimeZone from '../../model/ITimeZone';
 import IUser from '../../model/IUser';
@@ -32,7 +32,8 @@ export default class TestPage extends React.Component<ITestPageProps, ITestPageS
 
   componentDidMount() {
     let teamService: ITeamService;
-    ServiceFactory.getTeamService()
+    // Real data currently requires Teams so this page needs mock data
+    ServiceFactory.getTeamService(ServiceOption.mockData)
       .then((service) => {
         teamService = service;
         return ServiceFactory.getClockService();

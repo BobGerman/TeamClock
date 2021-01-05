@@ -8,7 +8,7 @@ import { IConfig, ConfigService } from '../../services/ConfigService/ConfigServi
 import ThemeService from '../../services/ThemeService/ThemeService';
 import ITeamService from '../../services/TeamService/ITeamService';
 import IClockService from '../../services/ClockService/IClockService';
-import ServiceFactory from '../../services/ServiceFactory';
+import { ServiceFactory, ServiceOption } from '../../services/ServiceFactory';
 
 /**
  * The web UI to display in the Teams UI
@@ -54,7 +54,7 @@ export default class TabPage extends React.Component<ITabPageProps, ITabPageStat
 
     // 3. Get team data
     let teamService: ITeamService;
-    ServiceFactory.getTeamService()
+    ServiceFactory.getTeamService(ServiceOption.teamsAuth)
       .then((service: ITeamService) => {
         teamService = service;
         return ServiceFactory.getClockService();

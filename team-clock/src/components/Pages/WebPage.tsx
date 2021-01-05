@@ -1,7 +1,7 @@
 import React from 'react';
 import ITeamService from '../../services/TeamService/ITeamService';
 import IClockService from '../../services/ClockService/IClockService';
-import ServiceFactory from '../../services/ServiceFactory';
+import { ServiceFactory, ServiceOption } from '../../services/ServiceFactory';
 
 import TeamClock from '../TeamClock';
 
@@ -25,7 +25,8 @@ export default class WebPage extends React.Component<IWebProps, IWebState> {
 
   componentDidMount() {
     let teamService: ITeamService;
-    ServiceFactory.getTeamService()
+    // Real data currently requires Teams so this page needs mock data
+    ServiceFactory.getTeamService(ServiceOption.mockData)
       .then((service) => {
         teamService = service;
         return ServiceFactory.getClockService();
