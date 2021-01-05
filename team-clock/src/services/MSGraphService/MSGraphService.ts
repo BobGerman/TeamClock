@@ -8,10 +8,13 @@ export default class MSGraphService {
 
     let scopes = process.env.REACT_APP_AAD_GRAPH_DELEGATED_SCOPES?.split(',') || [];
 
-    // Ensure we are logged in
-    if (!authService.isLoggedIn()) {
-      await authService.login(scopes);
+    // Try to log in - but even if it fails, set up the Graph client
+    try {
+      if (!authService.isLoggedIn()) {
+        await authService.login(scopes);
+      }
     }
+    catch { }
 
     // Initialize a new Graph client
     let graphClient = MicrosoftGraphClient.Client.init({

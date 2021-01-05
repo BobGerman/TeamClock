@@ -1,16 +1,11 @@
 import noPhoto from '../../common/img/PersonPlaceholder.96x96x32.png'
-import IClockService from '../ClockService/IClockService';
 import IUser from '../../model/IUser';
 import ITimeZone from '../../model/ITimeZone';
-import ITeamService  from './ITeamService';
+import ITeamService, { ITeamServiceProps }  from './ITeamService';
 
 export default class TeamServiceReal implements ITeamService {
 
-    constructor (private clockService: IClockService) { };
-
-    public async init(): Promise<void> {
-        return Promise.resolve();
-    }
+    constructor (private teamServiceProps: ITeamServiceProps) { };
 
     public async getCurrentUser(format: string) {
 
@@ -32,7 +27,7 @@ export default class TeamServiceReal implements ITeamService {
         }
         let members = [];
         members.push(currentUser);
-        currentUser.timeZoneObj = this.clockService.getTimeZones(members)[0];
+        currentUser.timeZoneObj = this.teamServiceProps.clockService.getTimeZones(members)[0];
         return currentUser;
     };
 
@@ -182,7 +177,7 @@ export default class TeamServiceReal implements ITeamService {
         ];
         mockMembers.forEach((m) => {
             m.photoUrl = m.photoUrl || noPhoto;
-            m.timeZoneObj = this.clockService.getTimeZones([m])[0];
+            m.timeZoneObj = this.teamServiceProps.clockService.getTimeZones([m])[0];
         });
 
         return mockMembers;

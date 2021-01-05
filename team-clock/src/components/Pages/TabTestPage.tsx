@@ -20,6 +20,7 @@ export interface ITabPageState {
   config?: IConfig;
   teamsContext?: microsoftTeams.Context;
   theme: ThemePrepared;
+  dataReady: boolean;
   messages: MicrosoftGraph.Message[];
   error: string;
   teamService?: ITeamService;
@@ -37,6 +38,7 @@ export default class TabTestPage extends React.Component<ITabPageProps, ITabPage
       config: undefined,
       teamsContext: undefined,
       theme: ThemeService.getFluentTheme(),
+      dataReady: false,
       messages: [],
       error: "",
       teamService: undefined,
@@ -65,16 +67,20 @@ export default class TabTestPage extends React.Component<ITabPageProps, ITabPage
     });
 
     // 3. Connect to services
-    let teamService: ITeamService;
-    ServiceFactory.getTeamService(ServiceOption.teamsAuth)
-      .then((service) => {
-        teamService = service;
-        return ServiceFactory.getClockService();
-      })
-      .then((clockService) => {
-        this.loadData(teamService, clockService);
-      });
-
+    // let teamService: ITeamService;
+    // ServiceFactory.getTeamService(ServiceOption.teamsAuth, teamsContext.teamSitePath ?? "", config.spListName)
+    //   .then((service) => {
+    //     teamService = service;
+    //     return ServiceFactory.getClockService();
+    //   })
+    //   .then((clockService) => {
+    //     this.loadData(teamService, clockService);
+    //   });
+    let teamService = await ServiceFactory.getTeamService(ServiceOption.teamsAuth,
+          teamsContext.teamSitePath ?? "", config.spListName);
+    let clockService = await ServiceFactory.getClockService();
+    await this.loadData(teamService, clockService);
+  
     // 4. Try to silently get messages
     await this.getMessages(true);
 
@@ -94,6 +100,7 @@ export default class TabTestPage extends React.Component<ITabPageProps, ITabPage
       teamService: teamService,
       clockService: clockService,
       currentUser: currentUser,
+      dataReady: true,
       teamMembers: teamMembers,
       timeZones: timeZones
     })
@@ -102,7 +109,7 @@ export default class TabTestPage extends React.Component<ITabPageProps, ITabPage
 
   render() {
 
-    if (!this.state.messages.length) {
+    if (!this.state.dataReady) {
 
       // Earlier attempt to log in failed - show the button
       return (
@@ -185,6 +192,7 @@ export default class TabTestPage extends React.Component<ITabPageProps, ITabPage
       let graphService = await MSGraphService.Factory(AuthService);
       let messages = await graphService.getMessages();
       this.setState({
+        dataReady: true,
         messages: messages,
         error: ""
       });
@@ -192,10 +200,12 @@ export default class TabTestPage extends React.Component<ITabPageProps, ITabPage
     catch (error) {
       if (silent) {
         this.setState({
+          dataReady: false,
           messages: []
         });
       } else {
         this.setState({
+          dataReady: false,
           messages: [],
           error: error
         });

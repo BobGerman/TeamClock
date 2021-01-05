@@ -4,6 +4,9 @@ import TeamServiceMock from './TeamService/TeamServiceMock';
 
 import IClockService from './ClockService/IClockService';
 import ClockService from './ClockService/ClockService';
+import MSGraphService from './MSGraphService/MSGraphService';
+import MsalAuthService from './AuthService/MsalRefreshAuthService';
+import TeamsAuthService from './AuthService/TeamsAuthService';
 
 export enum ServiceOption {
     mockData,           // Use mock data
@@ -28,26 +31,42 @@ export class ServiceFactory {
     private static mockTeamService?: ITeamService;
     private static msalTeamService?: ITeamService;
     private static teamsTeamService?: ITeamService;
-    static async getTeamService(serviceOption: ServiceOption): Promise<ITeamService> {
+    static async getTeamService(serviceOption: ServiceOption, spSiteUrl?: string, spListName?: string):
+        Promise<ITeamService> {
 
         let result: ITeamService;
         const clockService = await ServiceFactory.getClockService();
 
-        if (serviceOption === ServiceOption.mockData ||
-            process.env.REACT_APP_MOCK) {
+        if (serviceOption === ServiceOption.mockData || process.env.REACT_APP_MOCK) {
             // Provide mock service
             ServiceFactory.mockTeamService = ServiceFactory.mockTeamService || new TeamServiceMock(clockService);
             result = ServiceFactory.mockTeamService;
-        } else if (serviceOption === ServiceOption.msalAuth) {
+        } else if (serviceOption === ServiceOption.msalAuth && spSiteUrl && spListName) {
             // Provide msal service
-            ServiceFactory.msalTeamService = ServiceFactory.msalTeamService || new TeamServiceReal(clockService);
+            if (!ServiceFactory.msalTeamService) {
+                const graphService = await MSGraphService.Factory(MsalAuthService);
+                ServiceFactory.msalTeamService = new TeamServiceReal({
+                    clockService: clockService,
+                    graphService: graphService,
+                    spSiteUrl: spSiteUrl,
+                    spListName: spListName
+                });
+            }
             result = ServiceFactory.msalTeamService;
-        } else if (serviceOption === ServiceOption.teamsAuth) {
+        } else if (serviceOption === ServiceOption.teamsAuth && spSiteUrl && spListName) {
             // Provide teams service
-            ServiceFactory.teamsTeamService = ServiceFactory.msalTeamService || new TeamServiceReal(clockService);
+            if (!ServiceFactory.teamsTeamService) {
+                const graphService = await MSGraphService.Factory(TeamsAuthService);
+                ServiceFactory.teamsTeamService = new TeamServiceReal({
+                    clockService: clockService,
+                    graphService: graphService,
+                    spSiteUrl: spSiteUrl,
+                    spListName: spListName
+                });
+            }
             result = ServiceFactory.teamsTeamService;
         } else {
-            throw new Error("Invalid service option in ServiceFactory.getTeamService()");
+            throw new Error("Invalid service option or missing args in ServiceFactory.getTeamService()");
         }
 
         return result;
