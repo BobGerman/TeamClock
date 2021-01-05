@@ -21,7 +21,7 @@ export default class TeamServiceMock implements ITeamService {
             photoUrl: "",
             dateFormat: "MM/dd/yyyy",
             timeFormat: "h:mm a",
-            timeZoneObj: this.getMockTimeZoneObj()
+            timeZoneObj: this.getDefaultTimeZone()
         }
         if (currentUser.photoUrl === "") {
             currentUser.photoUrl = noPhoto;
@@ -61,7 +61,7 @@ export default class TeamServiceMock implements ITeamService {
                 photoUrl: "",
                 dateFormat: "MM/dd/yyyy",
                 timeFormat: "h:mm a",
-                timeZoneObj: this.getMockTimeZoneObj()
+                timeZoneObj: this.getDefaultTimeZone()
             },
             {
                 firstName: "Ayca",
@@ -74,7 +74,7 @@ export default class TeamServiceMock implements ITeamService {
                 photoUrl: "",
                 dateFormat: "MM/dd/yyyy",
                 timeFormat: "h:mm a",
-                timeZoneObj: this.getMockTimeZoneObj()
+                timeZoneObj: this.getDefaultTimeZone()
             },
             {
                 firstName: "Barnam",
@@ -85,7 +85,7 @@ export default class TeamServiceMock implements ITeamService {
                 photoUrl: "",
                 dateFormat: "MM/dd/yyyy",
                 timeFormat: "h:mm a",
-                timeZoneObj: this.getMockTimeZoneObj()
+                timeZoneObj: this.getDefaultTimeZone()
             },
             {
                 firstName: "Bob",
@@ -96,7 +96,7 @@ export default class TeamServiceMock implements ITeamService {
                 photoUrl: "",
                 dateFormat: "MM/dd/yyyy",
                 timeFormat: "h:mm a",
-                timeZoneObj: this.getMockTimeZoneObj()
+                timeZoneObj: this.getDefaultTimeZone()
             },
             {
                 firstName: "Dan",
@@ -107,7 +107,7 @@ export default class TeamServiceMock implements ITeamService {
                 photoUrl: "",
                 dateFormat: "MM/dd/yyyy",
                 timeFormat: "h:mm a",
-                timeZoneObj: this.getMockTimeZoneObj()
+                timeZoneObj: this.getDefaultTimeZone()
             },
             {
                 firstName: "Emily",
@@ -118,7 +118,7 @@ export default class TeamServiceMock implements ITeamService {
                 photoUrl: "",
                 dateFormat: "MM/dd/yyyy",
                 timeFormat: "h:mm a",
-                timeZoneObj: this.getMockTimeZoneObj()
+                timeZoneObj: this.getDefaultTimeZone()
             },
             {
                 firstName: "Matt",
@@ -129,7 +129,7 @@ export default class TeamServiceMock implements ITeamService {
                 photoUrl: "",
                 dateFormat: "MM/dd/yyyy",
                 timeFormat: "h:mm a",
-                timeZoneObj: this.getMockTimeZoneObj()
+                timeZoneObj: this.getDefaultTimeZone()
             },
             {
                 firstName: "Rabia",
@@ -140,7 +140,7 @@ export default class TeamServiceMock implements ITeamService {
                 photoUrl: "",
                 dateFormat: "MM/dd/yyyy",
                 timeFormat: "h:mm a",
-                timeZoneObj: this.getMockTimeZoneObj()
+                timeZoneObj: this.getDefaultTimeZone()
             },
             {
                 firstName: "Todd",
@@ -151,7 +151,7 @@ export default class TeamServiceMock implements ITeamService {
                 photoUrl: "",
                 dateFormat: "MM/dd/yyyy",
                 timeFormat: "h:mm a",
-                timeZoneObj: this.getMockTimeZoneObj()
+                timeZoneObj: this.getDefaultTimeZone()
             },
             {
                 firstName: "Tomomi",
@@ -162,7 +162,7 @@ export default class TeamServiceMock implements ITeamService {
                 photoUrl: "",
                 dateFormat: "MM/dd/yyyy",
                 timeFormat: "h:mm a",
-                timeZoneObj: this.getMockTimeZoneObj()
+                timeZoneObj: this.getDefaultTimeZone()
             },
             {
                 firstName: "Waldek",
@@ -173,7 +173,7 @@ export default class TeamServiceMock implements ITeamService {
                 photoUrl: "",
                 dateFormat: "MM/dd/yyyy",
                 timeFormat: "h:mm a",
-                timeZoneObj: this.getMockTimeZoneObj()
+                timeZoneObj: this.getDefaultTimeZone()
             },
         ];
         mockMembers.forEach((m) => {
@@ -184,7 +184,7 @@ export default class TeamServiceMock implements ITeamService {
         return mockMembers;
     }
 
-    private getMockTimeZoneObj(): ITimeZone {
+    private getDefaultTimeZone(): ITimeZone {
         return {
             timeZone: "Etc/UTC",
             abbreviation: "UTC",

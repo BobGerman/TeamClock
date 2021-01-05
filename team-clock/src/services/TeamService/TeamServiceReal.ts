@@ -12,7 +12,7 @@ export default class TeamServiceReal implements ITeamService {
         return Promise.resolve();
     }
 
-    async getCurrentUser(format: string) {
+    public async getCurrentUser(format: string) {
 
         const currentUser: IUser = {
             firstName: "Real",
@@ -36,7 +36,7 @@ export default class TeamServiceReal implements ITeamService {
         return currentUser;
     };
 
-    async getOtherTeamMembers(currentUser: IUser) {
+    public async getOtherTeamMembers(currentUser: IUser) {
         const allTeamMembers = await this.getTeamMembers('time');
         let otherTeamMembers: IUser[] = [];
 
@@ -51,7 +51,7 @@ export default class TeamServiceReal implements ITeamService {
         return otherTeamMembers;
     }
 
-    async getTeamMembers(sortOrder: string): Promise<IUser[]> {
+    public async getTeamMembers(sortOrder: string): Promise<IUser[]> {
 
         let mockMembers: IUser[] = [
             {
@@ -184,23 +184,7 @@ export default class TeamServiceReal implements ITeamService {
             m.photoUrl = m.photoUrl || noPhoto;
             m.timeZoneObj = this.clockService.getTimeZones([m])[0];
         });
-        // I think the above foreach loop is the same ??
-        // mockMembers.map((u) => {
-        //     if (u.photoUrl === "") {
-        //         u.photoUrl = noPhoto;
-        //     }
-        //     let members: IUser[] = [];
-        //     members.push(u);
-        //     u.timeZoneObj = clockService.getTimeZones(members);
-        //     return u;
-        // });
 
-        // ??? DO we need to sort anymore? How ?
-        // if (sortOrder === "time") {
-        //     mockMembers.sort((a, b) => { return b.utcOffset - a.utcOffset })
-        // } else {
-        //     mockMembers.sort((a, b) => { return a.name < b.name ? -1 : 1 })
-        // }
         return mockMembers;
     }
 
