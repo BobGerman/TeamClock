@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
 import ITimeZone from '../../model/ITimeZone';
-import IUser from '../../model/IUser';
+import IPerson from '../../model/IPerson';
 
 export default interface IClockService {
 
@@ -9,7 +9,7 @@ export default interface IClockService {
     getMeetingHours: (date: Date, format: string, timezone: string, numberofHours: number) =>
         string[];
     isNextDay: (timezone: string) => boolean;
-    getTimeZones: (teamMembers: IUser[]) => ITimeZone[];
+    getTimeZones: (teamMembers: IPerson[]) => ITimeZone[];
     convertTimeZone: (originalTime: Date, convertToTimeZone: string) => moment.Moment;
     isLeapYear: (date: Date) => boolean;
 }

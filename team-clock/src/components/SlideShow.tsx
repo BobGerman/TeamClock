@@ -2,17 +2,17 @@ import React from 'react';
 import DigitalClock from './DigitalClock';
 
 import ITimeZone from '../model/ITimeZone';
-import IUser from '../model/IUser';
+import IPerson from '../model/IPerson';
 import IClockService from '../services/ClockService/IClockService';
 
 export interface ISlideShowProps {
   slides: ITimeZone[];
   clockService: IClockService;
   showPhoto: boolean;
-  user: IUser;
+  user: IPerson;
   timeFormat: string;
-  addParticipant: (participant: IUser) => void;
-  participants: IUser[];
+  addParticipant: (participant: IPerson) => void;
+  participants: IPerson[];
 }
 
 class SlideShow extends React.Component<ISlideShowProps> {

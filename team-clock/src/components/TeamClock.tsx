@@ -6,17 +6,17 @@ import DigitalClock from './DigitalClock';
 import SlideShow from './SlideShow';
 import ITimeZone from '../model/ITimeZone';
 // import ScheduleComponent from './ScheduleComponent';
-import IUser from '../model/IUser';
+import IPerson from '../model/IPerson';
 
 export interface ITeamClockProps {
   teamService: ITeamService;
   clockService: IClockService;
  };
 export interface ITeamClockState {
-  currentUser?: IUser;
-  teamMembers: IUser[];
+  currentUser?: IPerson;
+  teamMembers: IPerson[];
   timeZones: ITimeZone[];
-  participants: IUser[];
+  participants: IPerson[];
 };
 
 /**
@@ -53,7 +53,7 @@ export default class TeamClock extends React.Component <ITeamClockProps, ITeamCl
     })
   }
 
-  public _addParticipant(participant: IUser) {
+  public _addParticipant(participant: IPerson) {
     let participantArray = this.state.participants;
     //If the meeting is empty add the current user
     if (participantArray.length === 0 && this.state.currentUser) {
@@ -67,7 +67,7 @@ export default class TeamClock extends React.Component <ITeamClockProps, ITeamCl
     }
   }
 
-  public _removeParticipant(participant: IUser) {
+  public _removeParticipant(participant: IPerson) {
     let participantArray = this.state.participants;
     if (participantArray.includes(participant)) {
 

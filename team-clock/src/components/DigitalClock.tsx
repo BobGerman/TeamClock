@@ -4,22 +4,22 @@ import noPhoto from '../common/img/Contact.svg';
 import add from '../common/img/Add.svg';
 import IClockService from '../services/ClockService/IClockService';
 import ITimeZone from '../model/ITimeZone';
-import IUser from '../model/IUser';
+import IPerson from '../model/IPerson';
 
 export interface IDigitalClockProps {
   clockService: IClockService;
-  user: IUser;
+  user: IPerson;
   currentUser: boolean;
   showPhoto: boolean;
   timeFormat: string;
   timeZoneObj: ITimeZone;
-  addParticipant: (participant: IUser) => void;
-  participants: IUser[];
+  addParticipant: (participant: IPerson) => void;
+  participants: IPerson[];
 };
 export interface IDigitalClockState {
   time: string;
   intervalID: number;
-  participants: IUser[];
+  participants: IPerson[];
 };
 
 
@@ -111,11 +111,11 @@ class DigitalClock extends React.Component<IDigitalClockProps, IDigitalClockStat
     return nextDaySpan;
   }
 
-  _addParticipant(participant: IUser) {
+  _addParticipant(participant: IPerson) {
     this.props.addParticipant(participant);
   }
 
-  _renderAddButton(participant: IUser) {
+  _renderAddButton(participant: IPerson) {
     let addButton;
     if (!this.props.participants.includes(participant)) {
       addButton = React.createElement('img', { className: 'addButton', src: add }, null)

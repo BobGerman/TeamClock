@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
 import ITimeZone from '../../model/ITimeZone';
-import IUser from '../../model/IUser';
+import IPerson from '../../model/IPerson';
 import IClockService from './IClockService';
 
 export default class ClockService implements IClockService {
@@ -35,7 +35,7 @@ export default class ClockService implements IClockService {
     return isNextDay;
   };
 
-  getTimeZones(teamMembers: IUser[]) {
+  getTimeZones(teamMembers: IPerson[]) {
 
     let timeZones: ITimeZone[] = [];
     let now = Date.now(); //moment(); // Upset Typescript terribly

@@ -1,19 +1,19 @@
 import React, { DetailedReactHTMLElement, ReactHTML, ReactHTMLElement } from 'react';
 import remove from '../common/img/Cancel.svg'
 import DatePickerComponent from './DatePickerComponent';
-import IUser from '../model/IUser';
+import IPerson from '../model/IPerson';
 import ITimeZone from '../model/ITimeZone';
 import IClockService from '../services/ClockService/IClockService'
 
 export interface IScheduleComponentProps {
   clockService: IClockService;
   timeZoneObj: ITimeZone;
-  currentUser: IUser;
+  currentUser: IPerson;
   timeFormat: string;
-  teamMembers: IUser[];
-  participants: IUser[];
-  addParticipant: ( participant: IUser) => void;
-  removeParticipant: (participant: IUser) => void;
+  teamMembers: IPerson[];
+  participants: IPerson[];
+  addParticipant: ( participant: IPerson) => void;
+  removeParticipant: (participant: IPerson) => void;
 }
 export interface IScheduleComponentState {
   slideIndex: number;
@@ -201,10 +201,10 @@ class ScheduleComponent extends React.Component<IScheduleComponentProps, ISchedu
 
   }
 
-  _removeParticipant(participant: IUser) {
+  _removeParticipant(participant: IPerson) {
     this.props.removeParticipant(participant);
   }
-  _addParticipant(participant: IUser, date: Date) {
+  _addParticipant(participant: IPerson, date: Date) {
     this.props.addParticipant(participant);
     this.setState({
       time: date

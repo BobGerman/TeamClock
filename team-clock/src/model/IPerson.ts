@@ -1,6 +1,6 @@
 import ITimeZone from './ITimeZone';
 
-export default interface IUser {
+export default interface IPerson {
     firstName: string;
     lastName: string;
     timeZone: string;

@@ -1,5 +1,5 @@
 import noPhoto from '../../common/img/PersonPlaceholder.96x96x32.png'
-import IUser from '../../model/IUser';
+import IPerson from '../../model/IPerson';
 import ITimeZone from '../../model/ITimeZone';
 import ITeamService, { ITeamServiceProps }  from './ITeamService';
 
@@ -9,7 +9,7 @@ export default class TeamServiceReal implements ITeamService {
 
     public async getCurrentUser(format: string) {
 
-        const currentUser: IUser = {
+        const currentUser: IPerson = {
             firstName: "Real",
             lastName: "Service",
             timeZone: "America/New_York",
@@ -31,9 +31,9 @@ export default class TeamServiceReal implements ITeamService {
         return currentUser;
     };
 
-    public async getOtherTeamMembers(currentUser: IUser) {
+    public async getOtherTeamMembers(currentUser: IPerson) {
         const allTeamMembers = await this.getTeamMembers('time');
-        let otherTeamMembers: IUser[] = [];
+        let otherTeamMembers: IPerson[] = [];
 
         // Remove the current User
         // Need a better way of doing this
@@ -46,9 +46,9 @@ export default class TeamServiceReal implements ITeamService {
         return otherTeamMembers;
     }
 
-    public async getTeamMembers(sortOrder: string): Promise<IUser[]> {
+    public async getTeamMembers(sortOrder: string): Promise<IPerson[]> {
 
-        let mockMembers: IUser[] = [
+        let mockMembers: IPerson[] = [
             {
                 firstName: "Derek",
                 lastName: "Cash-Peterson",

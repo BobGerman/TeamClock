@@ -13,7 +13,7 @@ import IClockService from '../../services/ClockService/IClockService';
 import { ServiceFactory, ServiceOption } from '../../services/ServiceFactory';
 
 import ITimeZone from '../../model/ITimeZone';
-import IUser from '../../model/IUser';
+import IPerson from '../../model/IPerson';
 
 export interface ITabPageProps { }
 export interface ITabPageState {
@@ -25,8 +25,8 @@ export interface ITabPageState {
   error: string;
   teamService?: ITeamService;
   clockService?: IClockService;
-  currentUser?: IUser;
-  teamMembers: IUser[];
+  currentUser?: IPerson;
+  teamMembers: IPerson[];
   timeZones: ITimeZone[];
 }
 
@@ -224,7 +224,7 @@ class Timezone extends React.Component<{ timeZone: ITimeZone }> {
   }
 }
 
-class User extends React.Component<{ user: IUser }> {
+class User extends React.Component<{ user: IPerson }> {
   render() {
     return (
       <div>
