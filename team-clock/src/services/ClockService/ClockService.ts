@@ -5,11 +5,11 @@ import IClockService from './IClockService';
 
 export default class ClockService implements IClockService {
 
-  getCurrentTime(date: Date, format: string, timezone: string) {
+  public getCurrentTime(date: Date, format: string, timezone: string) {
     return moment.tz(date.toISOString(), timezone).format(format);
   };
 
-  getMeetingHours(date: Date, format: string, timezone: string, numberofHours: number) {
+  public getMeetingHours(date: Date, format: string, timezone: string, numberofHours: number) {
     let hours = [];
     let currentTime = /* new */ moment.tz(date.toISOString(), timezone).format(format);
     //currentTime = parseInt(currentTime, 10)
@@ -24,7 +24,7 @@ export default class ClockService implements IClockService {
     return hours;
   }
 
-  isNextDay(timezone: string) {
+  public isNextDay(timezone: string) {
     let isNextDay = false;
     let now = moment();
     const currentDate = moment.tz(now, moment.tz.guess()).date()
@@ -35,7 +35,7 @@ export default class ClockService implements IClockService {
     return isNextDay;
   };
 
-  getTimeZones(teamMembers: IPerson[]) {
+  public getTimeZones(teamMembers: IPerson[]) {
 
     let timeZones: ITimeZone[] = [];
     let now = Date.now(); //moment(); // Upset Typescript terribly
@@ -64,27 +64,36 @@ export default class ClockService implements IClockService {
             offset: offset,
             members: membersinTZ
           })
-  
+
         }
       }
       return null;
 
 
     });
-    
+
     // ??? Weren't the time zones sorted before? Somehow? Sorting by time -BG
     timeZones.sort((a, b) => { return b.offset - a.offset });
 
     return timeZones;
   }
 
-  convertTimeZone(originalTime: Date, convertToTimeZone: string) {
+  public getDefaultTimeZone(): ITimeZone {
+    return {
+      timeZone: "Etc/UTC",
+      abbreviation: "UTC",
+      offset: 0,
+      members: []
+    };
+  }
+
+  public convertTimeZone(originalTime: Date, convertToTimeZone: string) {
     // WOuld not compile, said the 2nd arg to moment was not valid
     // return moment(originalTime, null).tz(convertToTimeZone);
     return moment(originalTime).tz(convertToTimeZone);
   }
 
-  isLeapYear(date: Date): boolean {
+  public isLeapYear(date: Date): boolean {
     return moment(date.getFullYear()).isLeapYear();
   }
 }

@@ -30,17 +30,11 @@ export default class TestPage extends React.Component<ITestPageProps, ITestPageS
     }
   }
 
-  componentDidMount() {
-    let teamService: ITeamService;
+  async componentDidMount() {
     // Real data currently requires Teams so this page needs mock data
-    ServiceFactory.getTeamService(ServiceOption.mockData)
-      .then((service) => {
-        teamService = service;
-        return ServiceFactory.getClockService();
-      })
-      .then((clockService) => {
-        this.loadData(teamService, clockService);
-      });
+    let clockService = ServiceFactory.getClockService();
+    let teamService = await ServiceFactory.getTeamService(ServiceOption.mockData);
+    this.loadData(teamService, clockService);
   }
 
   // Right now this is called only by componentDidMount()

@@ -18,12 +18,12 @@ export class ServiceFactory {
 
     // Clock service is a singleton
     private static clockService?: IClockService;
-    static async getClockService(): Promise<IClockService> {
+    static getClockService(): IClockService {
 
         if (!ServiceFactory.clockService) {
             ServiceFactory.clockService = new ClockService();
         }
-        return Promise.resolve(ServiceFactory.clockService);
+        return ServiceFactory.clockService;
 
     }
 
@@ -35,7 +35,7 @@ export class ServiceFactory {
         Promise<ITeamService> {
 
         let result: ITeamService;
-        const clockService = await ServiceFactory.getClockService();
+        const clockService = ServiceFactory.getClockService();
 
         if (serviceOption === ServiceOption.mockData || process.env.REACT_APP_MOCK) {
             // Provide mock service

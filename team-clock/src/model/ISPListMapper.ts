@@ -15,7 +15,7 @@ export interface IColumnDefinition {
 // A class that can be used by the Graph Service to access a specific
 // SharePoint list and map its items to/from a model class
 // This allows reuse of Graph code across various lists
-export default interface IFieldMapper {
+export default interface ISPListMapper {
     // Returns a comma-separated list of SP field values
     getFieldNames(): string;
     getColumnDefinitions(): IColumnDefinition[];

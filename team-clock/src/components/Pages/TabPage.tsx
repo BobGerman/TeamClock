@@ -53,18 +53,13 @@ export default class TabPage extends React.Component<ITabPageProps, ITabPageStat
     });
 
     // 3. Get team data
-    let teamService: ITeamService;
-    ServiceFactory.getTeamService(ServiceOption.teamsAuth, teamsContext.teamSitePath ?? "", config.spListName)
-      .then((service: ITeamService) => {
-        teamService = service;
-        return ServiceFactory.getClockService();
-      })
-      .then((clockService: IClockService) => {
-        this.setState({
-          teamService: teamService,
-          clockService: clockService
-        });
-      });
+    let clockService = ServiceFactory.getClockService();
+    let teamService = await ServiceFactory.getTeamService(ServiceOption.teamsAuth,
+      teamsContext.teamSitePath ?? "", config.spListName);
+    this.setState({
+      teamService: teamService,
+      clockService: clockService
+    });
 
     // 4. Tell Teams to stop the loading indicator and show the page
     microsoftTeams.appInitialization.notifyAppLoaded();

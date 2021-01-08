@@ -67,18 +67,9 @@ export default class TabTestPage extends React.Component<ITabPageProps, ITabPage
     });
 
     // 3. Connect to services
-    // let teamService: ITeamService;
-    // ServiceFactory.getTeamService(ServiceOption.teamsAuth, teamsContext.teamSitePath ?? "", config.spListName)
-    //   .then((service) => {
-    //     teamService = service;
-    //     return ServiceFactory.getClockService();
-    //   })
-    //   .then((clockService) => {
-    //     this.loadData(teamService, clockService);
-    //   });
+    let clockService = ServiceFactory.getClockService();
     let teamService = await ServiceFactory.getTeamService(ServiceOption.teamsAuth,
           teamsContext.teamSitePath ?? "", config.spListName);
-    let clockService = await ServiceFactory.getClockService();
     await this.loadData(teamService, clockService);
   
     // 4. Try to silently get messages
