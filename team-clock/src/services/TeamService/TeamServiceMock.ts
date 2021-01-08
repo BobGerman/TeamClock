@@ -1,7 +1,6 @@
 import noPhoto from '../../common/img/PersonPlaceholder.96x96x32.png'
 import IClockService from '../ClockService/IClockService';
 import IPerson from '../../model/IPerson';
-import ITimeZone from '../../model/ITimeZone';
 import ITeamService  from './ITeamService';
 
 export default class TeamServiceMock implements ITeamService {
