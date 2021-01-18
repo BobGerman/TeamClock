@@ -38,12 +38,11 @@ export default class WebTestPage extends React.Component<IWebPageProps, IWebPage
 
   async componentDidMount() {
 
-    // 1. MOCK config data for now
-    const spSiteUrl = 'https://bgtest18.sharepoint.com/sites/EmergencyResponse';
-    const spListName = 'TCTest1';
-    console.log('HERE');
+    // 1. Use test site as defined in .env.local
+    const spSiteUrl = process.env.REACT_APP_SP_URL;
+    const spListName = process.env.REACT_APP_SP_LISTNAME;
 
-    // 3. Connect to services
+    // 2. Connect to services
     let clockService = ServiceFactory.getClockService();
 
     let teamService = await ServiceFactory.getTeamService(ServiceOption.msalAuth,
@@ -54,7 +53,7 @@ export default class WebTestPage extends React.Component<IWebPageProps, IWebPage
       dataReady: false
     });
 
-    // 4. Try to silently get data
+    // 3. Try to silently get data
     await this.loadData(teamService, clockService, true);
   }
 
