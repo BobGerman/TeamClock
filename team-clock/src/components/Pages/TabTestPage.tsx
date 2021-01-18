@@ -131,6 +131,7 @@ export default class TabTestPage extends React.Component<ITabPageProps, ITabPage
         };
 
         let userCount = 1;
+        let key=0;
 
         return (
           <Provider theme={this.state.theme} style={mainStyle}>
@@ -144,31 +145,31 @@ export default class TabTestPage extends React.Component<ITabPageProps, ITabPage
             <h3>You received {this.state.messages.length} messages</h3>
 
             <h3 style={headerStyle}>Team members</h3>
-            <table style={tableStyle}>
-              <tr>
-                <td style={tdStyle}>Current user</td>
-                <td style={tdStyle}><User user={this.state.currentUser} /></td>
+            <table style={tableStyle}><tbody>
+              <tr key={key++}>
+                <td style={tdStyle} key={key++}>Current user</td>
+                <td style={tdStyle} key={key++}><User user={this.state.currentUser} /></td>
               </tr>
               {this.state.teamMembers.map(m =>
-                <tr>
-                  <td style={tdStyle}>User {userCount++}</td>
-                  <td style={tdStyle}><User user={m} /></td>
+                <tr key={key++} >
+                  <td style={tdStyle} key={key++}>User {userCount++}</td>
+                  <td style={tdStyle} key={key++}><User user={m} /></td>
                 </tr>
               )}
-            </table>
+            </tbody></table>
 
             <h3 style={headerStyle}>Time zones</h3>
-            <table style={tableStyle}>
+            <table style={tableStyle}><tbody>
               {this.state.timeZones.map(tz =>
-                <tr>
-                  <td style={tdStyle}>{tz.timeZone} ({tz.abbreviation}) -
+                <tr key={key++}>
+                  <td style={tdStyle} key={key++}>{tz.timeZone} ({tz.abbreviation}) -
                     UTC{(tz.offset < 0 ? "" : "+") + tz.offset}</td>
-                  <td style={tdStyle}>{tz.members.map((m) =>
-                    <User user={m} />
+                  <td style={tdStyle} key={key++}>{tz.members.map((m) =>
+                    <User key={key++} user={m} />
                   )}</td>
                 </tr>
               )}
-            </table>
+            </tbody></table>
 
           </Provider>
         );
