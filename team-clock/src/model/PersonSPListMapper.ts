@@ -1,5 +1,6 @@
 import IPerson from './IPerson';
-import ISPListMapper, { IFieldValues, IColumnDefinition } from './ISPListMapper';
+import ISPListMapper, { IFieldValues } from './ISPListMapper';
+import ISPListColumnDefinition from './ISPListColumnDefinition';
 import noPhoto from '../common/img/PersonPlaceholder.96x96x32.png';
 import { ServiceFactory } from '../services/ServiceFactory';
 
@@ -25,15 +26,55 @@ export default class PersonSPListMapper implements ISPListMapper {
         return ('id,Title,FirstName,LastName,TimeZone,WorkDays,WorkHours,DateFormat,TimeFormat');
     }
 
-    public getColumnDefinitions(): IColumnDefinition[] {
+    public getColumnDefinitions(): ISPListColumnDefinition[] {
         return ([
-            { name: 'FirstName', text: { }},
-            { name: 'LastName', text: { }},
-            { name: 'TimeZone', text: { }},
-            { name: 'WorkDays', text: { }},
-            { name: 'WorkHours', text: { }},
-            { name: 'DateFormat', text: { }},
-            { name: 'TimeFormat', text: { }}
+            { "name": "FirstName", "text": {} },
+            { "name": "LastName", "text": {} },
+            {
+                "name": "TimeZone", "choice": {
+                    "allowTextEntry": false,
+                    "choices": [
+                        "America/Chicago",
+                        "America/Los_Angeles",
+                        "America/New_York",
+                        "America/Phoenix",
+                        "Asia/Dubai",
+                        "Asia/Kolkata",
+                        "Australia/Brisbane",
+                        "Australia/Melbourne",
+                        "Europe/Amsterdam",
+                        "Europe/Helsinki",
+                        "Europe/London"
+                    ],
+                    "displayAs": "dropDownMenu"
+                }, "description": "Select user's time zone"
+            },
+            {
+                "name": "WorkDays", "text": {}, "defaultValue": { "value": "owwwwwo" },
+                "description": "Enter 7 characters corresponding to the 7 days of the week with o=off work, w=working"
+            },
+            {
+                "name": "WorkHours", "text": {}, "defaultValue": { "value": "nnnnnnneedddddddddeeeeen" },
+                "description": "Enter 24 characters corresponding to the 24 hours in a day with n=night, e=evening, d=day"
+            },
+            {
+                "name": "DateFormat", "choice": {
+                    "allowTextEntry": true,
+                    "choices": ["MM/dd/yyyy", "dd/MM/yyyy"],
+                    "displayAs": "dropDownMenu"
+                },
+                "defaultValue": { "value": "MM/dd/yyyy" },
+                "description": "Formatting when this user views the clock"
+            },
+            {
+                "name": "TimeFormat", "choice": {
+                    "allowTextEntry": true,
+                    "choices": ["h:mm a", "hh:mm"],
+                    "displayAs": "dropDownMenu"
+                },
+                "defaultValue": { "value": "h:mm a" },
+                "description": "Formatting when this user views the clock"
+            }
         ]);
     }
 
@@ -55,20 +96,6 @@ export default class PersonSPListMapper implements ISPListMapper {
             timeZoneObj: clockService.getDefaultTimeZone()
         }));
         return result;
-    }
-
-    // Convert updated properties of model object to field value set
-    public setFields(item: any): IListItem {
-        let values: any = {};
-        if (item.title !== undefined) values.Title = item.title;
-        if (item.firstName !== undefined) values.FirstName = item.firstName;
-        if (item.lastName !== undefined) values.LastName = item.lastName;
-        if (item.timeZone !== undefined) values.TimeZone = item.timeZone;
-        if (item.workDays !== undefined) values.StateProvince = item.WorkDays;
-        if (item.workHours !== undefined) values.Country = item.WorkHours;
-        if (item.dateFormat !== undefined) values.latitude = item.DateFormat;
-        if (item.timeFormat !== undefined) values.longitude = item.TimeFormat;
-        return { fields: values };
     }
 }
 

@@ -5,7 +5,6 @@ import ISPListMapper from '../../model/ISPListMapper';
 
 import ICreateListResponse from './GraphResponses/ICreateListResponse';
 import IGetListItemsResponse from './GraphResponses/IGetListItemsResponse';
-import IGetMessagesResponse from './GraphResponses/IGetMessagesResponse';
 export default class MSGraphService {
 
   public static async Factory(authService: IAuthService): Promise<MSGraphService> {
@@ -101,29 +100,6 @@ export default class MSGraphService {
           resolve(result);
         }
       });
-    });
-  }
-
-  // Set a list item
-  public async updateListItem(siteId: string, listId: string, mapper: ISPListMapper,
-    itemId: number, updates: any): Promise<void | string> {
-
-    return new Promise<void | string>((resolve, reject) => {
-
-      const query = this.client
-        .api(
-          `/sites/${siteId}/lists/${listId}/items/${itemId}`
-        );
-
-      const payload = mapper.setFields(updates);
-
-      query.patch(payload, ((error: MicrosoftGraphClient.GraphError, response: any) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve();
-        }
-      }));
     });
   }
 

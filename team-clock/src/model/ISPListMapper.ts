@@ -1,15 +1,11 @@
-// Data structure used to get/set/update fields in a SharePoint list
-// using the Graph API
+// Implement ISPListMapper based on the details of your SharePoint list to allow
+// list access via the MSGraph service in this project. Currently Create and Read list
+// operations are supported.
+import ISPListColumnDefinition from './ISPListColumnDefinition';
+
 // https://docs.microsoft.com/en-us/graph/api/resources/fieldvalueset?view=graph-rest-1.0
 export interface IFieldValues {
     fields: any;
-}
-
-// JSON required by Graph API to create a list
-export interface IColumnDefinition {
-    name: string;
-    text?: object;
-    number?: object;
 }
 
 // A class that can be used by the Graph Service to access a specific
@@ -18,8 +14,8 @@ export interface IColumnDefinition {
 export default interface ISPListMapper {
     // Returns a comma-separated list of SP field values
     getFieldNames(): string;
-    getColumnDefinitions(): IColumnDefinition[];
+    // Returns JSON needed to create a new list
+    getColumnDefinitions(): ISPListColumnDefinition[];
     // Maps an array of SharePoint list items to an array of model objects
     getValuesFromFields(listItems: any[]): any[];
-    setFields(item: any): IFieldValues;
 }
