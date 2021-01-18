@@ -39,25 +39,6 @@ export default class MSGraphService {
 
   private constructor(private client: MicrosoftGraphClient.Client) { }
 
-  public async getMessages(): Promise<MicrosoftGraph.Message[]> {
-
-    return new Promise<MicrosoftGraph.Message[]>((resolve, reject) => {
-
-      this.client
-        .api("me/mailFolders/inbox/messages")
-        .select(["receivedDateTime", "subject"])
-        .top(15)
-        .get(async (error: MicrosoftGraphClient.GraphError, response: IGetMessagesResponse) => {
-          if (!error) {
-            resolve(response.value);
-          } else {
-            reject(error);
-          }
-        });
-
-    });
-  }
-
   // Get a site ID given a SharePoint Online URL
   public async getSiteId(spSiteUrl: string): Promise<string> {
 

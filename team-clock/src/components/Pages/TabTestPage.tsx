@@ -4,7 +4,7 @@ import * as microsoftTeams from "@microsoft/teams-js";
 
 import { IConfig, ConfigService } from '../../services/ConfigService/ConfigService';
 import ThemeService from '../../services/ThemeService/ThemeService';
-import AuthService from '../../services/AuthService/TeamsAuthService';
+import AuthService from '../../services/AuthService/MsalRefreshAuthService';
 
 import ITeamService from '../../services/TeamService/ITeamService';
 import IClockService from '../../services/ClockService/IClockService';
@@ -193,33 +193,6 @@ export default class TabTestPage extends React.Component<ITabPageProps, ITabPage
       }
     }
   }
-
-  //   private async getMessages(silent = false): Promise<void> {
-
-  //     try {
-  //       let graphService = await MSGraphService.Factory(AuthService);
-  //       let messages = await graphService.getMessages();
-  //       this.setState({
-  //         dataReady: true,
-  //         messages: messages,
-  //         error: ""
-  //       });
-  //     }
-  //     catch (error) {
-  //       if (silent) {
-  //         this.setState({
-  //           dataReady: false,
-  //           messages: []
-  //         });
-  //       } else {
-  //         this.setState({
-  //           dataReady: false,
-  //           messages: [],
-  //           error: error
-  //         });
-  //       }
-  //     }
-  //   }
 }
 class Timezone extends React.Component<{ timeZone: ITimeZone }> {
   render() {
