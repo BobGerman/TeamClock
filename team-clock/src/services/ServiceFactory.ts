@@ -54,6 +54,7 @@ export class ServiceFactory {
             }
             result = ServiceFactory.msalTeamService;
         } else if (serviceOption === ServiceOption.teamsAuth && spSiteUrl && spListName) {
+
             // Provide teams service
             if (!ServiceFactory.teamsTeamService) {
                 const graphService = await MSGraphService.Factory(TeamsAuthService);

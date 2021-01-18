@@ -24,7 +24,11 @@ export default class MSGraphService {
     let graphClient = MicrosoftGraphClient.Client.init({
 
       authProvider: async (done: MicrosoftGraphClient.AuthProviderCallback) => {
-        const token = await authService.getAccessToken(scopes);
+        let token = "";
+        try {
+          token = await authService.getAccessToken(scopes);
+        }
+        catch { }
         done(null, token);
       }
 
@@ -53,6 +57,27 @@ export default class MSGraphService {
 
     });
   }
+
+  // Get a site ID given a SharePoint Online URL
+  public async getSiteId(spSiteUrl: string): Promise<string> {
+
+    return new Promise<string>((resolve, reject) => {
+
+      const siteUrl = new URL(spSiteUrl);
+
+      const query = this.client.api(
+        `sites/${siteUrl.hostname}:${siteUrl.pathname}`
+      );//.select('id');
+      query.get((error: MicrosoftGraphClient.GraphError, response: MicrosoftGraph.Site) => {
+        if (!error) {
+          resolve(response.id ?? "");
+        } else {
+          reject(error);
+        }
+      });
+    });
+  }
+
 
   // Get a list ID given a site ID and list name
   public async getListId(siteId: string, listName: string): Promise<string> {

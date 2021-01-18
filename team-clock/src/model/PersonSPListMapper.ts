@@ -1,6 +1,6 @@
 import IPerson from './IPerson';
 import ISPListMapper, { IFieldValues, IColumnDefinition } from './ISPListMapper';
-import noPhoto from '../../common/img/PersonPlaceholder.96x96x32.png';
+import noPhoto from '../common/img/PersonPlaceholder.96x96x32.png';
 import { ServiceFactory } from '../services/ServiceFactory';
 
 // Field value set for a SharePoint list item
@@ -11,7 +11,6 @@ interface IListItem extends IFieldValues {
         FirstName: string;
         LastName: string;
         TimeZone: string;
-        PhotoUrl: string;
         WorkDays: string;
         WorkHours: string;
         DateFormat: string;
@@ -31,11 +30,10 @@ export default class PersonSPListMapper implements ISPListMapper {
             { name: 'FirstName', text: { }},
             { name: 'LastName', text: { }},
             { name: 'TimeZone', text: { }},
-            { name: 'PhotoUrl', text: { }},
             { name: 'WorkDays', text: { }},
             { name: 'WorkHours', text: { }},
-            { name: 'DateFormat', number: { }},
-            { name: 'TimeFormat', number: { }}
+            { name: 'DateFormat', text: { }},
+            { name: 'TimeFormat', text: { }}
         ]);
     }
 
@@ -49,7 +47,7 @@ export default class PersonSPListMapper implements ISPListMapper {
             firstName: i.fields.FirstName,
             lastName: i.fields.LastName,
             timeZone: i.fields.TimeZone,
-            photoUrl: i.fields.PhotoUrl,
+            photoUrl: noPhoto,
             workDays: i.fields.WorkDays,
             workHours: i.fields.WorkHours,
             dateFormat: i.fields.DateFormat,
@@ -66,7 +64,6 @@ export default class PersonSPListMapper implements ISPListMapper {
         if (item.firstName !== undefined) values.FirstName = item.firstName;
         if (item.lastName !== undefined) values.LastName = item.lastName;
         if (item.timeZone !== undefined) values.TimeZone = item.timeZone;
-        //if (item.photoUrl !== undefined) values.LastName = item.photoUrl;
         if (item.workDays !== undefined) values.StateProvince = item.WorkDays;
         if (item.workHours !== undefined) values.Country = item.WorkHours;
         if (item.dateFormat !== undefined) values.latitude = item.DateFormat;

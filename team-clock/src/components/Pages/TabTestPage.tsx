@@ -5,8 +5,6 @@ import * as microsoftTeams from "@microsoft/teams-js";
 import { IConfig, ConfigService } from '../../services/ConfigService/ConfigService';
 import ThemeService from '../../services/ThemeService/ThemeService';
 import AuthService from '../../services/AuthService/TeamsAuthService';
-import MSGraphService from '../../services/MSGraphService/MSGraphService';
-import * as MicrosoftGraph from "@microsoft/microsoft-graph-types";
 
 import ITeamService from '../../services/TeamService/ITeamService';
 import IClockService from '../../services/ClockService/IClockService';
@@ -21,7 +19,6 @@ export interface ITabPageState {
   teamsContext?: microsoftTeams.Context;
   theme: ThemePrepared;
   dataReady: boolean;
-  messages: MicrosoftGraph.Message[];
   error: string;
   teamService?: ITeamService;
   clockService?: IClockService;
@@ -39,7 +36,6 @@ export default class TabTestPage extends React.Component<ITabPageProps, ITabPage
       teamsContext: undefined,
       theme: ThemeService.getFluentTheme(),
       dataReady: false,
-      messages: [],
       error: "",
       teamService: undefined,
       clockService: undefined,
@@ -68,33 +64,50 @@ export default class TabTestPage extends React.Component<ITabPageProps, ITabPage
 
     // 3. Connect to services
     let clockService = ServiceFactory.getClockService();
+
     let teamService = await ServiceFactory.getTeamService(ServiceOption.teamsAuth,
-          teamsContext.teamSitePath ?? "", config.spListName);
-    await this.loadData(teamService, clockService);
-  
-    // 4. Try to silently get messages
-    await this.getMessages(true);
+      teamsContext.teamSiteUrl ?? "", config.spListName);
+    this.setState({
+      teamService: teamService,
+      clockService: clockService,
+      dataReady: false
+    });
+
+    // 4. Try to silently get data
+    await this.loadData(teamService, clockService, true);
 
     // 5. Tell Teams to stop the loading indicator and show the page
     microsoftTeams.appInitialization.notifyAppLoaded();
     microsoftTeams.appInitialization.notifySuccess();   // see http://bit.ly/387PYqO 
   }
 
-  // Right now this is called only by componentDidMount()
-  // Some day an event handler will call this to reload data after a user
-  // makes some changes
-  private async loadData(teamService: ITeamService, clockService: IClockService) {
-    const currentUser = await teamService.getCurrentUser("WHAT IS THIS");
-    const teamMembers = await teamService.getOtherTeamMembers(currentUser);
-    const timeZones = clockService.getTimeZones(teamMembers);
-    this.setState({
-      teamService: teamService,
-      clockService: clockService,
-      currentUser: currentUser,
-      dataReady: true,
-      teamMembers: teamMembers,
-      timeZones: timeZones
-    })
+  private async loadData(teamService: ITeamService, clockService: IClockService, silent = false) {
+    try {
+      const currentUser = await teamService.getCurrentUser("WHAT IS THIS");
+      const teamMembers = await teamService.getOtherTeamMembers(currentUser);
+      const timeZones = clockService.getTimeZones(teamMembers);
+      this.setState({
+        teamService: teamService,
+        clockService: clockService,
+        currentUser: currentUser,
+        dataReady: true,
+        teamMembers: teamMembers,
+        timeZones: timeZones
+      });
+    }
+    catch (error) {
+      console.log('Error in TabTestPage loadData ' + error);
+      if (silent) {
+        this.setState({
+          dataReady: false
+        });
+      } else {
+        this.setState({
+          dataReady: false,
+          error: error.Value
+        });
+      }
+    }
   }
 
 
@@ -108,7 +121,11 @@ export default class TabTestPage extends React.Component<ITabPageProps, ITabPage
           <Header>{process.env.REACT_APP_MANIFEST_NAME} Test Page</Header>
           <p>Version {process.env.REACT_APP_MANIFEST_APP_VERSION}</p>
           { this.state.error ? <p>Error: {this.state.error}</p> : null}
-          <button onClick={async () => { await this.getMessages(); }}>Log in</button>
+          <button onClick={async () => {
+            if (this.state.teamService && this.state.clockService) {
+              await this.loadData(this.state.teamService, this.state.clockService);
+            }
+          }}>Log in</button>
         </Provider>
       );
 
@@ -131,7 +148,7 @@ export default class TabTestPage extends React.Component<ITabPageProps, ITabPage
         };
 
         let userCount = 1;
-        let key=0;
+        let key = 0;
 
         return (
           <Provider theme={this.state.theme} style={mainStyle}>
@@ -142,7 +159,6 @@ export default class TabTestPage extends React.Component<ITabPageProps, ITabPage
             <p>Your app is running in the Teams UI</p>
             { this.state.teamsContext?.teamName ? <p>You are in {this.state.teamsContext?.teamName}</p> : null}
             { this.state.config?.spListName ? <p>You configured a SharePoint list for this tab: {this.state.config?.spListName}</p> : null}
-            <h3>You received {this.state.messages.length} messages</h3>
 
             <h3 style={headerStyle}>Team members</h3>
             <table style={tableStyle}><tbody>
@@ -178,32 +194,32 @@ export default class TabTestPage extends React.Component<ITabPageProps, ITabPage
     }
   }
 
-  private async getMessages(silent = false): Promise<void> {
+  //   private async getMessages(silent = false): Promise<void> {
 
-    try {
-      let graphService = await MSGraphService.Factory(AuthService);
-      let messages = await graphService.getMessages();
-      this.setState({
-        dataReady: true,
-        messages: messages,
-        error: ""
-      });
-    }
-    catch (error) {
-      if (silent) {
-        this.setState({
-          dataReady: false,
-          messages: []
-        });
-      } else {
-        this.setState({
-          dataReady: false,
-          messages: [],
-          error: error
-        });
-      }
-    }
-  }
+  //     try {
+  //       let graphService = await MSGraphService.Factory(AuthService);
+  //       let messages = await graphService.getMessages();
+  //       this.setState({
+  //         dataReady: true,
+  //         messages: messages,
+  //         error: ""
+  //       });
+  //     }
+  //     catch (error) {
+  //       if (silent) {
+  //         this.setState({
+  //           dataReady: false,
+  //           messages: []
+  //         });
+  //       } else {
+  //         this.setState({
+  //           dataReady: false,
+  //           messages: [],
+  //           error: error
+  //         });
+  //       }
+  //     }
+  //   }
 }
 class Timezone extends React.Component<{ timeZone: ITimeZone }> {
   render() {

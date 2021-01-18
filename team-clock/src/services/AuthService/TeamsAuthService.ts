@@ -11,7 +11,7 @@ class TeamsAuthService implements IAuthService {
         username: "",
         accessToken: "",
         scopes: [],
-        expiresOn: Date.now()
+        expiresOn: 0
     }
 
     // Determine if someone is logged in
@@ -76,9 +76,10 @@ class TeamsAuthService implements IAuthService {
                 .catch(() => {
                     reject();
                 })
+            } else {
+                // We're already logged in with this scope, nothing to do
+                resolve(this.authState.accessToken);
             }
-            // We're already logged in with this scope, nothing to do
-            resolve(this.authState.accessToken);
 
         });
 

@@ -46,7 +46,7 @@ export default class TeamServiceMock implements ITeamService {
         return otherTeamMembers;
     }
 
-    public async getTeamMembers(sortOrder: string): Promise<IPerson[]> {
+    private async getTeamMembers(sortOrder: string): Promise<IPerson[]> {
 
         let mockMembers: IPerson[] = [
             {

@@ -12,5 +12,4 @@ export interface ITeamServiceProps {
 export default interface ITeamService {
     getCurrentUser: (format: string) => Promise<IPerson>;
     getOtherTeamMembers: (currentUser: IPerson) => Promise<IPerson[]>;
-    getTeamMembers: (sortOrder: string) => Promise<IPerson[]>;
 }
