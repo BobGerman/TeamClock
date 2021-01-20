@@ -28,8 +28,13 @@ export default class PersonSPListMapper implements ISPListMapper {
 
     public getColumnDefinitions(): ISPListColumnDefinition[] {
         return ([
-            { "name": "FirstName", "text": {} },
-            { "name": "LastName", "text": {} },
+            {
+               "name": "Person", "personOrGroup": {
+                    "allowMultipleSelection": false,
+                    "displayAs": "nameWithPictureAndDetails",
+                    "chooseFromType": "peopleOnly"
+                }
+            },
             {
                 "name": "TimeZone", "choice": {
                     "allowTextEntry": false,
