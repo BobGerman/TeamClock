@@ -8,7 +8,7 @@
   "dependencies": {
     "@fluentui/react-northstar": "^0.51.0",
     "@azure/msal-browser": "^2.0.1",
-    "@microsoft/microsoft-graph-client": "^2.0.0",
+    "@microsoft/microsoft-graph-client": "^2.2.1",
     "@microsoft/teams-js": "^1.6.0",
     "moment": "^2.27.0",
     "moment-timezone": "^0.5.31",

@@ -3,6 +3,8 @@ import IPerson from '../../model/IPerson';
 import PersonSPListMapper from '../../model/PersonSPListMapper';
 import ITimeZone from '../../model/ITimeZone';
 import ITeamService, { ITeamServiceProps } from './ITeamService';
+import IUserInformation from '../../model/IUserInformation';
+import UserInformationListSPListMapper from '../../model/UserInformationListMapper';
 
 export default class TeamServiceReal implements ITeamService {
 
@@ -10,10 +12,12 @@ export default class TeamServiceReal implements ITeamService {
 
     public async getCurrentUser(format: string) {
 
+        // TODO Fix this
         const currentUser: IPerson = {
             firstName: "Real",
             lastName: "Service",
             timeZone: "America/New_York",
+            personLookupId: -1,
             /* Preferred work week, 1 char/day, o=off, w=work */
             workDays: 'owwwwwo',
             /* Preferred work day, 1 char/hour, n=night, e=extended, d=day */
@@ -49,12 +53,14 @@ export default class TeamServiceReal implements ITeamService {
 
     private async getTeamMembers(sortOrder: string): Promise<IPerson[]> {
 
-        const listMapper = new PersonSPListMapper();
+        const personListMapper = new PersonSPListMapper();
+        const userListMapper = new UserInformationListSPListMapper();
         const graphService = this.teamServiceProps.graphService;
 
         let siteId: string;
         let listId: string;
-        let result: IPerson[] = [];
+        let members: IPerson[] = [];
+        let users: IUserInformation[] = [];
 
         try {
             // 1. Get Site ID
@@ -65,14 +71,36 @@ export default class TeamServiceReal implements ITeamService {
                 listId = await graphService.getListId(siteId, this.teamServiceProps.spListName);
             } catch (error) {
                 if (error.statusCode === 404) {
-                    listId = await graphService.createList(siteId, this.teamServiceProps.spListName, listMapper);
+                    listId = await graphService.createList(siteId, this.teamServiceProps.spListName, personListMapper);
                 } else throw (error);
             }
 
             // 3. Get the list items mapped to the model
-            result = await graphService.getListItems<IPerson>(siteId, listId, listMapper);
+            members = await graphService.getAllListItems<IPerson>(siteId, listId, personListMapper);
 
-            return result;
+            // 4. The list items are missing information from the User Information List in SharePoint
+            //    Read the needed rows from that list
+            let itemIds: number[] = [];
+            for (let member of members) {
+                itemIds.push(member.personLookupId);
+            };
+            users = await graphService.getListItemsById<IUserInformation>(siteId, listId, itemIds,
+                userListMapper);
+
+            // 5. Fill in the missing properties from the user information list and time zone object
+            for (let member of members) {
+                let user = users.find(u => u.id == member.personLookupId);
+                if (user) {
+                    member.firstName = user?.firstName;
+                    member.lastName = user?.lastName;
+                    member.photoUrl = user?.photoUrl;
+                    // TODO: Either move this into a new step or refactor
+//                    member.timeZoneObj = this.teamServiceProps.clockService.getTimeZones(members)[0];
+                }
+            }
+
+
+            return members;
         } catch (error) {
             throw new Error(error)
         };

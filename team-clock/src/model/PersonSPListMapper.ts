@@ -9,8 +9,7 @@ interface IListItem extends IFieldValues {
     fields: {
         id: number;
         Title: string;
-        FirstName: string;
-        LastName: string;
+        PersonLookupId: number;
         TimeZone: string;
         WorkDays: string;
         WorkHours: string;
@@ -89,15 +88,17 @@ export default class PersonSPListMapper implements ISPListMapper {
         let clockService = ServiceFactory.getClockService();
         let result = listItems.map(i => ({
             id: i.fields.id,
+            personLookupId: i.fields.PersonLookupId,
             title: i.fields.Title,
-            firstName: i.fields.FirstName,
-            lastName: i.fields.LastName,
             timeZone: i.fields.TimeZone,
-            photoUrl: noPhoto,
             workDays: i.fields.WorkDays,
             workHours: i.fields.WorkHours,
             dateFormat: i.fields.DateFormat,
             timeFormat: i.fields.TimeFormat,
+            // These fields will be filled in later
+            firstName: "",
+            lastName: "",
+            photoUrl: noPhoto,
             timeZoneObj: clockService.getDefaultTimeZone()
         }));
         return result;

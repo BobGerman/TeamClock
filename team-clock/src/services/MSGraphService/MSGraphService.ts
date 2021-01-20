@@ -5,6 +5,7 @@ import ISPListMapper from '../../model/ISPListMapper';
 
 import ICreateListResponse from './GraphResponses/ICreateListResponse';
 import IGetListItemsResponse from './GraphResponses/IGetListItemsResponse';
+import IGetPersonListItemsBatch from './GraphResponses/IGetPersonListItemsBatch';
 export default class MSGraphService {
 
   public static async Factory(authService: IAuthService): Promise<MSGraphService> {
@@ -80,7 +81,7 @@ export default class MSGraphService {
 
   // Get list items given a site ID and list ID. The specified mapper maps list
   // items to an array of T, allowing this function to be generic
-  public async getListItems<T>(siteId: string, listId: string, mapper: ISPListMapper):
+  public async getAllListItems<T>(siteId: string, listId: string, mapper: ISPListMapper):
     Promise<T[]> {
 
     return new Promise<T[]>((resolve, reject) => {
@@ -102,6 +103,40 @@ export default class MSGraphService {
       });
     });
   }
+
+  // Get list items by item ID given a site ID and list ID. The specified mapper maps list
+  // items to an array of T, allowing this function to be generic
+  public async getListItemsById<T>(siteId: string, listId: string, itemIds: number[], mapper: ISPListMapper):
+    Promise<T[]> {
+
+    interface IBatchRequestStep { id: number; method: string; url: string; }
+    let batch: IBatchRequestStep[] = [];
+    for (let itemId of itemIds) {
+      let request = {
+        "id": itemId,
+        "method": "GET",
+        "url": `/sites/${siteId}/lists/${listId}/items/${itemId}`
+      };
+      batch.push(request);
+    }
+    return new Promise<T[]>((resolve, reject) => {
+      const query = this.client
+        .api(
+          `/$batch`
+        );
+      query.post({
+        "requests": batch
+      }, ((error: MicrosoftGraphClient.GraphError, response: IGetPersonListItemsBatch) => {
+        if (error) {
+          reject(error);
+        } else {
+          const result = mapper.getValuesFromFields(response.responses);
+          resolve(result);
+        }
+      }));
+    });
+  }
+
 
   public createList(siteId: string, listName: string, mapper: ISPListMapper):
     Promise<string> {

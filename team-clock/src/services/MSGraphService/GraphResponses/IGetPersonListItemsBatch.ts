@@ -83,7 +83,7 @@ interface Body {
     fields: Fields;
 }
 
-interface Response {
+export interface Response {
     id: string;
     status: number;
     body: Body;
