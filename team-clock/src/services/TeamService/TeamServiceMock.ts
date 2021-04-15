@@ -10,6 +10,7 @@ export default class TeamServiceMock implements ITeamService {
     public async getCurrentUser(format: string) {
 
         const currentUser: IPerson = {
+            personLookupId: 1,
             firstName: "Derek",
             lastName: "Cash-Peterson",
             timeZone: "America/New_York",
@@ -50,6 +51,7 @@ export default class TeamServiceMock implements ITeamService {
 
         let mockMembers: IPerson[] = [
             {
+                personLookupId: 1,
                 firstName: "Derek",
                 lastName: "Cash-Peterson",
                 timeZone: "America/New_York",
@@ -63,6 +65,7 @@ export default class TeamServiceMock implements ITeamService {
                 timeZoneObj: this.clockService.getDefaultTimeZone()
             },
             {
+                personLookupId: 2,
                 firstName: "Ayca",
                 lastName: "",
                 timeZone: "Asia/Dubai",
@@ -76,6 +79,7 @@ export default class TeamServiceMock implements ITeamService {
                 timeZoneObj: this.clockService.getDefaultTimeZone()
             },
             {
+                personLookupId: 3,
                 firstName: "Barnam",
                 lastName: "",
                 timeZone: "Australia/Melbourne",
@@ -87,6 +91,7 @@ export default class TeamServiceMock implements ITeamService {
                 timeZoneObj: this.clockService.getDefaultTimeZone()
             },
             {
+                personLookupId: 4,
                 firstName: "Bob",
                 lastName: "German",
                 timeZone: "America/New_York",
@@ -98,6 +103,7 @@ export default class TeamServiceMock implements ITeamService {
                 timeZoneObj: this.clockService.getDefaultTimeZone()
             },
             {
+                personLookupId: 5,
                 firstName: "Dan",
                 lastName: "",
                 timeZone: "America/Phoenix",
@@ -109,6 +115,7 @@ export default class TeamServiceMock implements ITeamService {
                 timeZoneObj: this.clockService.getDefaultTimeZone()
             },
             {
+                personLookupId: 6,
                 firstName: "Emily",
                 lastName: "",
                 timeZone: "America/Los_Angeles",
@@ -120,6 +127,7 @@ export default class TeamServiceMock implements ITeamService {
                 timeZoneObj: this.clockService.getDefaultTimeZone()
             },
             {
+                personLookupId: 7,
                 firstName: "Matt",
                 lastName: "",
                 timeZone: "America/Los_Angeles",
@@ -131,6 +139,7 @@ export default class TeamServiceMock implements ITeamService {
                 timeZoneObj: this.clockService.getDefaultTimeZone()
             },
             {
+                personLookupId: 8,
                 firstName: "Rabia",
                 lastName: "",
                 timeZone: "Australia/Brisbane",
@@ -142,6 +151,7 @@ export default class TeamServiceMock implements ITeamService {
                 timeZoneObj: this.clockService.getDefaultTimeZone()
             },
             {
+                personLookupId: 9,
                 firstName: "Todd",
                 lastName: "",
                 timeZone: "America/Chicago",
@@ -153,6 +163,7 @@ export default class TeamServiceMock implements ITeamService {
                 timeZoneObj: this.clockService.getDefaultTimeZone()
             },
             {
+                personLookupId: 10,
                 firstName: "Tomomi",
                 lastName: "",
                 timeZone: "America/Los_Angeles",
@@ -164,6 +175,7 @@ export default class TeamServiceMock implements ITeamService {
                 timeZoneObj: this.clockService.getDefaultTimeZone()
             },
             {
+                personLookupId: 11,
                 firstName: "Waldek",
                 lastName: "",
                 timeZone: "Europe/Amsterdam",
