@@ -24,7 +24,7 @@ export default class PersonSPListMapper implements ISPListMapper {
             id: parseInt(i.id),
             firstName: i.body.fields.FirstName,
             lastName: i.body.fields.LastName,
-            photoUrl: i.body.fields.Picture.Url
+            photoUrl: i.body.fields.Picture?.Url
         }));
         return result;
     }

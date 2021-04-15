@@ -79,12 +79,15 @@ export default class TeamServiceReal implements ITeamService {
             members = await graphService.getAllListItems<IPerson>(siteId, listId, personListMapper);
 
             // 4. The list items are missing information from the User Information List in SharePoint
+            //    Get the list ID for the User Information List
+            const userInfoListId = await graphService.getListId(siteId, 'User Information List');
+
             //    Read the needed rows from that list
             let itemIds: number[] = [];
             for (let member of members) {
                 itemIds.push(member.personLookupId);
             };
-            users = await graphService.getListItemsById<IUserInformation>(siteId, listId, itemIds,
+            users = await graphService.getListItemsById<IUserInformation>(siteId, userInfoListId, itemIds,
                 userListMapper);
 
             // 5. Fill in the missing properties from the user information list and time zone object

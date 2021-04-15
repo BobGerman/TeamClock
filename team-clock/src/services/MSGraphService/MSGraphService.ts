@@ -115,7 +115,7 @@ export default class MSGraphService {
       let request = {
         "id": itemId,
         "method": "GET",
-        "url": `/sites/${siteId}/lists/${listId}/items/${itemId}`
+        "url": `/sites/${siteId}/lists/${listId}/items/${itemId}?$expand=fields($select%3Did,FirstName,LastName,Picture)`
       };
       batch.push(request);
     }

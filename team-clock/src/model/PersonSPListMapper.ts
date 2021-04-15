@@ -22,7 +22,7 @@ interface IListItem extends IFieldValues {
 export default class PersonSPListMapper implements ISPListMapper {
 
     public getFieldNames(): string {
-        return ('id,Title,FirstName,LastName,TimeZone,WorkDays,WorkHours,DateFormat,TimeFormat');
+        return ('id,Title,PersonLookupId,TimeZone,WorkDays,WorkHours,DateFormat,TimeFormat');
     }
 
     public getColumnDefinitions(): ISPListColumnDefinition[] {
