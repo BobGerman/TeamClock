@@ -55,7 +55,7 @@ export default class TabPage extends React.Component<ITabPageProps, ITabPageStat
     // 3. Get team data
     let clockService = ServiceFactory.getClockService();
     let teamService = await ServiceFactory.getTeamService(ServiceOption.teamsAuth,
-      teamsContext.teamSitePath ?? "", config.spListName);
+      teamsContext.teamSiteUrl ?? "", config.spListName);
     this.setState({
       teamService: teamService,
       clockService: clockService

@@ -4,7 +4,7 @@ import * as microsoftTeams from "@microsoft/teams-js";
 
 import { IConfig, ConfigService } from '../../services/ConfigService/ConfigService';
 import ThemeService from '../../services/ThemeService/ThemeService';
-import AuthService from '../../services/AuthService/MsalRefreshAuthService';
+import AuthService from '../../services/AuthService/TeamsAuthService';
 
 import ITeamService from '../../services/TeamService/ITeamService';
 import IClockService from '../../services/ClockService/IClockService';
