@@ -92,7 +92,7 @@ export default class TeamServiceReal implements ITeamService {
 
             // 5. Fill in the missing properties from the user information list and time zone object
             for (let member of members) {
-                let user = users.find(u => u.id == member.personLookupId);
+                let user = users.find(u => u.id === member.personLookupId);
                 if (user) {
                     member.firstName = user?.firstName;
                     member.lastName = user?.lastName;
@@ -102,147 +102,11 @@ export default class TeamServiceReal implements ITeamService {
                 }
             }
 
-
             return members;
+
         } catch (error) {
             throw new Error(error)
         };
-        // #region OLD JUNK
-        // let mockMembers: IPerson[] = [
-        //     {
-        //         firstName: "Derek",
-        //         lastName: "Cash-Peterson",
-        //         timeZone: "America/New_York",
-        //         /* Preferred work week, 1 char/day, o=off, w=work */
-        //         workDays: 'owwwwwo',
-        //         /* Preferred work day, 1 char/hour, n=night, e=extended, d=day */
-        //         workHours: 'nnnnnnneedddddddddeeeeen',
-        //         photoUrl: "",
-        //         dateFormat: "MM/dd/yyyy",
-        //         timeFormat: "h:mm a",
-        //         timeZoneObj: this.getDefaultTimeZone()
-        //     },
-        //     {
-        //         firstName: "Ayca",
-        //         lastName: "",
-        //         timeZone: "Asia/Dubai",
-        //         /* Preferred work week, 1 char/day, o=off, w=work */
-        //         workDays: 'owwwwwo',
-        //         /* Preferred work day, 1 char/hour, n=night, e=extended, d=day */
-        //         workHours: 'nnnnnnneedddddddddeeeeen',
-        //         photoUrl: "",
-        //         dateFormat: "MM/dd/yyyy",
-        //         timeFormat: "h:mm a",
-        //         timeZoneObj: this.getDefaultTimeZone()
-        //     },
-        //     {
-        //         firstName: "Barnam",
-        //         lastName: "",
-        //         timeZone: "Australia/Melbourne",
-        //         workDays: 'owwwwwo',
-        //         workHours: 'nnnnnnneedddddddddeeeeen',
-        //         photoUrl: "",
-        //         dateFormat: "MM/dd/yyyy",
-        //         timeFormat: "h:mm a",
-        //         timeZoneObj: this.getDefaultTimeZone()
-        //     },
-        //     {
-        //         firstName: "Bob",
-        //         lastName: "German",
-        //         timeZone: "America/New_York",
-        //         workDays: 'owwwwwo',
-        //         workHours: 'nnnnnnneedddddddddeeeeen',
-        //         photoUrl: "",
-        //         dateFormat: "MM/dd/yyyy",
-        //         timeFormat: "h:mm a",
-        //         timeZoneObj: this.getDefaultTimeZone()
-        //     },
-        //     {
-        //         firstName: "Dan",
-        //         lastName: "",
-        //         timeZone: "America/Phoenix",
-        //         workDays: 'owwwwwo',
-        //         workHours: 'nnnnnnneedddddddddeeeeen',
-        //         photoUrl: "",
-        //         dateFormat: "MM/dd/yyyy",
-        //         timeFormat: "h:mm a",
-        //         timeZoneObj: this.getDefaultTimeZone()
-        //     },
-        //     {
-        //         firstName: "Emily",
-        //         lastName: "",
-        //         timeZone: "America/Los_Angeles",
-        //         workDays: 'owwwwwo',
-        //         workHours: 'nnnnnnneedddddddddeeeeen',
-        //         photoUrl: "",
-        //         dateFormat: "MM/dd/yyyy",
-        //         timeFormat: "h:mm a",
-        //         timeZoneObj: this.getDefaultTimeZone()
-        //     },
-        //     {
-        //         firstName: "Matt",
-        //         lastName: "",
-        //         timeZone: "America/Los_Angeles",
-        //         workDays: 'owwwwwo',
-        //         workHours: 'nnnnnnneedddddddddeeeeen',
-        //         photoUrl: "",
-        //         dateFormat: "MM/dd/yyyy",
-        //         timeFormat: "h:mm a",
-        //         timeZoneObj: this.getDefaultTimeZone()
-        //     },
-        //     {
-        //         firstName: "Rabia",
-        //         lastName: "",
-        //         timeZone: "Australia/Brisbane",
-        //         workDays: 'owwwwwo',
-        //         workHours: 'nnnnnnneedddddddddeeeeen',
-        //         photoUrl: "",
-        //         dateFormat: "MM/dd/yyyy",
-        //         timeFormat: "h:mm a",
-        //         timeZoneObj: this.getDefaultTimeZone()
-        //     },
-        //     {
-        //         firstName: "Todd",
-        //         lastName: "",
-        //         timeZone: "America/Chicago",
-        //         workDays: 'owwwwwo',
-        //         workHours: 'nnnnnnneedddddddddeeeeen',
-        //         photoUrl: "",
-        //         dateFormat: "MM/dd/yyyy",
-        //         timeFormat: "h:mm a",
-        //         timeZoneObj: this.getDefaultTimeZone()
-        //     },
-        //     {
-        //         firstName: "Tomomi",
-        //         lastName: "",
-        //         timeZone: "America/Los_Angeles",
-        //         workDays: 'owwwwwo',
-        //         workHours: 'nnnnnnneedddddddddeeeeen',
-        //         photoUrl: "",
-        //         dateFormat: "MM/dd/yyyy",
-        //         timeFormat: "h:mm a",
-        //         timeZoneObj: this.getDefaultTimeZone()
-        //     },
-        //     {
-        //         firstName: "Waldek",
-        //         lastName: "",
-        //         timeZone: "Europe/Amsterdam",
-        //         workDays: 'owwwwwo',
-        //         workHours: 'nnnnnnneedddddddddeeeeen',
-        //         photoUrl: "",
-        //         dateFormat: "MM/dd/yyyy",
-        //         timeFormat: "h:mm a",
-        //         timeZoneObj: this.getDefaultTimeZone()
-        //     },
-        // ];
-        // mockMembers.forEach((m) => {
-        //     m.photoUrl = m.photoUrl || noPhoto;
-        //     m.timeZoneObj = this.teamServiceProps.clockService.getTimeZones([m])[0];
-        // });
-
-        // return mockMembers;
-        //#endregion
-
     }
 
     public getEditUrl() {

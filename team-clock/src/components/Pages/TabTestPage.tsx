@@ -211,7 +211,7 @@ class User extends React.Component<{ user: IPerson }> {
       <div>
         <div>{this.props.user.firstName} {this.props.user.lastName}</div>
         <Timezone timeZone={this.props.user.timeZoneObj} />
-        <img src={this.props.user.photoUrl}></img>
+        <img src={this.props.user.photoUrl} alt=""></img>
       </div>
     );
   }

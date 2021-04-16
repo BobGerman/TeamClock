@@ -136,7 +136,7 @@ export default class TeamClock extends React.Component<ITeamClockProps, ITeamClo
       );
     } else {
       // If here, data loaded successfully but something is missing
-      throw "User login or data access failure";
+      throw new Error ("User login or data access failure");
     }
 
   }
