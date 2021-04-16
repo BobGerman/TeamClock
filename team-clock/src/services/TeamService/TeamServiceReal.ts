@@ -97,8 +97,7 @@ export default class TeamServiceReal implements ITeamService {
                     member.firstName = user?.firstName;
                     member.lastName = user?.lastName;
                     member.photoUrl = user?.photoUrl;
-                    // TODO: Either move this into a new step or refactor
-//                    member.timeZoneObj = this.teamServiceProps.clockService.getTimeZones(members)[0];
+                    member.timeZoneObj = this.teamServiceProps.clockService.getTimeZones(members)[0];
                 }
             }
 
