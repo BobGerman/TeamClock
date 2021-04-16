@@ -7,6 +7,10 @@ export default class TeamServiceMock implements ITeamService {
 
     constructor (private clockService: IClockService) { };
 
+    public getEditUrl() {
+        return "";
+    }
+    
     public async getCurrentUser(format: string) {
 
         const currentUser: IPerson = {

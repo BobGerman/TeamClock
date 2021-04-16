@@ -4,6 +4,7 @@ import IClockService from '../services/ClockService/IClockService';
 
 import DigitalClock from './DigitalClock';
 import SlideShow from './SlideShow';
+import EditProfile from './EditProfile';
 import ITimeZone from '../model/ITimeZone';
 // import ScheduleComponent from './ScheduleComponent';
 import IPerson from '../model/IPerson';
@@ -109,7 +110,7 @@ export default class TeamClock extends React.Component<ITeamClockProps, ITeamClo
           <header>
             <h1>What time is it now?</h1>
           </header>
-          <a href="# ">Edit My Profile</a>
+          <EditProfile teamService={this.props.teamService} />
           <section className='currentTimeContainer'>
 
             <div className='currentUser'>

@@ -10,6 +10,7 @@ export interface ITeamServiceProps {
 }
 
 export default interface ITeamService {
+    getEditUrl: () => string;
     getCurrentUser: (format: string) => Promise<IPerson>;
     getOtherTeamMembers: (currentUser: IPerson) => Promise<IPerson[]>;
 }

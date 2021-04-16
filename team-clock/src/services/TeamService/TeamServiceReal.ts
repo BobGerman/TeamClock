@@ -10,6 +10,10 @@ export default class TeamServiceReal implements ITeamService {
 
     constructor(private teamServiceProps: ITeamServiceProps) { };
 
+    public getEditUrl() {
+        return `${this.teamServiceProps.spSiteUrl}/Lists/${this.teamServiceProps.spListName}/AllItems.aspx`;
+    }
+
     public async getCurrentUser(format: string) {
 
         // TODO Fix this
@@ -106,12 +110,6 @@ export default class TeamServiceReal implements ITeamService {
         } catch (error) {
             throw new Error(error)
         };
-    }
-
-    public getEditUrl() {
-
-        return `${this.teamServiceProps.spSiteUrl}/Lists/${this.teamServiceProps.spListName}/AllItems.aspx`;
-
     }
 
     private getDefaultTimeZone(): ITimeZone {
