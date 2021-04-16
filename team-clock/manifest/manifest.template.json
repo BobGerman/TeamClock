@@ -62,6 +62,9 @@
   ],
   "validDomains": [
       "<HOSTNAME>:<PORT>",
-      "login.microsoftonline.com"
+      "login.microsoftonline.com",
+      "*.sharepoint.com",
+      "spoprod-a.akamaihd.net",
+      "resourceseng.blob.core.windows.net"
   ]
 }
